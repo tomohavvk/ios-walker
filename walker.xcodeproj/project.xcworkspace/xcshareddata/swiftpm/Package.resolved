@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "hotswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/johnno1962/HotSwiftUI.git",
+      "state" : {
+        "revision" : "b549bc4dfa76d2944aa68365404e18d6ad164a35",
+        "version" : "1.1.8"
+      }
+    }
+  ],
+  "version" : 2
+}
