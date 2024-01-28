@@ -21,13 +21,15 @@ class Watcher {
     private var isUpdatingLocation: Bool = false
     
     func start() {
+        print("Watcher.start")
         if !isUpdatingLocation {
             locationManager.startUpdatingLocation()
-       //     locationManager.startUpdatingHeading()
+            //  locationManager.startUpdatingHeading()
             isUpdatingLocation = true
         }
     }
     func stop() {
+        print("Watcher.stop")
         if isUpdatingLocation {
             locationManager.stopUpdatingLocation()
             isUpdatingLocation = false
@@ -41,12 +43,8 @@ class Watcher {
 
 public class BackgroundGeolocation : NSObject, ObservableObject, CLLocationManagerDelegate {
     private var watcher = Watcher()
-
     
-    @Published public var currentLocation: MapCameraPosition = MapCameraPosition.region(MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
-        span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-    ))
+    @Published public var currentLocation: CLLocation?
     
     
     override init() {
@@ -54,7 +52,7 @@ public class BackgroundGeolocation : NSObject, ObservableObject, CLLocationManag
         UIDevice.current.isBatteryMonitoringEnabled = true
     }
     
-    func startWatcher(distanceFilter: Double) {
+    func startWatcher(distanceFilter: Double = 5) {
         DispatchQueue.main.async {
             
             let manager = self.watcher.locationManager
@@ -68,9 +66,7 @@ public class BackgroundGeolocation : NSObject, ObservableObject, CLLocationManag
                 ? kCLLocationAccuracyBestForNavigation
                 : kCLLocationAccuracyBest
             )
-            
-            // It appears that setting manager.distanceFilter to 0 can prevent
-            // subsequent location updates. See issue #88.
+
             manager.distanceFilter = distanceFilter
             manager.allowsBackgroundLocationUpdates = true
             manager.showsBackgroundLocationIndicator = true
@@ -94,9 +90,8 @@ public class BackgroundGeolocation : NSObject, ObservableObject, CLLocationManag
     }
     
     func stopWatcher() {
-        // CLLocationManager requires main thread
         DispatchQueue.main.async {
-            self.watcher.locationManager.stopUpdatingLocation()
+            self.watcher.stop()
         }
     }
     
@@ -146,16 +141,8 @@ public class BackgroundGeolocation : NSObject, ObservableObject, CLLocationManag
     ) {
         if let location = locations.last {
             if watcher.isLocationValid(location) {
-                
-
-                currentLocation =    MapCameraPosition.region(MKCoordinateRegion(
-                    center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude),
-                    span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-                ))
-                
-//                currentLocation.camera =
-              
-                //   currentLocation = location
+                print("HANDLED NEW LOCATION")
+                currentLocation = location
             }
         }
     }

@@ -3,3 +3,6 @@
 .idea/
 Pods/
 Podfile.lock
+
+project.pbxproj
+walker.xcodeproj/project.xcworkspace/xcuserdata/
