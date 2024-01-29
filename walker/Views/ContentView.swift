@@ -3,9 +3,10 @@ import SwiftUI
 struct ContentView: View {
     @State private var sheetOffset: CGPoint = .zero
     
-    @StateObject var navigationModel: NavigationViewModel = NavigationViewModel(followLocation: true, recordLocation: true)
-    @StateObject var mapModel: MapViewModel = MapViewModel()
     @StateObject var locationService:LocationWatcherService = LocationWatcherService()
+    
+    @StateObject var mapModel: MapViewModel = MapViewModel()
+    @StateObject var navigationModel: NavigationViewModel = NavigationViewModel(followLocation: true, recordLocation: true)
     
     var body: some View {
         ZStack(alignment: .top)  {
@@ -17,13 +18,15 @@ struct ContentView: View {
                         })
                 }
             
-            NavigationGroupView(navigationModel: navigationModel)
+            NavigationView(navigationModel: navigationModel)
                 .offset(x: 0, y: sheetOffset.y - 120)
         }
-        .onAppear {
-            NavigationService(navigationModel: navigationModel, mapModel: mapModel, locationService: locationService)
-                .start()
-        }
+        .onAppear { start() }
+    }
+    
+  fileprivate func start() {
+        NavigationService(navigationModel: navigationModel, mapModel: mapModel, locationService: locationService)
+            .start()
     }
 }
 

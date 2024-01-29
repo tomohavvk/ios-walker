@@ -12,7 +12,7 @@ import UIKit
 struct walkerApp: App {
    
     init() {
-        Injector()
+        _ = Injector()
     }
     
     var body: some Scene {

@@ -16,37 +16,13 @@ class NavigationService : ObservableObject{
     @ObservedObject var navigationModel: NavigationViewModel
     @ObservedObject var mapModel: MapViewModel
     @ObservedObject var locationService: LocationWatcherService
-    
     private var cancellables: Set<AnyCancellable> = []
     
     init(navigationModel: NavigationViewModel,  mapModel: MapViewModel, locationService: LocationWatcherService) {
         self.navigationModel = navigationModel
         self.mapModel = mapModel
         self.locationService = locationService
-    }
-    
-    func start() {
-        if navigationModel.followLocation || navigationModel.recordLocation {
-            locationService.startWatcher()
-        }
         
-        handleFollowLocation()
-        handleRecordLocation()
-        handleCurrentPosition()
-    }
-    
-    fileprivate func handleFollowLocation() {
-        navigationModel.$followLocation.sink{_ in  self.locationService.startWatcher()}.store(in: &cancellables)
-    }
-    
-    fileprivate func handleRecordLocation() {
-        navigationModel.$recordLocation.sink{ [] isRecordLocation in
-            Self.logger.info("isRecordLocation")
-        }
-        .store(in: &cancellables)
-    }
-    
-    fileprivate func handleCurrentPosition() {
         locationService.$currentLocation.sink{ [] currentLocation in
             if let location = currentLocation {
                 withAnimation {
@@ -55,5 +31,26 @@ class NavigationService : ObservableObject{
             }
         }
         .store(in: &cancellables)
+        
+    }
+    
+    func start() {
+        followLocation()
+        recordLocation()
+    }
+    
+    fileprivate func followLocation() {
+        navigationModel.$followLocation.sink{_ in  self.locationService.startWatcher()}.store(in: &cancellables)
+    }
+    
+    fileprivate func recordLocation() {
+        navigationModel.$recordLocation.sink{ [] isRecordLocation in
+            Self.logger.info("isRecordLocation")
+        }
+        .store(in: &cancellables)
+    }
+    
+    fileprivate func handleLocationChanged() {
+        
     }
 }

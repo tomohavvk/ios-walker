@@ -137,7 +137,7 @@
 				2B73F11D2B639E1F000C2637 /* Models */,
 				2B73F11B2B639DFF000C2637 /* Views */,
 				2B73F0F12B6397C0000C2637 /* walkerApp.swift */,
-				2B73F0F32B6397C0000C2637 /* ContentView.swift */,
+				2B73F1282B63DA25000C2637 /* Injector.swift */,
 				2B73F0F52B6397C1000C2637 /* Assets.xcassets */,
 			);
 			path = walker;
@@ -163,10 +163,10 @@
 		2B73F11B2B639DFF000C2637 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2B73F0F32B6397C0000C2637 /* ContentView.swift */,
 				2B73F11F2B639E43000C2637 /* MapView.swift */,
 				2B73F1262B63C4AC000C2637 /* SheetView.swift */,
 				2B603F4B2B67A7C200B4663A /* NavigationView.swift */,
-				2B73F1282B63DA25000C2637 /* Injector.swift */,
 				2B603F4D2B67A7FE00B4663A /* Common.swift */,
 			);
 			path = Views;

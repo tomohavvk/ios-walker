@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NavigationGroupView: View {
+struct NavigationView: View {
     @ObservedObject var navigationModel: NavigationViewModel
     
     var body: some View {
@@ -28,7 +28,7 @@ struct NavigationGroupView: View {
                     .foregroundColor(.gray)
             }
             
-            Button(action: {navigationModel.followLocation = !navigationModel.followLocation}) {
+            Button(action: {navigationModel.handleFollowLocationPressed()}) {
                 Image(systemName: "location.circle.fill")
                     .font(.title)
                     .foregroundColor(.gray)
@@ -44,5 +44,5 @@ struct NavigationGroupView: View {
 }
 
 #Preview {
-    NavigationGroupView(navigationModel: NavigationViewModel(followLocation: true, recordLocation: true))
+    NavigationView(navigationModel: NavigationViewModel(followLocation: true, recordLocation: true))
 }
