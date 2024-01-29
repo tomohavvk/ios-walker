@@ -7,34 +7,29 @@
 
 import SwiftUI
 
-//struct SheetView: View {
-//    var body: some View {
-//        GeometryReader { geometry in
-//        HStack{
-//                Text("Hello,sss2222 s111")
-//  
-//            }
-////        .presentationDetents([.height(100),
-////            .height(150),
-////            .height(250),
-////            .height(300),
-////            .height(400),
-////            .height(500),
-////        //    .large,
-////            .height(geometry.size.height + 100),
-////                            
-////        ])
-//        .interactiveDismissDisabled(true)
-//      //     .frame(height: min(geometry.size.height / 2, 200)) // Set your minimum height here
-//           .presentationCompactAdaptation(PresentationAdaptation.sheet)
-//        .presentationBackgroundInteraction(
-//            .enabled(upThrough:  .height(geometry.size.height))
-//        )
-//        }
-//    }
-//    
-//}
+struct SheetView: View {
+    
+    private var detents: Set<PresentationDetent>
+    
+    init() {
+        self.detents = (Array(stride(from: 0.1, through: 0.95, by: 0.3))
+            .map { PresentationDetent.fraction(CGFloat($0)) }).toSet()
+    }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            HStack{
+                Text("Hello from sheet")
+            }
+            .preference(key: PointPreferenceKey.self, value: geometry.frame(in: .global).origin )
+            .interactiveDismissDisabled(true)
+            .presentationDetents(detents)
+            .presentationBackgroundInteraction( .enabled )
+        }
+        .padding()
+    }
+}
 
-//#Preview {
-//    SheetView()
-//}
+#Preview {
+    SheetView()
+}

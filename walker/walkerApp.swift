@@ -21,5 +21,4 @@ struct walkerApp: App {
             ContentView()
         }
     }
-
 }

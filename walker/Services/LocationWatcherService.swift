@@ -12,24 +12,24 @@ import SwiftUI
 import MapKit
 import Combine
 import CoreLocation
-
-
-
+import OSLog
+ 
 class Watcher {
+    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: String(describing: Watcher.self))
+
     let locationManager: CLLocationManager = CLLocationManager()
     private let created = Date()
     private var isUpdatingLocation: Bool = false
     
     func start() {
-        print("Watcher.start")
+        Self.logger.info("start")
         if !isUpdatingLocation {
             locationManager.startUpdatingLocation()
-            //  locationManager.startUpdatingHeading()
             isUpdatingLocation = true
         }
     }
     func stop() {
-        print("Watcher.stop")
+        Self.logger.info("stop")
         if isUpdatingLocation {
             locationManager.stopUpdatingLocation()
             isUpdatingLocation = false
@@ -41,11 +41,12 @@ class Watcher {
     }
 }
 
-public class BackgroundGeolocation : NSObject, ObservableObject, CLLocationManagerDelegate {
+public class LocationWatcherService : NSObject, ObservableObject, CLLocationManagerDelegate {
+    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: String(describing: LocationWatcherService.self))
+
     private var watcher = Watcher()
     
     @Published public var currentLocation: CLLocation?
-    
     
     override init() {
         super.init()
@@ -66,7 +67,7 @@ public class BackgroundGeolocation : NSObject, ObservableObject, CLLocationManag
                 ? kCLLocationAccuracyBestForNavigation
                 : kCLLocationAccuracyBest
             )
-
+            
             manager.distanceFilter = distanceFilter
             manager.allowsBackgroundLocationUpdates = true
             manager.showsBackgroundLocationIndicator = true
@@ -82,7 +83,6 @@ public class BackgroundGeolocation : NSObject, ObservableObject, CLLocationManag
                 manager.requestAlwaysAuthorization()
             }
             if ( status == .authorizedWhenInUse) {
-                // Attempt to escalate.
                 manager.requestAlwaysAuthorization()
             }
             return self.watcher.start()
@@ -128,7 +128,7 @@ public class BackgroundGeolocation : NSObject, ObservableObject, CLLocationManag
                 return
             } else if (clErr.code == .denied) {
                 watcher.stop()
-                print("Permission denied. NOT_AUTHORIZED")
+                Self.logger.error("Permission denied. NOT_AUTHORIZED")
                 
             }
         }
@@ -141,7 +141,6 @@ public class BackgroundGeolocation : NSObject, ObservableObject, CLLocationManag
     ) {
         if let location = locations.last {
             if watcher.isLocationValid(location) {
-                print("HANDLED NEW LOCATION")
                 currentLocation = location
             }
         }
@@ -151,9 +150,6 @@ public class BackgroundGeolocation : NSObject, ObservableObject, CLLocationManag
         _ manager: CLLocationManager,
         didChangeAuthorization status: CLAuthorizationStatus
     ) {
-        // If this method is called before the user decides on a permission, as
-        // it is on iOS 14 when the permissions dialog is presented, we ignore
-        // it.
         if status != .notDetermined {
             return watcher.start()
         }
