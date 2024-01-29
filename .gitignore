@@ -2,7 +2,6 @@
 .vscode/
 .idea/
 Pods/
+Preview Content/
 Podfile.lock
 
-project.pbxproj
-walker.xcodeproj/project.xcworkspace/xcuserdata/
