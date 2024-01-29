@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B24F7832B63E44B00AE4E64 /* HotSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2B24F7822B63E44B00AE4E64 /* HotSwiftUI */; };
 		2B24F7862B6506FF00AE4E64 /* LocationWatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24F7852B6506FF00AE4E64 /* LocationWatcherService.swift */; };
 		2B603F4C2B67A7C200B4663A /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F4B2B67A7C200B4663A /* NavigationView.swift */; };
 		2B603F4E2B67A7FE00B4663A /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F4D2B67A7FE00B4663A /* Common.swift */; };
@@ -18,7 +17,6 @@
 		2B73F0F22B6397C0000C2637 /* walkerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F0F12B6397C0000C2637 /* walkerApp.swift */; };
 		2B73F0F42B6397C0000C2637 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F0F32B6397C0000C2637 /* ContentView.swift */; };
 		2B73F0F62B6397C1000C2637 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B73F0F52B6397C1000C2637 /* Assets.xcassets */; };
-		2B73F0F92B6397C1000C2637 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B73F0F82B6397C1000C2637 /* Preview Assets.xcassets */; };
 		2B73F1032B6397C1000C2637 /* walkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F1022B6397C1000C2637 /* walkerTests.swift */; };
 		2B73F10D2B6397C2000C2637 /* walkerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F10C2B6397C2000C2637 /* walkerUITests.swift */; };
 		2B73F10F2B6397C2000C2637 /* walkerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F10E2B6397C2000C2637 /* walkerUITestsLaunchTests.swift */; };
@@ -57,7 +55,6 @@
 		2B73F0F12B6397C0000C2637 /* walkerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walkerApp.swift; sourceTree = "<group>"; };
 		2B73F0F32B6397C0000C2637 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2B73F0F52B6397C1000C2637 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2B73F0F82B6397C1000C2637 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2B73F0FE2B6397C1000C2637 /* walkerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = walkerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B73F1022B6397C1000C2637 /* walkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walkerTests.swift; sourceTree = "<group>"; };
 		2B73F1082B6397C2000C2637 /* walkerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = walkerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,7 +70,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B24F7832B63E44B00AE4E64 /* HotSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,17 +139,8 @@
 				2B73F0F12B6397C0000C2637 /* walkerApp.swift */,
 				2B73F0F32B6397C0000C2637 /* ContentView.swift */,
 				2B73F0F52B6397C1000C2637 /* Assets.xcassets */,
-				2B73F0F72B6397C1000C2637 /* Preview Content */,
 			);
 			path = walker;
-			sourceTree = "<group>";
-		};
-		2B73F0F72B6397C1000C2637 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				2B73F0F82B6397C1000C2637 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		2B73F1012B6397C1000C2637 /* walkerTests */ = {
@@ -218,7 +205,6 @@
 			);
 			name = walker;
 			packageProductDependencies = (
-				2B24F7822B63E44B00AE4E64 /* HotSwiftUI */,
 			);
 			productName = walker;
 			productReference = 2B73F0EE2B6397C0000C2637 /* walker.app */;
@@ -293,7 +279,6 @@
 			);
 			mainGroup = 2B73F0E52B6397C0000C2637;
 			packageReferences = (
-				2B24F7812B63E44B00AE4E64 /* XCRemoteSwiftPackageReference "HotSwiftUI" */,
 			);
 			productRefGroup = 2B73F0EF2B6397C0000C2637 /* Products */;
 			projectDirPath = "";
@@ -311,7 +296,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B73F0F92B6397C1000C2637 /* Preview Assets.xcassets in Resources */,
 				2B73F0F62B6397C1000C2637 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -689,25 +673,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		2B24F7812B63E44B00AE4E64 /* XCRemoteSwiftPackageReference "HotSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/johnno1962/HotSwiftUI.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.8;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		2B24F7822B63E44B00AE4E64 /* HotSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2B24F7812B63E44B00AE4E64 /* XCRemoteSwiftPackageReference "HotSwiftUI" */;
-			productName = HotSwiftUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2B73F0E62B6397C0000C2637 /* Project object */;
 }
