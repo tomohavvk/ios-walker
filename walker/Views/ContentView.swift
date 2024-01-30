@@ -1,25 +1,28 @@
 import SwiftUI
 
 struct ContentView: View {
+   
+    
     @State private var sheetOffset: CGPoint = .zero
     
     @StateObject var locationService:LocationWatcherService = LocationWatcherService()
     
     @StateObject var mapModel: MapViewModel = MapViewModel()
-    @StateObject var navigationModel: NavigationViewModel = NavigationViewModel(followLocation: true, recordLocation: true)
+    @StateObject var navigationModel: NavigationViewModel = NavigationViewModel(followLocation: false, recordLocation: false)
     
     var body: some View {
         ZStack(alignment: .top)  {
             MapView(mapModel: mapModel , locationService: locationService)
-                .sheet(isPresented: .constant(true)) {
-                    SheetView()
-                        .onPreferenceChange(PointPreferenceKey.self, perform: { value in
-                            sheetOffset = value ?? CGPoint.zero
-                        })
+                .fakeSheet(minHeight: 125, maxHeight: 500, expanded: .constant(true), outerContent: NavigationView(navigationModel: navigationModel)) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("Hello")
+                            .font(.title)
+                            .bold()
+                            .foregroundColor(.white)
+                            .padding(.all, 40)
+                        Spacer()
+                    }
                 }
-            
-            NavigationView(navigationModel: navigationModel)
-                .offset(x: 0, y: sheetOffset.y - 120)
         }
         .onAppear { start() }
     }
