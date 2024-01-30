@@ -10,4 +10,5 @@ import MapKit
 
 class MapViewModel: ObservableObject {
     @Published public var position: MapCameraPosition = .automatic
+    @Published var polyline: [CLLocationCoordinate2D]?
 }

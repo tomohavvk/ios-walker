@@ -13,12 +13,12 @@ struct LocationDTO : Codable{
       let  latitude: Double
        let longitude: Double
        let accuracy: Double
-       let altitude: Double
-       let altitudeAccuracy: Double
+       let altitude: Double?
+       let altitudeAccuracy: Double?
        let speed: Double
-       let bearing: Double
+       let bearing: Double?
        let time: Int64
-       let simulated: Bool
+       let simulated: Bool?
 }
 
 

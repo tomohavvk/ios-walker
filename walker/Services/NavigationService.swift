@@ -30,6 +30,7 @@ class NavigationService : ObservableObject{
         followLocation()
         recordLocation()
         handleLocationChange()
+        fetchLocationHistory()
     }
     
     fileprivate func followLocation() {
@@ -53,7 +54,7 @@ class NavigationService : ObservableObject{
                         try await self.sendLocationData(location)
                     }
                 }
-             
+                
                 withAnimation {
                     self.mapModel.position = location.asCameraPosition()
                 }
@@ -61,6 +62,23 @@ class NavigationService : ObservableObject{
         }
         .store(in: &cancellables)
     }
+    
+    func fetchLocationHistory() {
+        if let deviceId = UIDevice.current.identifierForVendor {
+            Task {
+                do {
+                    let data =  try await HttpClient.send(Request<[LocationDTO]>(path: "/api/v1/geodata", method: .get,  query: [("deviceId", deviceId.uuidString)], headers: ["Content-Type": "application/json"])).value
+                    mapModel.polyline = data.map { value in
+                        CLLocationCoordinate2D(latitude: value.latitude, longitude: value.longitude)
+                    }
+                } catch {
+                    Self.logger.error("Error encoding request body: \(error)")
+                    return
+                }
+            }
+        }
+    }
+    
     
     func sendLocationData(_ location: CLLocation) async  throws{
         if let devideId = UIDevice.current.identifierForVendor {
