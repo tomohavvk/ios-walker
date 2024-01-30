@@ -9,9 +9,11 @@ import Foundation
 import SwiftUI
 import Combine
 import OSLog
+import CoreLocation
+import Get
 
 class NavigationService : ObservableObject{
-    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: String(describing: LocationWatcherService.self))
+    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: String(describing: NavigationService.self))
     
     @ObservedObject var navigationModel: NavigationViewModel
     @ObservedObject var mapModel: MapViewModel
@@ -22,25 +24,17 @@ class NavigationService : ObservableObject{
         self.navigationModel = navigationModel
         self.mapModel = mapModel
         self.locationService = locationService
-        
-        locationService.$currentLocation.sink{ [] currentLocation in
-            if let location = currentLocation {
-                withAnimation {
-                    self.mapModel.position = location.asCameraPosition()
-                }
-            }
-        }
-        .store(in: &cancellables)
-        
     }
     
     func start() {
         followLocation()
         recordLocation()
+        handleLocationChange()
     }
     
     fileprivate func followLocation() {
-        navigationModel.$followLocation.sink{_ in  self.locationService.startWatcher()}.store(in: &cancellables)
+        navigationModel.$followLocation.sink{_ in
+            self.locationService.startWatcher()}.store(in: &cancellables)
     }
     
     fileprivate func recordLocation() {
@@ -50,7 +44,32 @@ class NavigationService : ObservableObject{
         .store(in: &cancellables)
     }
     
-    fileprivate func handleLocationChanged() {
-        
+    fileprivate func handleLocationChange() {
+        locationService.$currentLocation.sink{ [] currentLocation in
+            if let location = currentLocation {
+                
+                if self.navigationModel.recordLocation {
+                    Task {
+                        try await self.sendLocationData(location)
+                    }
+                }
+             
+                withAnimation {
+                    self.mapModel.position = location.asCameraPosition()
+                }
+            }
+        }
+        .store(in: &cancellables)
+    }
+    
+    func sendLocationData(_ location: CLLocation) async  throws{
+        if let devideId = UIDevice.current.identifierForVendor {
+            do {
+                try await HttpClient.send(Request(path: "/api/v1/geodata", method: .post,  query: [("deviceId", devideId.uuidString)], body: [location.asLocationDTO()], headers: ["Content-Type": "application/json"]))
+            } catch {
+                Self.logger.error("Error encoding request body: \(error)")
+                return
+            }
+        }
     }
 }

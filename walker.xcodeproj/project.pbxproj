@@ -14,6 +14,10 @@
 		2B603F532B67D0AB00B4663A /* Transformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F522B67D0AB00B4663A /* Transformers.swift */; };
 		2B603F552B67D2B200B4663A /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F542B67D2B200B4663A /* NavigationViewModel.swift */; };
 		2B603F572B67D2E100B4663A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F562B67D2E100B4663A /* MapViewModel.swift */; };
+		2B603F5B2B6834E500B4663A /* FakeSheetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F5A2B6834E500B4663A /* FakeSheetModifier.swift */; };
+		2B603F5F2B68E81A00B4663A /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F5E2B68E81A00B4663A /* HttpClient.swift */; };
+		2B603F622B68EA1800B4663A /* Get in Frameworks */ = {isa = PBXBuildFile; productRef = 2B603F612B68EA1800B4663A /* Get */; };
+		2B603F652B68EB0D00B4663A /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F642B68EB0D00B4663A /* LocationDTO.swift */; };
 		2B73F0F22B6397C0000C2637 /* walkerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F0F12B6397C0000C2637 /* walkerApp.swift */; };
 		2B73F0F42B6397C0000C2637 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F0F32B6397C0000C2637 /* ContentView.swift */; };
 		2B73F0F62B6397C1000C2637 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B73F0F52B6397C1000C2637 /* Assets.xcassets */; };
@@ -51,6 +55,9 @@
 		2B603F522B67D0AB00B4663A /* Transformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformers.swift; sourceTree = "<group>"; };
 		2B603F542B67D2B200B4663A /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		2B603F562B67D2E100B4663A /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		2B603F5A2B6834E500B4663A /* FakeSheetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSheetModifier.swift; sourceTree = "<group>"; };
+		2B603F5E2B68E81A00B4663A /* HttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
+		2B603F642B68EB0D00B4663A /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
 		2B73F0EE2B6397C0000C2637 /* walker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = walker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B73F0F12B6397C0000C2637 /* walkerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walkerApp.swift; sourceTree = "<group>"; };
 		2B73F0F32B6397C0000C2637 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B603F622B68EA1800B4663A /* Get in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +115,30 @@
 			path = Transformers;
 			sourceTree = "<group>";
 		};
+		2B603F5C2B68E7FB00B4663A /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2B603F5D2B68E80500B4663A /* Http */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		2B603F5D2B68E80500B4663A /* Http */ = {
+			isa = PBXGroup;
+			children = (
+				2B603F5E2B68E81A00B4663A /* HttpClient.swift */,
+			);
+			path = Http;
+			sourceTree = "<group>";
+		};
+		2B603F632B68EAFC00B4663A /* DTOs */ = {
+			isa = PBXGroup;
+			children = (
+				2B603F642B68EB0D00B4663A /* LocationDTO.swift */,
+			);
+			path = DTOs;
+			sourceTree = "<group>";
+		};
 		2B73F0E52B6397C0000C2637 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +162,8 @@
 		2B73F0F02B6397C0000C2637 /* walker */ = {
 			isa = PBXGroup;
 			children = (
+				2B603F632B68EAFC00B4663A /* DTOs */,
+				2B603F5C2B68E7FB00B4663A /* Network */,
 				2B603F512B67D09B00B4663A /* Transformers */,
 				2B24F7872B65172700AE4E64 /* Info.plist */,
 				2B24F7842B6506E700AE4E64 /* Services */,
@@ -168,6 +202,7 @@
 				2B73F1262B63C4AC000C2637 /* SheetView.swift */,
 				2B603F4B2B67A7C200B4663A /* NavigationView.swift */,
 				2B603F4D2B67A7FE00B4663A /* Common.swift */,
+				2B603F5A2B6834E500B4663A /* FakeSheetModifier.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -205,6 +240,7 @@
 			);
 			name = walker;
 			packageProductDependencies = (
+				2B603F612B68EA1800B4663A /* Get */,
 			);
 			productName = walker;
 			productReference = 2B73F0EE2B6397C0000C2637 /* walker.app */;
@@ -279,6 +315,7 @@
 			);
 			mainGroup = 2B73F0E52B6397C0000C2637;
 			packageReferences = (
+				2B603F602B68EA1800B4663A /* XCRemoteSwiftPackageReference "Get" */,
 			);
 			productRefGroup = 2B73F0EF2B6397C0000C2637 /* Products */;
 			projectDirPath = "";
@@ -325,9 +362,12 @@
 				2B603F502B67D05C00B4663A /* NavigationService.swift in Sources */,
 				2B73F1292B63DA25000C2637 /* Injector.swift in Sources */,
 				2B603F552B67D2B200B4663A /* NavigationViewModel.swift in Sources */,
+				2B603F5F2B68E81A00B4663A /* HttpClient.swift in Sources */,
+				2B603F652B68EB0D00B4663A /* LocationDTO.swift in Sources */,
 				2B603F532B67D0AB00B4663A /* Transformers.swift in Sources */,
 				2B73F0F42B6397C0000C2637 /* ContentView.swift in Sources */,
 				2B603F4C2B67A7C200B4663A /* NavigationView.swift in Sources */,
+				2B603F5B2B6834E500B4663A /* FakeSheetModifier.swift in Sources */,
 				2B73F1202B639E43000C2637 /* MapView.swift in Sources */,
 				2B73F0F22B6397C0000C2637 /* walkerApp.swift in Sources */,
 				2B24F7862B6506FF00AE4E64 /* LocationWatcherService.swift in Sources */,
@@ -673,6 +713,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2B603F602B68EA1800B4663A /* XCRemoteSwiftPackageReference "Get" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Get?tab=readme-ov-file";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2B603F612B68EA1800B4663A /* Get */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B603F602B68EA1800B4663A /* XCRemoteSwiftPackageReference "Get" */;
+			productName = Get;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2B73F0E62B6397C0000C2637 /* Project object */;
 }
