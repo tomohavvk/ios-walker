@@ -4,19 +4,28 @@ import SwiftUI
 struct FakeSheetModifier<InnerContent: View, OuterContent: View>: ViewModifier {
     @State private var yOffset: CGFloat
     @State private var dragOffset: CGFloat = 0
+    @State private var minHeight: CGFloat
+    @State private var maxHeight: CGFloat
+    @State private var width: CGFloat
+    @Binding private var expanded: Bool
+    
     private let innerContent: InnerContent
     private let outerContent: OuterContent
     
-    var minHeight: CGFloat
-    var maxHeight: CGFloat
-    @Binding var expanded: Bool
-    
-    init(minHeight: CGFloat = 200, maxHeight: CGFloat = 500, expanded: Binding<Bool>, outerContent: OuterContent, @ViewBuilder innerContent: () -> InnerContent) {
+    init(minHeight: CGFloat = 200, maxHeight: CGFloat = 500, width: CGFloat, expanded: Binding<Bool>, outerContent: OuterContent, @ViewBuilder innerContent: () -> InnerContent) {
+        if UIScreen.main.bounds.width > UIScreen.main.bounds.height {
+            self._minHeight = State(initialValue: minHeight * -2)
+            self._width = State(initialValue: width / 2)
+        } else {
+            self._minHeight = State(initialValue: minHeight)
+            self._width = State(initialValue: width)
+        }
+        
         self.innerContent = innerContent()
         self.outerContent = outerContent
-        self.minHeight = minHeight
-        self.maxHeight = maxHeight
-        self._yOffset = State(initialValue: minHeight * -1)
+        self._maxHeight = State(initialValue: maxHeight)
+        
+        self._yOffset = State(initialValue: -minHeight)
         self._expanded = expanded
     }
     
@@ -33,7 +42,7 @@ struct FakeSheetModifier<InnerContent: View, OuterContent: View>: ViewModifier {
                         .cornerRadius(3).padding()
                     innerContent
                 }
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .frame(width: self.width, height: UIScreen.main.bounds.height)
                 .background(Color.black.brightness(0.11))
                 .cornerRadius(10)
             }
@@ -95,7 +104,7 @@ struct Sheet_Previews: PreviewProvider {
         }
         
         Color.white
-            .fakeSheet(minHeight: 125,maxHeight:500, expanded: $expanded, outerContent: outerContent) {
+            .fakeSheet(minHeight: 125,maxHeight:500, width:500, expanded: $expanded, outerContent: outerContent) {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Hello world")
                         .font(.title)
@@ -109,7 +118,7 @@ struct Sheet_Previews: PreviewProvider {
 }
 
 extension View {
-    func fakeSheet<InnerContent: View, OuterContent: View>(minHeight: CGFloat, maxHeight: CGFloat, expanded: Binding<Bool>, outerContent: OuterContent, @ViewBuilder innerContent: () -> InnerContent) -> some View {
-        self.modifier(FakeSheetModifier(minHeight: minHeight, maxHeight: maxHeight, expanded: expanded, outerContent: outerContent, innerContent: innerContent))
+    func fakeSheet<InnerContent: View, OuterContent: View>(minHeight: CGFloat, maxHeight: CGFloat, width: CGFloat, expanded: Binding<Bool>, outerContent: OuterContent, @ViewBuilder innerContent: () -> InnerContent) -> some View {
+        self.modifier(FakeSheetModifier(minHeight: minHeight, maxHeight: maxHeight,width:width, expanded: expanded, outerContent: outerContent, innerContent: innerContent))
     }
 }

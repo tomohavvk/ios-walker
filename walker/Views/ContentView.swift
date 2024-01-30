@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
    
+    let screenWidth  = UIScreen.main.bounds.width
     
     @State private var sheetOffset: CGPoint = .zero
     
@@ -13,7 +14,7 @@ struct ContentView: View {
     var body: some View {
         ZStack(alignment: .top)  {
             MapView(mapModel: mapModel , locationService: locationService)
-                .fakeSheet(minHeight: 125, maxHeight: 500, expanded: .constant(true), outerContent: NavigationView(navigationModel: navigationModel)) {
+                .fakeSheet(minHeight: 125, maxHeight: 500, width: screenWidth,  expanded: .constant(true), outerContent: NavigationView(navigationModel: navigationModel)) {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Hello")
                             .font(.title)
