@@ -12,7 +12,6 @@ struct NavigationView: View {
     
     var body: some View {
         HStack(spacing: 15) {
-        
             Button(action:  {navigationModel.recordLocation = !navigationModel.recordLocation}) {
                 Image(systemName: navigationModel.recordLocation ? "pause.circle.fill" : "play.circle.fill")
                     .font(.title)

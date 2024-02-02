@@ -29,7 +29,7 @@ class PolylineHelper: ObservableObject {
         self.polylinesToDraw.removeAll()
         
         
-        if self.drawedPolylines.count > 1000000 {
+        if self.drawedPolylines.count > 100 {
             mapView.removeOverlays(self.drawedPolylines)
             self.polylinesToDraw = []
             self.drawedPolylines = []
