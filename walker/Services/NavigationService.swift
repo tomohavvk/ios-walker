@@ -27,36 +27,31 @@ class NavigationService : ObservableObject{
     }
     
     func start() {
-        followLocation()
         recordLocation()
         handleLocationChange()
     }
-    
-    fileprivate func followLocation() {
-        navigationModel.$followLocation.sink{_ in
-            self.locationService.startWatcher()}.store(in: &cancellables)
-    }
-    
+
     fileprivate func recordLocation() {
         navigationModel.$recordLocation.sink{ [] isRecordLocation in
             Self.logger.info("isRecordLocation")
+            
+            if isRecordLocation {
+                self.locationService.startWatcher()
+            } else {
+                self.locationService.stopWatcher()
+            }
         }
         .store(in: &cancellables)
     }
     
     fileprivate func handleLocationChange() {
         locationService.$lastLocation.sink{ [] currentLocation in
-            
             if let location = currentLocation {
                 
                 if self.navigationModel.recordLocation {
                     Task {
                         LocationHistoryDataManager.shared.saveLocationHistory(location.asLocationDTO())
                     }
-                }
-                
-                withAnimation {
-                    self.mapModel.position = location.asCameraPosition()
                 }
             }
         }

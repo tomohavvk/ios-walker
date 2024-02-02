@@ -21,7 +21,6 @@ struct SheetView: View {
             HStack{
                 Text("Hello from sheet")
             }
-            .preference(key: PointPreferenceKey.self, value: geometry.frame(in: .global).origin )
             .interactiveDismissDisabled(true)
             .presentationDetents(detents)
             .presentationBackgroundInteraction( .enabled )

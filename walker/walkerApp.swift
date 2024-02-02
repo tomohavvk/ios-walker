@@ -14,6 +14,7 @@ struct walkerApp: App {
         _ = Injector()
     }
     
+
     var body: some Scene {
         
         WindowGroup {

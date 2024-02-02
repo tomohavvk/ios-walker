@@ -8,14 +8,15 @@ struct ContentView: View {
     @State private var sheetOffset: CGPoint = .zero
     
     @StateObject private var locationService: LocationWatcherService = LocationWatcherService()
+    @StateObject private var polylineHelper: PolylineHelper = PolylineHelper()
     
+  
     @StateObject private var mapModel: MapViewModel = MapViewModel()
-    @StateObject private var navigationModel: NavigationViewModel = NavigationViewModel(followLocation: false, recordLocation: true)
-    
+    @StateObject private var navigationModel: NavigationViewModel = NavigationViewModel(recordLocation: true)
     
     var body: some View {
         ZStack(alignment: .top)  {
-            NewView(mapModel: mapModel, navigationModel:navigationModel, locationService: locationService)
+            NewView(mapModel: mapModel, navigationModel:navigationModel, locationService: locationService, polylineHelper: polylineHelper)
                 .fakeSheet(minHeight: 125, maxHeight: 500, width: screenWidth,  expanded: .constant(true), outerContent: NavigationView(navigationModel: navigationModel)) {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Hello")

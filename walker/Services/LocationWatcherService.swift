@@ -53,7 +53,7 @@ public class LocationWatcherService : NSObject, ObservableObject, CLLocationMana
         UIDevice.current.isBatteryMonitoringEnabled = true
     }
     
-    func startWatcher(distanceFilter: Double = 5) {
+    func startWatcher(distanceFilter: Double = 10) {
         DispatchQueue.main.async {
             
             let manager = self.watcher.locationManager
