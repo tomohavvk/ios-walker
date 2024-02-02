@@ -10,12 +10,12 @@ struct ContentView: View {
     @StateObject private var locationService: LocationWatcherService = LocationWatcherService()
     
     @StateObject private var mapModel: MapViewModel = MapViewModel()
-    @StateObject private var navigationModel: NavigationViewModel = NavigationViewModel(followLocation: false, recordLocation: false)
+    @StateObject private var navigationModel: NavigationViewModel = NavigationViewModel(followLocation: false, recordLocation: true)
     
     
     var body: some View {
         ZStack(alignment: .top)  {
-            NewView(mapModel: mapModel, locationService: locationService)
+            NewView(mapModel: mapModel, navigationModel:navigationModel, locationService: locationService)
                 .fakeSheet(minHeight: 125, maxHeight: 500, width: screenWidth,  expanded: .constant(true), outerContent: NavigationView(navigationModel: navigationModel)) {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Hello")

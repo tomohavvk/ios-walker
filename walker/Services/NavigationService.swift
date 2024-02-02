@@ -45,7 +45,8 @@ class NavigationService : ObservableObject{
     }
     
     fileprivate func handleLocationChange() {
-        locationService.$currentLocation.sink{ [] currentLocation in
+        locationService.$lastLocation.sink{ [] currentLocation in
+            
             if let location = currentLocation {
                 
                 if self.navigationModel.recordLocation {

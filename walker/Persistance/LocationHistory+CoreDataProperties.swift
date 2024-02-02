@@ -15,14 +15,13 @@ import SwiftUI
 public class LocationHistory: NSManagedObject {}
 
 extension LocationHistory {
-    
-    
     @NSManaged public var latitude: NSNumber
     @NSManaged public var longitude: NSNumber
     @NSManaged public var accuracy: NSNumber
     @NSManaged public var speed: NSNumber
     @NSManaged public var time: NSNumber
 }
+
 public final class LocationHistoryDataManager {
     private init() {}
 

@@ -46,7 +46,7 @@ public class LocationWatcherService : NSObject, ObservableObject, CLLocationMana
 
     private var watcher = Watcher()
     
-    @Published public var currentLocation: CLLocation?
+    @Published public var lastLocation: CLLocation?
     
     override init() {
         super.init()
@@ -141,7 +141,7 @@ public class LocationWatcherService : NSObject, ObservableObject, CLLocationMana
     ) {
         if let location = locations.last {
             if watcher.isLocationValid(location) {
-                currentLocation = location
+                lastLocation = location
             }
         }
     }
