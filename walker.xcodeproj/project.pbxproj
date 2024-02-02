@@ -28,8 +28,6 @@
 		2B73F1272B63C4AC000C2637 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F1262B63C4AC000C2637 /* SheetView.swift */; };
 		2B73F1292B63DA25000C2637 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F1282B63DA25000C2637 /* Injector.swift */; };
 		2BA5624E2B69644B0057D200 /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5624D2B69644B0057D200 /* NewView.swift */; };
-		2BA562572B6A39330057D200 /* PersistentState.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562552B6A39330057D200 /* PersistentState.xcdatamodeld */; };
-		2BA5626C2B6A3E8D0057D200 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5626B2B6A3E8D0057D200 /* PersistanceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,8 +72,6 @@
 		2B73F1262B63C4AC000C2637 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		2B73F1282B63DA25000C2637 /* Injector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
 		2BA5624D2B69644B0057D200 /* NewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewView.swift; sourceTree = "<group>"; };
-		2BA562562B6A39330057D200 /* PersistentState.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersistentState.xcdatamodel; sourceTree = "<group>"; };
-		2BA5626B2B6A3E8D0057D200 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,7 +164,6 @@
 		2B73F0F02B6397C0000C2637 /* walker */ = {
 			isa = PBXGroup;
 			children = (
-				2BA562602B6A3A110057D200 /* Persistance */,
 				2B603F632B68EAFC00B4663A /* DTOs */,
 				2B603F5C2B68E7FB00B4663A /* Network */,
 				2B603F512B67D09B00B4663A /* Transformers */,
@@ -237,15 +232,6 @@
 				2B603F562B67D2E100B4663A /* MapViewModel.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		2BA562602B6A3A110057D200 /* Persistance */ = {
-			isa = PBXGroup;
-			children = (
-				2BA562552B6A39330057D200 /* PersistentState.xcdatamodeld */,
-				2BA5626B2B6A3E8D0057D200 /* PersistanceManager.swift */,
-			);
-			path = Persistance;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,12 +374,10 @@
 				2B73F1292B63DA25000C2637 /* Injector.swift in Sources */,
 				2B603F552B67D2B200B4663A /* NavigationViewModel.swift in Sources */,
 				2B603F5F2B68E81A00B4663A /* HttpClient.swift in Sources */,
-				2BA5626C2B6A3E8D0057D200 /* PersistanceManager.swift in Sources */,
 				2B603F652B68EB0D00B4663A /* LocationDTO.swift in Sources */,
 				2B603F532B67D0AB00B4663A /* Transformers.swift in Sources */,
 				2B73F0F42B6397C0000C2637 /* ContentView.swift in Sources */,
 				2B603F4C2B67A7C200B4663A /* NavigationView.swift in Sources */,
-				2BA562572B6A39330057D200 /* PersistentState.xcdatamodeld in Sources */,
 				2B603F5B2B6834E500B4663A /* FakeSheetModifier.swift in Sources */,
 				2B73F1202B639E43000C2637 /* MapView.swift in Sources */,
 				2B73F0F22B6397C0000C2637 /* walkerApp.swift in Sources */,
@@ -762,19 +746,6 @@
 			productName = Get;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		2BA562552B6A39330057D200 /* PersistentState.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				2BA562562B6A39330057D200 /* PersistentState.xcdatamodel */,
-			);
-			currentVersion = 2BA562562B6A39330057D200 /* PersistentState.xcdatamodel */;
-			path = PersistentState.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 2B73F0E62B6397C0000C2637 /* Project object */;
 }
