@@ -39,7 +39,6 @@ class PolylineHelper: ObservableObject {
         }
     }
     
-    
     public func collectPolylinesToDraw(_ mapView: NewView) {
         mapView.locationService.$lastLocation.sink { [] lastLocation in
             if mapView.navigationViewModel.recordLocation {

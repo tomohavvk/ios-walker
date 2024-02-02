@@ -27,11 +27,7 @@ public final class LocationHistoryDataManager {
 
     public static let shared = LocationHistoryDataManager()
 
-    public var context: NSManagedObjectContext {
-        return Self.shared.container.viewContext
-    }
-    
-    private let container = {
+    private let (container, context) = {
         let c = NSPersistentContainer(name: "WalkerCoreData")
         
         c.loadPersistentStores { storeDescription, error in
@@ -44,19 +40,8 @@ public final class LocationHistoryDataManager {
         
         c.viewContext.automaticallyMergesChangesFromParent = true
         c.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        return c
+        return (c, c.newBackgroundContext())
     }()
-    
-    private func saveContext() {
-        if self.context.hasChanges {
-            do {
-                try self.context.save()
-            } catch {
-                fatalError(error.localizedDescription)
-            }
-        }
-    }
-        
     
     func saveLocationHistory(_ location: LocationDTO) {
         guard let description = NSEntityDescription.entity(forEntityName: "LocationHistory", in: self.context) else {
@@ -98,4 +83,14 @@ public final class LocationHistoryDataManager {
         return []
     }
     
+    private func saveContext() {
+        if self.context.hasChanges {
+            do {
+                try self.context.save()
+            } catch {
+                fatalError(error.localizedDescription)
+            }
+        }
+    }
+        
 }

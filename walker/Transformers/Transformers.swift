@@ -24,11 +24,11 @@ extension CLLocation {
             latitude: Double(self.coordinate.latitude),
             longitude:Double(self.coordinate.longitude),
             accuracy: Double(self.horizontalAccuracy),
+            speed:Double(self.speed < 0 ? CLLocationSpeed(0) : self.speed),
+            time:Int64(self.timestamp.timeIntervalSince1970 * 1000),
             altitude:Double(self.altitude),
             altitudeAccuracy:Double(self.verticalAccuracy),
-            speed:Double(self.speed < 0 ? CLLocationSpeed(0) : self.speed),
             bearing: Double(self.course < 0 ? CLLocationDirection(0) : self.course),
-            time:Int64(self.timestamp.timeIntervalSince1970 * 1000),
             simulated: simulated
         )
     }
