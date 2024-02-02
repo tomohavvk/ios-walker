@@ -2,17 +2,17 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-   
+    
     private let screenWidth  = UIScreen.main.bounds.width
     
     @State private var sheetOffset: CGPoint = .zero
     
-    @StateObject private var locationService:LocationWatcherService = LocationWatcherService()
+    @StateObject private var locationService: LocationWatcherService = LocationWatcherService()
     
     @StateObject private var mapModel: MapViewModel = MapViewModel()
     @StateObject private var navigationModel: NavigationViewModel = NavigationViewModel(followLocation: false, recordLocation: false)
-
-
+    
+    
     var body: some View {
         ZStack(alignment: .top)  {
             NewView(mapModel: mapModel, locationService: locationService)
@@ -29,8 +29,8 @@ struct ContentView: View {
         }
         .onAppear { start() }
     }
-
-  fileprivate func start() {
+    
+    fileprivate func start() {
         NavigationService(navigationModel: navigationModel, mapModel: mapModel, locationService: locationService)
             .start()
     }

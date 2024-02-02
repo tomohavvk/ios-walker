@@ -6,19 +6,19 @@
 //
 
 import SwiftUI
-import UIKit
 
 @main
 struct walkerApp: App {
-   
+    
     init() {
         _ = Injector()
     }
     
     var body: some Scene {
-
+        
         WindowGroup {
             ContentView()
         }
     }
 }
+

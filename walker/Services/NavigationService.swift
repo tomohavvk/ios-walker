@@ -30,7 +30,6 @@ class NavigationService : ObservableObject{
         followLocation()
         recordLocation()
         handleLocationChange()
-        fetchLocationHistory()
     }
     
     fileprivate func followLocation() {
@@ -51,7 +50,7 @@ class NavigationService : ObservableObject{
                 
                 if self.navigationModel.recordLocation {
                     Task {
-                        try await self.sendLocationData(location)
+                        LocationHistoryDataManager.shared.saveLocationHistory(location.asLocationDTO())
                     }
                 }
                 
@@ -62,32 +61,32 @@ class NavigationService : ObservableObject{
         }
         .store(in: &cancellables)
     }
-    
-    func fetchLocationHistory() {
-        if let deviceId = UIDevice.current.identifierForVendor {
-            Task {
-                do {
-                    let data =  try await HttpClient.send(Request<[LocationDTO]>(path: "/api/v1/geodata", method: .get,  query: [("deviceId", deviceId.uuidString)], headers: ["Content-Type": "application/json"])).value
-                    mapModel.polyline = data.map { value in
-                        CLLocationCoordinate2D(latitude: value.latitude, longitude: value.longitude)
-                    }
-                } catch {
-                    Self.logger.error("Error encoding request body: \(error)")
-                    return
-                }
-            }
-        }
-    }
-    
-    
-    func sendLocationData(_ location: CLLocation) async  throws{
-        if let devideId = UIDevice.current.identifierForVendor {
-            do {
-                try await HttpClient.send(Request(path: "/api/v1/geodata", method: .post,  query: [("deviceId", devideId.uuidString)], body: [location.asLocationDTO()], headers: ["Content-Type": "application/json"]))
-            } catch {
-                Self.logger.error("Error encoding request body: \(error)")
-                return
-            }
-        }
-    }
+//    
+//    func fetchLocationHistory() {
+//        if let deviceId = UIDevice.current.identifierForVendor {
+//            Task {
+//                do {
+//                    let data =  try await HttpClient.send(Request<[LocationDTO]>(path: "/api/v1/geodata", method: .get,  query: [("deviceId", deviceId.uuidString)], headers: ["Content-Type": "application/json"])).value
+//                    mapModel.polyline = data.map { value in
+//                        CLLocationCoordinate2D(latitude: value.latitude, longitude: value.longitude)
+//                    }
+//                } catch {
+//                    Self.logger.error("Error encoding request body: \(error)")
+//                    return
+//                }
+//            }
+//        }
+//    }
+//    
+//    
+//    func sendLocationData(_ location: CLLocation) async  throws{
+//        if let devideId = UIDevice.current.identifierForVendor {
+//            do {
+//                try await HttpClient.send(Request(path: "/api/v1/geodata", method: .post,  query: [("deviceId", devideId.uuidString)], body: [location.asLocationDTO()], headers: ["Content-Type": "application/json"]))
+//            } catch {
+//                Self.logger.error("Error encoding request body: \(error)")
+//                return
+//            }
+//        }
+//    }
 }

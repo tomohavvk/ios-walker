@@ -10,15 +10,15 @@ import CoreLocation
 
 
 struct LocationDTO : Codable {
-      let  latitude: Double
-       let longitude: Double
-       let accuracy: Double
-       let altitude: Double?
-       let altitudeAccuracy: Double?
-       let speed: Double
-       let bearing: Double?
-       let time: Int64
-       let simulated: Bool?
+    var latitude: Double
+    var longitude: Double
+    var accuracy: Double
+    var altitude: Double?
+    var altitudeAccuracy: Double?
+    var speed: Double
+    var bearing: Double?
+    var time: Int64
+    var simulated: Bool?
 }
 
 

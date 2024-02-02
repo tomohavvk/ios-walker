@@ -28,6 +28,8 @@
 		2B73F1272B63C4AC000C2637 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F1262B63C4AC000C2637 /* SheetView.swift */; };
 		2B73F1292B63DA25000C2637 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F1282B63DA25000C2637 /* Injector.swift */; };
 		2BA5624E2B69644B0057D200 /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5624D2B69644B0057D200 /* NewView.swift */; };
+		2BA562772B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562762B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift */; };
+		2BA5627A2B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562782B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,8 @@
 		2B73F1262B63C4AC000C2637 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		2B73F1282B63DA25000C2637 /* Injector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
 		2BA5624D2B69644B0057D200 /* NewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewView.swift; sourceTree = "<group>"; };
+		2BA562762B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationHistory+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2BA562792B6CDACC0057D200 /* WalkerCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WalkerCoreData.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,7 @@
 		2B73F0E52B6397C0000C2637 = {
 			isa = PBXGroup;
 			children = (
+				2BA562782B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld */,
 				2B73F0F02B6397C0000C2637 /* walker */,
 				2B73F1012B6397C1000C2637 /* walkerTests */,
 				2B73F10B2B6397C2000C2637 /* walkerUITests */,
@@ -164,6 +169,7 @@
 		2B73F0F02B6397C0000C2637 /* walker */ = {
 			isa = PBXGroup;
 			children = (
+				2BA562752B6CD3EF0057D200 /* Persistance */,
 				2B603F632B68EAFC00B4663A /* DTOs */,
 				2B603F5C2B68E7FB00B4663A /* Network */,
 				2B603F512B67D09B00B4663A /* Transformers */,
@@ -232,6 +238,14 @@
 				2B603F562B67D2E100B4663A /* MapViewModel.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		2BA562752B6CD3EF0057D200 /* Persistance */ = {
+			isa = PBXGroup;
+			children = (
+				2BA562762B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift */,
+			);
+			path = Persistance;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,6 +385,7 @@
 			files = (
 				2B603F4E2B67A7FE00B4663A /* Common.swift in Sources */,
 				2B603F502B67D05C00B4663A /* NavigationService.swift in Sources */,
+				2BA5627A2B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld in Sources */,
 				2B73F1292B63DA25000C2637 /* Injector.swift in Sources */,
 				2B603F552B67D2B200B4663A /* NavigationViewModel.swift in Sources */,
 				2B603F5F2B68E81A00B4663A /* HttpClient.swift in Sources */,
@@ -382,6 +397,7 @@
 				2B73F1202B639E43000C2637 /* MapView.swift in Sources */,
 				2B73F0F22B6397C0000C2637 /* walkerApp.swift in Sources */,
 				2B24F7862B6506FF00AE4E64 /* LocationWatcherService.swift in Sources */,
+				2BA562772B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift in Sources */,
 				2BA5624E2B69644B0057D200 /* NewView.swift in Sources */,
 				2B73F1272B63C4AC000C2637 /* SheetView.swift in Sources */,
 				2B603F572B67D2E100B4663A /* MapViewModel.swift in Sources */,
@@ -746,6 +762,19 @@
 			productName = Get;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		2BA562782B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2BA562792B6CDACC0057D200 /* WalkerCoreData.xcdatamodel */,
+			);
+			currentVersion = 2BA562792B6CDACC0057D200 /* WalkerCoreData.xcdatamodel */;
+			path = WalkerCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2B73F0E62B6397C0000C2637 /* Project object */;
 }

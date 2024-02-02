@@ -11,7 +11,6 @@ import Combine
 
 struct NewView: UIViewRepresentable  {
     
-    
     @ObservedObject var mapModel: MapViewModel
     @ObservedObject var locationService: LocationWatcherService
     
@@ -26,23 +25,30 @@ struct NewView: UIViewRepresentable  {
         
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
-        mapView.isPitchEnabled = false
+        mapView.showsUserTrackingButton = true
+        mapView.isPitchEnabled = true
         mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
         return mapView
     }
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
+//        LocationHistoryDataManager.shared.saveLocationHistory(location: self.locationService.currentLocation)
+        
         print("updateUIView")
         
+        let history = LocationHistoryDataManager.shared.fetchLocationHistory()
         
-        let newPol = mapModel.polyline?.map { pol in
+        if !history.isEmpty &&  !mapModel.isPolilineHistoryAdded {
+            let pols =  LocationHistoryDataManager.shared.fetchLocationHistory().map { pol in
             CLLocationCoordinate2D(latitude: pol.latitude, longitude: pol.longitude)
         }
         
-        if let pols = newPol {
-            if  !mapModel.isPolilineHistoryAdded {
-                
-                
+//                            mapModel.polyline = data.map { value in
+//                                CLLocationCoordinate2D(latitude: value.latitude, longitude: value.longitude)
+//                            }
+//        
+ 
+        
                 print("DRAWING", mapModel.isPolilineHistoryAdded)
                 
                 mapModel.isPolilineHistoryAdded = true
@@ -50,8 +56,8 @@ struct NewView: UIViewRepresentable  {
                 let polyline = MKPolyline(coordinates: pols, count: pols.count)
                 mapView.addOverlay(polyline)
                 let polylineRect = polyline.boundingMapRect
-                mapView.setRegion(MKCoordinateRegion(polylineRect), animated: true)
-            }
+          //      mapView.setRegion(MKCoordinateRegion(polylineRect), animated: true)
+     
         }
     }
     
