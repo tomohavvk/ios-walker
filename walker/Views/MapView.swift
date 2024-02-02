@@ -16,10 +16,11 @@ struct MapView: View {
                 MapPolyline(coordinates: pol).stroke(.red, lineWidth: 1)
             }
         }
-      
+
         .mapControls { MapCompass(); MapScaleView() }
         .gesture(DragGesture().onChanged { value in locationService.stopWatcher() })
         .mapStyle(.standard(elevation: .flat))
+        .scrollDisabled(true)
     }
 }
 

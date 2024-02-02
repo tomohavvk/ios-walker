@@ -10,7 +10,7 @@ import SwiftUI
 
 extension CLLocation {
     func asCameraPosition() -> MapCameraPosition {
-        return MapCameraPosition.camera( MapCamera( centerCoordinate: CLLocationCoordinate2D(latitude: self.coordinate.latitude, longitude: self.coordinate.longitude), distance: 200, heading: self.course))
+        return MapCameraPosition.camera( MapCamera( centerCoordinate: CLLocationCoordinate2D(latitude: self.coordinate.latitude, longitude: self.coordinate.longitude), distance: 400, heading: self.course))
     }
     
     func asLocationDTO() -> LocationDTO {

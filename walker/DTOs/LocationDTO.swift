@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 
-struct LocationDTO : Codable{
+struct LocationDTO : Codable {
       let  latitude: Double
        let longitude: Double
        let accuracy: Double

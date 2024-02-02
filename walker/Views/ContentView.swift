@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
    
@@ -10,10 +11,11 @@ struct ContentView: View {
     
     @StateObject private var mapModel: MapViewModel = MapViewModel()
     @StateObject private var navigationModel: NavigationViewModel = NavigationViewModel(followLocation: false, recordLocation: false)
-    
+
+
     var body: some View {
         ZStack(alignment: .top)  {
-            MapView(mapModel: mapModel, locationService: locationService)
+            NewView(mapModel: mapModel, locationService: locationService)
                 .fakeSheet(minHeight: 125, maxHeight: 500, width: screenWidth,  expanded: .constant(true), outerContent: NavigationView(navigationModel: navigationModel)) {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Hello")
