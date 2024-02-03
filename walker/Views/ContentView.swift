@@ -9,20 +9,20 @@ struct ContentView: View {
     
     @StateObject private var polylineHelper: PolylineHelper
     @StateObject private var locationService: LocationWatcherService
-
+    
     @ObservedObject private var recordingModel: RecordingModel
     @ObservedObject private var locationWatcherModel: LocationWatcherModel
     
     init( recordingModel: RecordingModel, locationWatcherModel: LocationWatcherModel) {
         self.recordingModel = recordingModel
         self.locationWatcherModel = locationWatcherModel
-        self._polylineHelper =  StateObject(wrappedValue: PolylineHelper(recordingModel: recordingModel))
+        self._polylineHelper =  StateObject(wrappedValue: PolylineHelper(recordingModel: recordingModel, locationWatcherModel: locationWatcherModel))
         self._locationService =  StateObject(wrappedValue: LocationWatcherService(model: locationWatcherModel))
     }
     
     var body: some View {
         ZStack(alignment: .top)  {
-            NewView( locationWatcherModel: locationWatcherModel, polylineHelper: polylineHelper)
+            NewView( polylineHelper: polylineHelper)
                 .fakeSheet(minHeight: 125, maxHeight: 500, width: screenWidth,  expanded: .constant(true), outerContent: RecordingView(recordingModel: recordingModel)) {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Hello")

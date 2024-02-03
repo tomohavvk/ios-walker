@@ -18,7 +18,6 @@ struct walkerApp: App {
     @StateObject private var locationWatcherModel: LocationWatcherModel = LocationWatcherModel()
     
     var body: some Scene {
-        
         WindowGroup {
             ContentView( recordingModel: recordingModel, locationWatcherModel: locationWatcherModel)
         }

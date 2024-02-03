@@ -11,11 +11,9 @@ import Combine
 
 struct NewView: UIViewRepresentable  {
     
-    @ObservedObject var locationWatcherModel: LocationWatcherModel
     @ObservedObject var polylineHelper: PolylineHelper
     
-    init(locationWatcherModel: LocationWatcherModel, polylineHelper: PolylineHelper) {
-        self.locationWatcherModel = locationWatcherModel
+    init(polylineHelper: PolylineHelper) {
         self.polylineHelper = polylineHelper
     }
     
