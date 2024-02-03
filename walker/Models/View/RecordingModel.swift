@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class NavigationViewModel: ObservableObject {
+class RecordingModel: ObservableObject {
     @Published var recordLocation: Bool
     
     init(recordLocation: Bool) {

@@ -13,10 +13,10 @@ import Combine
 
 class PolylineHelper: ObservableObject {
     
-    @ObservedObject private var navigationViewModel: NavigationViewModel
+    @ObservedObject private var recordingModel: RecordingModel
     
-    init(navigationViewModel: NavigationViewModel) {
-        self.navigationViewModel = navigationViewModel
+    init(recordingModel: RecordingModel) {
+        self.recordingModel = recordingModel
     }
     
     private var cancellables: Set<AnyCancellable> = []
@@ -50,7 +50,7 @@ class PolylineHelper: ObservableObject {
     public func collectPolylinesToDraw(_ mapView: NewView) {
         mapView.locationWatcherModel.$lastLocation.sink { [] lastLocation in
             print("collectPolylinesToDraw", "polylinesToDraw", self.polylinesToDraw.count, "drawedPolylines", self.drawedPolylines.count)
-            if self.navigationViewModel.recordLocation,  let lastLocation = lastLocation, let previousLocation = self.lastPolylineLocation {
+            if self.recordingModel.recordLocation,  let lastLocation = lastLocation, let previousLocation = self.lastPolylineLocation {
                 if lastLocation.horizontalAccuracy <= 5  && self.lastPolylineLocation?.timestamp != lastLocation.timestamp {
                     
                     let coords = [

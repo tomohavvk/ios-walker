@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct NavigationView: View {
-    @ObservedObject var navigationModel: NavigationViewModel
+struct RecordingView: View {
+    @ObservedObject var recordingModel: RecordingModel
     
     var body: some View {
         HStack(spacing: 15) {
-            Button(action:  {navigationModel.recordLocation = !navigationModel.recordLocation}) {
-                Image(systemName: navigationModel.recordLocation ? "pause.circle.fill" : "play.circle.fill")
+            Button(action:  {recordingModel.recordLocation = !recordingModel.recordLocation}) {
+                Image(systemName: recordingModel.recordLocation ? "pause.circle.fill" : "play.circle.fill")
                     .font(.title)
                     .foregroundColor(.gray)
             }
@@ -22,5 +22,5 @@ struct NavigationView: View {
 }
 
 #Preview {
-    NavigationView(navigationModel: NavigationViewModel(recordLocation: true))
+    RecordingView(recordingModel: RecordingModel(recordLocation: true))
 }

@@ -12,17 +12,16 @@ import OSLog
 import CoreLocation
 import Get
 
-class NavigationService : ObservableObject{
-    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: String(describing: NavigationService.self))
+class LocationRecordingService : ObservableObject{
+    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: String(describing: LocationRecordingService.self))
     
-    @ObservedObject var navigationModel: NavigationViewModel
-    @ObservedObject var mapModel: MapViewModel
+    @ObservedObject var recordingModel: RecordingModel
     @ObservedObject var locationService: LocationWatcherService
+    
     private var cancellables: Set<AnyCancellable> = []
     
-    init(navigationModel: NavigationViewModel,  mapModel: MapViewModel, locationService: LocationWatcherService) {
-        self.navigationModel = navigationModel
-        self.mapModel = mapModel
+    init(recordingModel: RecordingModel,  locationService: LocationWatcherService) {
+        self.recordingModel = recordingModel
         self.locationService = locationService
     }
     
@@ -32,7 +31,7 @@ class NavigationService : ObservableObject{
     }
 
     fileprivate func recordLocation() {
-        navigationModel.$recordLocation.sink{ [] isRecordLocation in
+        recordingModel.$recordLocation.sink{ [] isRecordLocation in
             Self.logger.info("isRecordLocation")
             
             if isRecordLocation {
@@ -48,7 +47,7 @@ class NavigationService : ObservableObject{
         locationService.model.$lastLocation.sink{ [] currentLocation in
             if let location = currentLocation {
                 
-                if self.navigationModel.recordLocation {
+                if self.recordingModel.recordLocation {
                     Task {
                         LocationHistoryDataManager.shared.saveLocationHistory(location.asLocationDTO())
                     }

@@ -9,24 +9,21 @@ struct ContentView: View {
     
     @StateObject private var polylineHelper: PolylineHelper
     @StateObject private var locationService: LocationWatcherService
-    
-  
-    @ObservedObject private var mapModel: MapViewModel
-    @ObservedObject private var navigationModel: NavigationViewModel
+
+    @ObservedObject private var recordingModel: RecordingModel
     @ObservedObject private var locationWatcherModel: LocationWatcherModel
     
-    init(mapModel: MapViewModel, navigationModel: NavigationViewModel, locationWatcherModel: LocationWatcherModel) {
-        self.mapModel = mapModel
-        self.navigationModel = navigationModel
+    init( recordingModel: RecordingModel, locationWatcherModel: LocationWatcherModel) {
+        self.recordingModel = recordingModel
         self.locationWatcherModel = locationWatcherModel
-        self._polylineHelper =  StateObject(wrappedValue: PolylineHelper(navigationViewModel: navigationModel))
+        self._polylineHelper =  StateObject(wrappedValue: PolylineHelper(recordingModel: recordingModel))
         self._locationService =  StateObject(wrappedValue: LocationWatcherService(model: locationWatcherModel))
     }
     
     var body: some View {
         ZStack(alignment: .top)  {
             NewView( locationWatcherModel: locationWatcherModel, polylineHelper: polylineHelper)
-                .fakeSheet(minHeight: 125, maxHeight: 500, width: screenWidth,  expanded: .constant(true), outerContent: NavigationView(navigationModel: navigationModel)) {
+                .fakeSheet(minHeight: 125, maxHeight: 500, width: screenWidth,  expanded: .constant(true), outerContent: RecordingView(recordingModel: recordingModel)) {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Hello")
                             .font(.title)
@@ -41,12 +38,12 @@ struct ContentView: View {
     }
     
     fileprivate func start() {
-        NavigationService(navigationModel: navigationModel, mapModel: mapModel, locationService: locationService)
+        LocationRecordingService(recordingModel: recordingModel,   locationService: locationService)
             .start()
     }
 }
 
 #Preview {
-    ContentView(mapModel: MapViewModel(), navigationModel: NavigationViewModel(recordLocation: true), locationWatcherModel: LocationWatcherModel())
+    ContentView( recordingModel: RecordingModel(recordLocation: true), locationWatcherModel: LocationWatcherModel())
 }
 

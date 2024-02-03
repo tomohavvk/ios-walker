@@ -5,7 +5,7 @@ import CoreLocation
 
 struct MapView: View {
 
-    @ObservedObject var mapModel: MapViewModel
+    @ObservedObject var mapModel: MapModel
     @ObservedObject var locationService: LocationWatcherService
 
     var body: some View {
@@ -25,7 +25,7 @@ struct MapView: View {
 }
 
 #Preview {
-    MapView(mapModel:MapViewModel(), locationService: LocationWatcherService(model: LocationWatcherModel()))
+    MapView(mapModel:MapModel(), locationService: LocationWatcherService(model: LocationWatcherModel()))
 }
 
 
