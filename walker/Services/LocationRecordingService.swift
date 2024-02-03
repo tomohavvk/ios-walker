@@ -46,8 +46,11 @@ class LocationRecordingService : ObservableObject{
     fileprivate func handleLocationChange() {
         locationService.model.$lastLocation.sink{ [] currentLocation in
             if let location = currentLocation {
-                
-                if self.recordingModel.recordLocation {
+                print("currentAltitude" , Int(location.altitude))
+                self.recordingModel.currentAltitude = Int(location.altitude)
+                if location.horizontalAccuracy <= 5 && self.recordingModel.recordLocation {
+                    self.recordingModel.currentSpeed = Int(location.speed * 3.6)
+
                     Task {
                         LocationHistoryDataManager.shared.saveLocationHistory(location.asLocationDTO())
                     }

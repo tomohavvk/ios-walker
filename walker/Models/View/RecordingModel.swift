@@ -10,6 +10,9 @@ import SwiftUI
 
 class RecordingModel: ObservableObject {
     @Published var recordLocation: Bool
+    @Published var distance: Int64 = 0
+    @Published var currentSpeed: Int = 0
+    @Published var currentAltitude: Int = 0
     
     init(recordLocation: Bool) {
         self.recordLocation = recordLocation

@@ -21,21 +21,37 @@ struct ContentView: View {
     }
     
     var body: some View {
-        ZStack(alignment: .top)  {
+        ZStack  {
             NewView( polylineHelper: polylineHelper)
-                .fakeSheet(minHeight: 125, maxHeight: 500, width: screenWidth,  expanded: .constant(true), outerContent: RecordingView(recordingModel: recordingModel)) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("Hello")
-                            .font(.title)
-                            .bold()
-                            .foregroundColor(.white)
-                            .padding(.all, 40)
-                        Spacer()
-                    }
+                .fakeSheet(minHeight: 200, maxHeight: 500, width: screenWidth,  expanded: .constant(true), outerContent: RecordingView(recordingModel: recordingModel)) {
+                    SheetView(recordingModel: recordingModel)
                 }
         }
+        
         .onAppear { start() }
     }
+    //
+    //    var body: some View {
+    //        ZStack  {
+    //            NewView( polylineHelper: polylineHelper)
+    //                .edgesIgnoringSafeArea(.all)
+    //
+    //            Spacer()
+    //                .sheet(isPresented: .constant(true), content: {
+    //                    SheetView(recordingModel: recordingModel)
+    //                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
+    //                        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+    //                            // Update the orientation when it changes
+    //                            print( UIDevice.current.orientation.isLandscape)
+    //                            print( UIDevice.current.orientation.isPortrait)
+    //                            print( UIDevice.current.orientation.isFlat)
+    //                            print( UIDevice.current.orientation.isValidInterfaceOrientation)
+    //                        }
+    //
+    //                })
+    //        }
+    //        .onAppear { start() }
+    //    }
     
     fileprivate func start() {
         LocationRecordingService(recordingModel: recordingModel,   locationService: locationService)

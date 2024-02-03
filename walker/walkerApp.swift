@@ -11,6 +11,7 @@ import SwiftUI
 struct walkerApp: App {
     
     init() {
+        // for hot reloading
         _ = Injector()
     }
 

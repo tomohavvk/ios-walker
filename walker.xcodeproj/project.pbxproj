@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B24F7862B6506FF00AE4E64 /* LocationWatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24F7852B6506FF00AE4E64 /* LocationWatcherService.swift */; };
-		2B603F4C2B67A7C200B4663A /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F4B2B67A7C200B4663A /* NavigationView.swift */; };
+		2B603F4C2B67A7C200B4663A /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F4B2B67A7C200B4663A /* RecordingView.swift */; };
 		2B603F4E2B67A7FE00B4663A /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F4D2B67A7FE00B4663A /* Common.swift */; };
 		2B603F502B67D05C00B4663A /* LocationRecordingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F4F2B67D05C00B4663A /* LocationRecordingService.swift */; };
 		2B603F532B67D0AB00B4663A /* Transformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F522B67D0AB00B4663A /* Transformers.swift */; };
@@ -54,7 +54,7 @@
 /* Begin PBXFileReference section */
 		2B24F7852B6506FF00AE4E64 /* LocationWatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWatcherService.swift; sourceTree = "<group>"; };
 		2B24F7872B65172700AE4E64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		2B603F4B2B67A7C200B4663A /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
+		2B603F4B2B67A7C200B4663A /* RecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingView.swift; sourceTree = "<group>"; };
 		2B603F4D2B67A7FE00B4663A /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		2B603F4F2B67D05C00B4663A /* LocationRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecordingService.swift; sourceTree = "<group>"; };
 		2B603F522B67D0AB00B4663A /* Transformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformers.swift; sourceTree = "<group>"; };
@@ -213,7 +213,7 @@
 				2B73F0F32B6397C0000C2637 /* ContentView.swift */,
 				2B73F11F2B639E43000C2637 /* MapView.swift */,
 				2B73F1262B63C4AC000C2637 /* SheetView.swift */,
-				2B603F4B2B67A7C200B4663A /* NavigationView.swift */,
+				2B603F4B2B67A7C200B4663A /* RecordingView.swift */,
 				2B603F4D2B67A7FE00B4663A /* Common.swift */,
 				2B603F5A2B6834E500B4663A /* FakeSheetModifier.swift */,
 				2BA5624D2B69644B0057D200 /* NewView.swift */,
@@ -408,7 +408,7 @@
 				2B603F532B67D0AB00B4663A /* Transformers.swift in Sources */,
 				2B73F0F42B6397C0000C2637 /* ContentView.swift in Sources */,
 				2BA562812B6E31DB0057D200 /* LocationWatcherModel.swift in Sources */,
-				2B603F4C2B67A7C200B4663A /* NavigationView.swift in Sources */,
+				2B603F4C2B67A7C200B4663A /* RecordingView.swift in Sources */,
 				2B603F5B2B6834E500B4663A /* FakeSheetModifier.swift in Sources */,
 				2B73F1202B639E43000C2637 /* MapView.swift in Sources */,
 				2B73F0F22B6397C0000C2637 /* walkerApp.swift in Sources */,
