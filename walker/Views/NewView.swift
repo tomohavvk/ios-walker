@@ -11,14 +11,10 @@ import Combine
 
 struct NewView: UIViewRepresentable  {
     
-    @ObservedObject var mapModel: MapViewModel
-    @ObservedObject var navigationViewModel: NavigationViewModel
     @ObservedObject var locationService: LocationWatcherService
     @ObservedObject var polylineHelper: PolylineHelper
     
-    init(mapModel: MapViewModel, navigationModel: NavigationViewModel,locationService: LocationWatcherService, polylineHelper: PolylineHelper) {
-        self.mapModel = mapModel
-        self.navigationViewModel = navigationModel
+    init(locationService: LocationWatcherService, polylineHelper: PolylineHelper) {
         self.locationService = locationService
         self.polylineHelper = polylineHelper
     }

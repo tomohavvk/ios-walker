@@ -14,11 +14,13 @@ struct walkerApp: App {
         _ = Injector()
     }
     
-
+    @StateObject private var mapModel: MapViewModel = MapViewModel()
+    @StateObject private var navigationModel: NavigationViewModel = NavigationViewModel(recordLocation: true)
+    
     var body: some Scene {
         
         WindowGroup {
-            ContentView()
+            ContentView(mapModel: mapModel,navigationModel: navigationModel)
         }
     }
 }

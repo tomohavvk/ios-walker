@@ -6,11 +6,19 @@
 //
 
 import Foundation
+import SwiftUI
 import MapKit
 import Combine
 
 
 class PolylineHelper: ObservableObject {
+    
+    @ObservedObject private var navigationViewModel: NavigationViewModel
+    
+    init(navigationViewModel: NavigationViewModel) {
+        self.navigationViewModel = navigationViewModel
+    }
+    
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -41,7 +49,7 @@ class PolylineHelper: ObservableObject {
     
     public func collectPolylinesToDraw(_ mapView: NewView) {
         mapView.locationService.$lastLocation.sink { [] lastLocation in
-            if mapView.navigationViewModel.recordLocation,  let lastLocation = lastLocation, let previousLocation = self.lastPolylineLocation {
+            if self.navigationViewModel.recordLocation,  let lastLocation = lastLocation, let previousLocation = self.lastPolylineLocation {
                 if lastLocation.horizontalAccuracy <= 5  && self.lastPolylineLocation?.timestamp != lastLocation.timestamp {
                     
                     let coords = [
