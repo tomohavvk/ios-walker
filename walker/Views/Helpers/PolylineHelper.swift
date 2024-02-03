@@ -19,7 +19,6 @@ class PolylineHelper: ObservableObject {
         self.navigationViewModel = navigationViewModel
     }
     
-    
     private var cancellables: Set<AnyCancellable> = []
     
     private var polylinesToDraw: [MKPolyline] = []
@@ -28,6 +27,7 @@ class PolylineHelper: ObservableObject {
     private var lastPolylineLocation: CLLocation?
     
     public func drawPolylines(_ mapView: MKMapView) {
+        print("drawPolylines", "polylinesToDraw", self.polylinesToDraw.count, "drawedPolylines", self.drawedPolylines.count)
         //  DispatchQueue.main.async {
         self.polylinesToDraw.forEach { polyline in
             mapView.addOverlay(polyline)
@@ -48,7 +48,8 @@ class PolylineHelper: ObservableObject {
     }
     
     public func collectPolylinesToDraw(_ mapView: NewView) {
-        mapView.locationService.$lastLocation.sink { [] lastLocation in
+        mapView.locationWatcherModel.$lastLocation.sink { [] lastLocation in
+            print("collectPolylinesToDraw", "polylinesToDraw", self.polylinesToDraw.count, "drawedPolylines", self.drawedPolylines.count)
             if self.navigationViewModel.recordLocation,  let lastLocation = lastLocation, let previousLocation = self.lastPolylineLocation {
                 if lastLocation.horizontalAccuracy <= 5  && self.lastPolylineLocation?.timestamp != lastLocation.timestamp {
                     

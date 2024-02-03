@@ -16,11 +16,12 @@ struct walkerApp: App {
     
     @StateObject private var mapModel: MapViewModel = MapViewModel()
     @StateObject private var navigationModel: NavigationViewModel = NavigationViewModel(recordLocation: true)
+    @StateObject private var locationWatcherModel: LocationWatcherModel = LocationWatcherModel()
     
     var body: some Scene {
         
         WindowGroup {
-            ContentView(mapModel: mapModel,navigationModel: navigationModel)
+            ContentView(mapModel: mapModel,navigationModel: navigationModel, locationWatcherModel: locationWatcherModel)
         }
     }
 }

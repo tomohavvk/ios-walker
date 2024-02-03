@@ -46,10 +46,10 @@ public class LocationWatcherService : NSObject, ObservableObject, CLLocationMana
 
     private var watcher = Watcher()
     
-    @Published public var lastLocation: CLLocation?
+    @ObservedObject  var model: LocationWatcherModel
     
-    override init() {
-        super.init()
+    init(model: LocationWatcherModel) {
+        self.model = model
         UIDevice.current.isBatteryMonitoringEnabled = true
     }
     
@@ -141,7 +141,7 @@ public class LocationWatcherService : NSObject, ObservableObject, CLLocationMana
     ) {
         if let location = locations.last {
             if watcher.isLocationValid(location) {
-                lastLocation = location
+                model.lastLocation = location
             }
         }
     }

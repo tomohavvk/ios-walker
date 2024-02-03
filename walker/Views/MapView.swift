@@ -25,7 +25,7 @@ struct MapView: View {
 }
 
 #Preview {
-    MapView(mapModel:MapViewModel(), locationService: LocationWatcherService())
+    MapView(mapModel:MapViewModel(), locationService: LocationWatcherService(model: LocationWatcherModel()))
 }
 
 
