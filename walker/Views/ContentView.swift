@@ -13,7 +13,7 @@ struct ContentView: View {
     @ObservedObject private var recordingModel: RecordingModel
     @ObservedObject private var locationWatcherModel: LocationWatcherModel
     
-    init( recordingModel: RecordingModel, locationWatcherModel: LocationWatcherModel) {
+    init(recordingModel: RecordingModel, locationWatcherModel: LocationWatcherModel) {
         self.recordingModel = recordingModel
         self.locationWatcherModel = locationWatcherModel
         self._polylineHelper =  StateObject(wrappedValue: PolylineHelper(recordingModel: recordingModel, locationWatcherModel: locationWatcherModel))

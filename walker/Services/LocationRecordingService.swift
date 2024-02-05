@@ -54,6 +54,8 @@ class LocationRecordingService : ObservableObject{
                     Task {
                         LocationHistoryDataManager.shared.saveLocationHistory(location.asLocationDTO())
                     }
+                } else if location.horizontalAccuracy > 5 {
+                    self.recordingModel.currentSpeed = 0
                 }
             }
         }
