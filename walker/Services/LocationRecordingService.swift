@@ -15,13 +15,13 @@ import Get
 class LocationRecordingService : ObservableObject{
     private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: String(describing: LocationRecordingService.self))
     
-    @ObservedObject var recordingModel: RecordingModel
+    @ObservedObject var instrumentModel: InstrumentModel
     @ObservedObject var locationService: LocationWatcherService
     
     private var cancellables: Set<AnyCancellable> = []
     
-    init(recordingModel: RecordingModel,  locationService: LocationWatcherService) {
-        self.recordingModel = recordingModel
+    init(instrumentModel: InstrumentModel,  locationService: LocationWatcherService) {
+        self.instrumentModel = instrumentModel
         self.locationService = locationService
     }
     
@@ -31,7 +31,7 @@ class LocationRecordingService : ObservableObject{
     }
 
     fileprivate func recordLocation() {
-        recordingModel.$recordLocation.sink{ [] isRecordLocation in
+        instrumentModel.$recordLocation.sink{ [] isRecordLocation in
             Self.logger.info("isRecordLocation")
             
             if isRecordLocation {
@@ -46,16 +46,16 @@ class LocationRecordingService : ObservableObject{
     fileprivate func handleLocationChange() {
         locationService.model.$lastLocation.sink{ [] currentLocation in
             if let location = currentLocation {
-                print("currentAltitude" , Int(location.altitude))
-                self.recordingModel.currentAltitude = Int(location.altitude)
-                if location.horizontalAccuracy <= 5 && self.recordingModel.recordLocation {
-                    self.recordingModel.currentSpeed = Int(location.speed * 3.6)
+           //     print("currentAltitude" , Int(location.altitude))
+                self.instrumentModel.currentAltitude = Int(location.altitude)
+                if location.horizontalAccuracy <= 5 && self.instrumentModel.recordLocation {
+                    self.instrumentModel.currentSpeed = Int(location.speed * 3.6)
 
                     Task {
                         LocationHistoryDataManager.shared.saveLocationHistory(location.asLocationDTO())
                     }
                 } else if location.horizontalAccuracy > 5 {
-                    self.recordingModel.currentSpeed = 0
+                    self.instrumentModel.currentSpeed = 0
                 }
             }
         }

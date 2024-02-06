@@ -21,10 +21,15 @@ struct NewView: UIViewRepresentable  {
         let mapView: MKMapView = MKMapView()
         
         mapView.delegate = context.coordinator
+//        mapView.showsBuildings = false
+//        mapView.showsTraffic = false
+//        mapView.isZoomEnabled = false
+//        mapView.isScrollEnabled = false
         mapView.showsUserLocation = false
         mapView.showsUserTrackingButton = true
         mapView.showsScale = true
         mapView.isPitchEnabled = true
+        mapView.mapType = MKMapType.satellite
         
         mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
         

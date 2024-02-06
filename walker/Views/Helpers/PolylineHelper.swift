@@ -14,7 +14,7 @@ import Combine
 class PolylineHelper: ObservableObject {
     
     @Published  private var lastPolylineLocation: CLLocation?
-    @ObservedObject private var recordingModel: RecordingModel
+    @ObservedObject private var instrumentModel: InstrumentModel
     @ObservedObject private var locationWatcherModel: LocationWatcherModel
     
     private var polylinesToDraw: [MKPolyline] = []
@@ -22,8 +22,8 @@ class PolylineHelper: ObservableObject {
 
     private var cancellables: Set<AnyCancellable> = []
     
-    init(recordingModel: RecordingModel, locationWatcherModel: LocationWatcherModel) {
-        self.recordingModel = recordingModel
+    init(instrumentModel: InstrumentModel, locationWatcherModel: LocationWatcherModel) {
+        self.instrumentModel = instrumentModel
         self.locationWatcherModel = locationWatcherModel
     }
     
@@ -52,13 +52,13 @@ class PolylineHelper: ObservableObject {
         locationWatcherModel.$lastLocation.sink { [] lastLocation in
             DispatchQueue.main.async {
             //    print("collectPolylinesToDraw", "polylinesToDraw", self.polylinesToDraw.count, "drawedPolylines", self.drawedPolylines.count)
-                if self.recordingModel.recordLocation,  let lastLocation = lastLocation, let previousLocation = self.lastPolylineLocation {
+                if self.instrumentModel.recordLocation,  let lastLocation = lastLocation, let previousLocation = self.lastPolylineLocation {
                     if lastLocation.horizontalAccuracy <= 5  && self.lastPolylineLocation?.timestamp != lastLocation.timestamp {
                         
                         let distance = self.calculateDistance(coordinates: [previousLocation.asLocationDTO(), lastLocation.asLocationDTO()])
-                        print(lastLocation)
+//                        print(lastLocation)
                         if distance <= 200 {
-                            self.recordingModel.distance += distance
+                            self.instrumentModel.distance += distance
                         let coords = [
                             CLLocationCoordinate2D(latitude: previousLocation.coordinate.latitude, longitude: previousLocation.coordinate.longitude),
                             CLLocationCoordinate2D(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude)
@@ -86,7 +86,7 @@ class PolylineHelper: ObservableObject {
         let separatedByDistance = makeDataSeparatedByDistanceGap(200, historyCoords)
         
         DispatchQueue.main.async {
-            self.recordingModel.distance = separatedByDistance.totalDistance
+            self.instrumentModel.distance = separatedByDistance.totalDistance
         }
         print(separatedByDistance.totalDistance)
         print(separatedByDistance.result.count)

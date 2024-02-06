@@ -10,56 +10,97 @@ struct ContentView: View {
     @StateObject private var polylineHelper: PolylineHelper
     @StateObject private var locationService: LocationWatcherService
     
-    @ObservedObject private var recordingModel: RecordingModel
+    @ObservedObject private var instrumentModel: InstrumentModel
     @ObservedObject private var locationWatcherModel: LocationWatcherModel
+    @ObservedObject private var gpxFilesModel: GPXFilesModel
     
-    init(recordingModel: RecordingModel, locationWatcherModel: LocationWatcherModel) {
-        self.recordingModel = recordingModel
+    init(instrumentModel: InstrumentModel, locationWatcherModel: LocationWatcherModel, gpxFilesModel: GPXFilesModel) {
+        self.instrumentModel = instrumentModel
         self.locationWatcherModel = locationWatcherModel
-        self._polylineHelper =  StateObject(wrappedValue: PolylineHelper(recordingModel: recordingModel, locationWatcherModel: locationWatcherModel))
+        self.gpxFilesModel = gpxFilesModel
+        self._polylineHelper =  StateObject(wrappedValue: PolylineHelper(instrumentModel: instrumentModel, locationWatcherModel: locationWatcherModel))
         self._locationService =  StateObject(wrappedValue: LocationWatcherService(model: locationWatcherModel))
     }
     
     var body: some View {
-        ZStack  {
-            NewView( polylineHelper: polylineHelper)
-                .fakeSheet(minHeight: 200, maxHeight: 500, width: screenWidth,  expanded: .constant(true), outerContent: RecordingView(recordingModel: recordingModel)) {
-                    SheetView(recordingModel: recordingModel)
-                }
-        }
         
-        .onAppear { start() }
+        let topView =  VStack {
+            NewView(polylineHelper: polylineHelper)
+            
+            
+            
+        }
+        let bottomView =
+        
+        
+        SheetView(instrumentModel: instrumentModel, gpxFilesModel: gpxFilesModel)
+        
+
+        return  VStack{
+            SplitView(topView:  topView, bottomView: bottomView)
+            
+                .overlay(alignment: Alignment.bottom) {
+                    
+                    HStack {
+                        Button(action: {
+                            // Action for the first button (e.g., Settings)
+                            print("Settings button tapped")
+                        }) {
+                            Image(systemName: "gear")
+                                .foregroundColor(.white)
+                        }
+                        .padding()
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            // Action for the second button (e.g., Profile)
+                            print("Profile button tapped")
+                        }) {
+                            Image(systemName: "person")
+                                .foregroundColor(.white)
+                        }
+                        .padding()
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            // Action for the third button (e.g., Notifications)
+                            print("Notifications button tapped")
+                        }) {
+                            Image(systemName: "bell")
+                                .foregroundColor(.white)
+                        }
+                        .padding()
+                        
+                        Spacer()
+                        
+                        Button(action: {
+
+                            print("More button tapped")
+                        }) {
+                            Image(systemName: "ellipsis")
+                                .foregroundColor(.white)
+                        }
+                        .padding()
+                    }
+//                    .frame()
+                    .background(Color.gray)
+                    .ignoresSafeArea(.all)
+                    .frame(width: .infinity, height: 30)
+                    .onAppear { start() }
+                }
+             
+        }
     }
-    //
-    //    var body: some View {
-    //        ZStack  {
-    //            NewView( polylineHelper: polylineHelper)
-    //                .edgesIgnoringSafeArea(.all)
-    //
-    //            Spacer()
-    //                .sheet(isPresented: .constant(true), content: {
-    //                    SheetView(recordingModel: recordingModel)
-    //                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
-    //                        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-    //                            // Update the orientation when it changes
-    //                            print( UIDevice.current.orientation.isLandscape)
-    //                            print( UIDevice.current.orientation.isPortrait)
-    //                            print( UIDevice.current.orientation.isFlat)
-    //                            print( UIDevice.current.orientation.isValidInterfaceOrientation)
-    //                        }
-    //
-    //                })
-    //        }
-    //        .onAppear { start() }
-    //    }
     
     fileprivate func start() {
-        LocationRecordingService(recordingModel: recordingModel,   locationService: locationService)
+        LocationRecordingService(instrumentModel: instrumentModel,   locationService: locationService)
             .start()
     }
 }
 
 #Preview {
-    ContentView( recordingModel: RecordingModel(recordLocation: true), locationWatcherModel: LocationWatcherModel())
+    ContentView( instrumentModel: InstrumentModel(recordLocation: true), locationWatcherModel: LocationWatcherModel(), gpxFilesModel: GPXFilesModel(gpxFileNameList:  (1...20).map { String($0)}))
 }
 

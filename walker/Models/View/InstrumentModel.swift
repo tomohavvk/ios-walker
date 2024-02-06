@@ -8,8 +8,12 @@
 import Foundation
 import SwiftUI
 
-class RecordingModel: ObservableObject {
+class InstrumentModel: ObservableObject {
     @Published var recordLocation: Bool
+    @Published  var currentTabName = "first"
+
+    
+    // TODO MOVE TO SEPARATE MODEL
     @Published var distance: Int64 = 0
     @Published var currentSpeed: Int = 0
     @Published var currentAltitude: Int = 0

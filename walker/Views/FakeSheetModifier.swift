@@ -4,6 +4,7 @@ import SwiftUI
 struct FakeSheetModifier<InnerContent: View, OuterContent: View>: ViewModifier {
     @State private var yOffset: CGFloat
     @State private var dragOffset: CGFloat = 0
+    @State private var initHeight: CGFloat
     @State private var minHeight: CGFloat
     @State private var maxHeight: CGFloat
     @State private var width: CGFloat
@@ -12,7 +13,10 @@ struct FakeSheetModifier<InnerContent: View, OuterContent: View>: ViewModifier {
     private let innerContent: InnerContent
     private let outerContent: OuterContent
     
-    init(minHeight: CGFloat = 200, maxHeight: CGFloat = 500, width: CGFloat, expanded: Binding<Bool>, outerContent: OuterContent, @ViewBuilder innerContent: () -> InnerContent) {
+    init(initHeight: CGFloat = 200, minHeight: CGFloat = 200, maxHeight: CGFloat = 500, width: CGFloat, expanded: Binding<Bool>, outerContent: OuterContent, @ViewBuilder innerContent: () -> InnerContent) {
+        
+        
+        
         if UIScreen.main.bounds.width > UIScreen.main.bounds.height {
             self._minHeight = State(initialValue: minHeight * -2)
             self._width = State(initialValue: width / 2)
@@ -23,32 +27,37 @@ struct FakeSheetModifier<InnerContent: View, OuterContent: View>: ViewModifier {
         
         self.innerContent = innerContent()
         self.outerContent = outerContent
+        self._initHeight = State(initialValue: initHeight)
         self._maxHeight = State(initialValue: maxHeight)
         
-        self._yOffset = State(initialValue: -minHeight)
+        self._yOffset = State(initialValue: -100)
         self._expanded = expanded
     }
     
     func body(content: Content) -> some View {
-        ZStack {
+      
+        print("CONTENT")
+     return  ZStack {
             content
-            
-            VStack {
+           
+             VStack {
                 outerContent
                 
                 VStack(spacing: 0) {
-                    Color.gray.brightness(0.2)
-                        .frame(width: 35, height: 5)
-                        .cornerRadius(3).padding()
+//                    Color.gray.brightness(0.2)
+//                        .frame(width: 35, height: 5)
+//                        .cornerRadius(3).padding()
+                    
                     innerContent
-                }
-                .frame(width: self.width, height: UIScreen.main.bounds.height)
+                     
+                }  .scrollDisabled(false)
+      
+                     .frame(width: self.width, height: UIScreen.main.bounds.height)
                 .background(Color.black.brightness(0.11))
                 .cornerRadius(10)
             }
-            .edgesIgnoringSafeArea(.bottom)
+           // .edgesIgnoringSafeArea(.bottom)
             .offset(x: 0, y: UIScreen.main.bounds.height + yOffset + dragOffset)
-            
             .gesture(DragGesture()
                 .onChanged({ event in
                     if UIScreen.main.bounds.height + self.yOffset + self.dragOffset <= 40 {
@@ -79,46 +88,50 @@ struct FakeSheetModifier<InnerContent: View, OuterContent: View>: ViewModifier {
                         }
                     })
             )
+            .onAppear {
+                withAnimation {
+              
+                self.yOffset = -self.initHeight
+                    
+                }
+            }
         }
     }
+
 }
 
 
 struct Sheet_Previews: PreviewProvider {
+   
     
     @State static var expanded: Bool = true
     
     static var previews: some View {
-        let outerContent =  HStack {
-            Button(action: {}) {
-                Image(systemName: "minus.circle.fill")
-                    .font(.title)
-                    .foregroundColor(.gray)
-            }
-            
-            Button(action: {}) {
-                Image(systemName: "plus.circle.fill")
-                    .font(.title)
-                    .foregroundColor(.gray)
-            }
-        }
+
         
-        Color.white
-            .fakeSheet(minHeight: 125,maxHeight:500, width:500, expanded: $expanded, outerContent: outerContent) {
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("Hello world")
-                        .font(.title)
-                        .bold()
-                        .foregroundColor(.white)
-                        .padding(.all, 40)
-                    Spacer()
-                }
-            }
+        Spacer()
+//            .fakeSheet(initHeight: UIScreen.main.bounds.height - 55, minHeight: 50, maxHeight: UIScreen.main.bounds.height - 5, width:  UIScreen.main.bounds.width, expanded: .constant(true), outerContent:
+            .sheet(isPresented: .constant(true), content: {
+                
+           
+                    
+    
+            
+                GPXFilesSheetView(instrumentModel: InstrumentModel(recordLocation: true), gpxFilesModel: GPXFilesModel(gpxFileNameList: (1...20).map { String($0)}))
+                    .scrollDisabled(false)
+                  
+                    //    .frame(width: .infinity, height: .infinity)
+                      //              .padding(10) // Adjust the padding as needed
+                   // .frame(height: UIScreen.main.bounds.height - 5)
+            })
+            .presentationDetents( (Array(stride(from: 0.5, through: 0.95, by: 0.95))
+                .map { PresentationDetent.fraction(CGFloat($0)) }).toSet())
+
     }
 }
 
 extension View {
-    func fakeSheet<InnerContent: View, OuterContent: View>(minHeight: CGFloat, maxHeight: CGFloat, width: CGFloat, expanded: Binding<Bool>, outerContent: OuterContent, @ViewBuilder innerContent: () -> InnerContent) -> some View {
-        self.modifier(FakeSheetModifier(minHeight: minHeight, maxHeight: maxHeight,width:width, expanded: expanded, outerContent: outerContent, innerContent: innerContent))
+    func fakeSheet<InnerContent: View, OuterContent: View>(initHeight: CGFloat,minHeight: CGFloat, maxHeight: CGFloat, width: CGFloat, expanded: Binding<Bool>, outerContent: OuterContent, @ViewBuilder innerContent: () -> InnerContent) -> some View {
+        self.modifier(FakeSheetModifier(initHeight: initHeight, minHeight: minHeight, maxHeight: maxHeight,width:width, expanded: expanded, outerContent: outerContent, innerContent: innerContent))
     }
 }
