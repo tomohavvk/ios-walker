@@ -37,6 +37,7 @@
 		2BA562832B70DA1E0057D200 /* GPXFilesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562822B70DA1E0057D200 /* GPXFilesService.swift */; };
 		2BA562862B70DC870057D200 /* GPXFileRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562852B70DC870057D200 /* GPXFileRow.swift */; };
 		2BA562882B70DCD10057D200 /* GPXFilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562872B70DCD10057D200 /* GPXFilesModel.swift */; };
+		2BBE17A92B7293B700C1C5A6 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBE17A82B7293B700C1C5A6 /* FooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		2BA562822B70DA1E0057D200 /* GPXFilesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFilesService.swift; sourceTree = "<group>"; };
 		2BA562852B70DC870057D200 /* GPXFileRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileRow.swift; sourceTree = "<group>"; };
 		2BA562872B70DCD10057D200 /* GPXFilesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFilesModel.swift; sourceTree = "<group>"; };
+		2BBE17A82B7293B700C1C5A6 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +225,7 @@
 				2BA562842B70DC210057D200 /* sheet */,
 				2BA5627B2B6D26490057D200 /* Helpers */,
 				2B73F0F32B6397C0000C2637 /* ContentView.swift */,
+				2BBE17A82B7293B700C1C5A6 /* FooterView.swift */,
 				2B73F11F2B639E43000C2637 /* MapView.swift */,
 				2B3BD3402B7131130070EB8F /* SplitView.swift */,
 				2B603F4B2B67A7C200B4663A /* InstrumentView.swift */,
@@ -431,6 +434,7 @@
 				2B603F652B68EB0D00B4663A /* LocationDTO.swift in Sources */,
 				2B603F532B67D0AB00B4663A /* Transformers.swift in Sources */,
 				2B73F0F42B6397C0000C2637 /* ContentView.swift in Sources */,
+				2BBE17A92B7293B700C1C5A6 /* FooterView.swift in Sources */,
 				2BA562812B6E31DB0057D200 /* LocationWatcherModel.swift in Sources */,
 				2B3BD3412B7131130070EB8F /* SplitView.swift in Sources */,
 				2B603F4C2B67A7C200B4663A /* InstrumentView.swift in Sources */,
