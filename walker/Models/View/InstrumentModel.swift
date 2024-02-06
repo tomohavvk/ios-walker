@@ -21,8 +21,4 @@ class InstrumentModel: ObservableObject {
     init(recordLocation: Bool) {
         self.recordLocation = recordLocation
     }
-
-    func handleRecordocationPressed() {
-        recordLocation = !recordLocation
-    }
 }
