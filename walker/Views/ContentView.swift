@@ -12,6 +12,7 @@ struct ContentView: View {
     
     @State private var sheetOffset: CGPoint = .zero
     
+    
     @StateObject private var polylineHelper: PolylineHelper
     @StateObject private var locationService: LocationWatcherService
     
@@ -31,34 +32,61 @@ struct ContentView: View {
         GeometryReader { geometry in
             
             NewView(polylineHelper: polylineHelper)
-             
+            
                 .overlay(alignment: Alignment.bottom) {
                     VStack {
+                        
                         InstrumentView(instrumentModel: instrumentModel)
                         
-                        SheetView(instrumentModel: instrumentModel, gpxFilesModel: gpxFilesModel)
-                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - topViewHeight - 40)
-                            .background(LinearGradient(gradient: Gradient(colors: [.gray, .gray]), startPoint: .bottom, endPoint: .top))
-                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        VStack {
+                            HStack {
+                                Spacer()
+                                RoundedRectangle(cornerRadius: 10)
+                                    .frame(width: 60, height: 5)
+                                    .foregroundColor(.gray)
+                                    .padding(.vertical, 15)
+                                
+                                Spacer()
+                            }
+                            SheetView(instrumentModel: instrumentModel)
+                            
+//                            if instrumentModel.currentTabName != "gear" {
+                                withAnimation {
+                                    Spacer()
+                                        .sheet(isPresented: $instrumentModel.isGPXFilesSheetPresented, onDismiss:  {
+                                            instrumentModel.currentTabName = "gear"
+                                        }, content: {
+                                            
+                                            GPXFilesSheetView(instrumentModel: instrumentModel, gpxFilesModel: GPXFilesModel(gpxFileNameList: (1...20).map { String($0)}))
+                                                .background(.black)
+                                                .presentationDetents([.fraction(1)])
+                                            
+                                            .presentationBackgroundInteraction( .enabled )
+                                        })
+                                }
+//                            }
+                            
+                        }
+                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - topViewHeight - 40)
+                        .background(LinearGradient(gradient: Gradient(colors: [.black, .black]), startPoint: .bottom, endPoint: .top))
+                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                     }
-                    .gesture(dragGesture( ))
-                
+                    .gesture(dragGesture())
                 }
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                 .overlay(alignment: Alignment.bottom) {
                     VStack {
                         Divider().colorMultiply(.white)
-                        FooterView()
-                            .background(LinearGradient(gradient: Gradient(colors: [.gray, .gray]), startPoint: .bottom, endPoint: .top))
+                        FooterView(instrumentModel: instrumentModel)
                     }
-                  
+                    
                 }
                 .onAppear { start() }
                 .ignoresSafeArea()
                 .background(.black)
             
         }
-      
+        
     }
     
     
@@ -76,25 +104,25 @@ struct ContentView: View {
                 handleDragEnded( )
             }
     }
-
+    
     private func handleDragChanged(_ gesture: DragGesture.Value ) {
         dragState = .dragging(translation: gesture.translation)
-
+        
         let newHeight = max(minHeight, min(UIScreen.main.bounds.height - minHeight, topViewHeight + gesture.translation.height))
         if newHeight != topViewHeight {
             topViewHeight = newHeight
         }
     }
-
+    
     private func handleDragEnded( ) {
         dragState = .inactive
         withAnimation(.spring()) {
             let newHeight = topViewHeight
-                if newHeight < minHeight + snapThreshold {
-                    topViewHeight = minHeight
-                } else if (UIScreen.main.bounds.height - newHeight) < minHeight + snapThreshold {
-                    topViewHeight = UIScreen.main.bounds.height - minHeight
-                }
+            if newHeight < minHeight + snapThreshold {
+                topViewHeight = minHeight
+            } else if (UIScreen.main.bounds.height - newHeight) < minHeight + snapThreshold {
+                topViewHeight = UIScreen.main.bounds.height - minHeight
+            }
         }
     }
 }

@@ -25,21 +25,38 @@ struct GPXFilesSheetView: View {
     }
     
     var body: some View {
-        
         VStack {
-   
-                List {
-                    ForEach(gpxFilesModel.gpxFileNameList, id: \.self) { filename in
-                        Text(filename)
-                    }
-                    .onDelete(perform: delete)
+            
+            HStack {
+                Text("GPX Files").font(.title)
+                    .foregroundColor(.white)
+                    .padding()
+                Spacer()
+                
+                Button("Close") {
+                    instrumentModel.isGPXFilesSheetPresented.toggle()
+                }  .bold().padding()
+                  
+                
+                
+            }
+            
+            Divider()
+            
+            
+            List {
+                ForEach(gpxFilesModel.gpxFileNameList, id: \.self) { filename in
+                    Text(filename)
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .listRowBackground(Color.black)
+//                    Divider().foregroundStyle(/*@START_MENU_TOKEN@*/SecondaryContentStyle()/*@END_MENU_TOKEN@*/)
                 }
-                .listStyle(.plain)
-            //    .presentationContentInteraction(.scrolls)
+                .onDelete(perform: delete)
+            }
+            .listStyle(.plain)
             
-            
-        }.padding()
-   
+        }.background(.black)
     }
 }
 

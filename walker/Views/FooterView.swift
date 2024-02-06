@@ -8,31 +8,36 @@
 import SwiftUI
 
 struct FooterView: View {
+    
+    @ObservedObject  var instrumentModel: InstrumentModel
+    
     var body: some View {
         
+        
         HStack {
+            Spacer()
             Button(action: {
-                // Action for the first button (e.g., Settings)
-                print("Settings button tapped")
+                instrumentModel.currentTabName = "gear"
+                instrumentModel.isGPXFilesSheetPresented = false
             }) {
-                Image(systemName: "gear")
-                    .foregroundColor(.white)
+                
+                Image(systemName: "gear").foregroundColor( instrumentModel.currentTabName == "gear" ? .blue : .white)
+                
             }
             .padding()
             
             Spacer()
             
             Button(action: {
-                // Action for the second button (e.g., Profile)
-                print("Profile button tapped")
+                instrumentModel.currentTabName = "person"
+                instrumentModel.isGPXFilesSheetPresented = true
             }) {
-                Image(systemName: "person")
-                    .foregroundColor(.white)
+                Image(systemName: "person").foregroundColor( instrumentModel.currentTabName == "person" ? .blue : .white)
+                
             }
             .padding()
             Spacer()
             Button(action: {
-                // Action for the third button (e.g., Notifications)
                 print("Notifications button tapped")
             }) {
                 Image(systemName: "bell")
@@ -47,12 +52,14 @@ struct FooterView: View {
                     .foregroundColor(.white)
             }
             .padding()
+            Spacer()
         }
+        .background(.black)
         .ignoresSafeArea(.all)
         .frame( height: 60)
     }
 }
 
 #Preview {
-    FooterView()
+    FooterView(instrumentModel: InstrumentModel(recordLocation: true))
 }

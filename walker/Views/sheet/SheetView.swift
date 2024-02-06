@@ -9,40 +9,18 @@ import SwiftUI
 
 struct SheetView: View {
     @ObservedObject private var instrumentModel: InstrumentModel
-    @ObservedObject private var gpxFilesModel: GPXFilesModel
     
-    private var detents: Set<PresentationDetent>
-    
-    init(   instrumentModel: InstrumentModel, gpxFilesModel: GPXFilesModel) {
+    init(   instrumentModel: InstrumentModel ) {
         
         self.instrumentModel = instrumentModel
-        self.gpxFilesModel = gpxFilesModel
-        self.detents = (Array(stride(from: 0.1, through: 0.95, by: 0.3))
-            .map { PresentationDetent.fraction(CGFloat($0)) }).toSet()
+        
     }
     
-    func delete(at offsets: IndexSet) {
-        withAnimation {
-            gpxFilesModel.gpxFileNameList.remove(atOffsets: offsets)
-        }
-    }
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center) {
-                HStack {
-                    Spacer()
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 60, height: 5)
-                    //   .scaleEffect(dragState.isDragging ? 0.8 : 1.0)
-                        .foregroundColor(.black)
-                        .padding(.vertical, 15)
-                    
-                    Spacer()
-                }
-                
-                VStack(alignment: .leading, spacing: 16) {
+ 
                     Grid {
-                        
                         Divider()
                         GridRow {
                             Image(systemName: "gauge.with.dots.needle.50percent").foregroundColor(.white)
@@ -61,12 +39,12 @@ struct SheetView: View {
                     }
                 }
                 
-            }
+    
         }
     }
     
 }
 
 #Preview {
-    SheetView(instrumentModel: InstrumentModel(recordLocation: true), gpxFilesModel: GPXFilesModel(gpxFileNameList: ["GPX 1 - 12.02.1988"]))
+    SheetView(instrumentModel: InstrumentModel(recordLocation: true) )
 }

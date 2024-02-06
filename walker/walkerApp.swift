@@ -25,6 +25,7 @@ struct walkerApp: App {
             WindowGroup {
                 GeometryReader { geometry in
             ContentView( instrumentModel: instrumentModel, locationWatcherModel: locationWatcherModel, gpxFilesModel: gpxFilesModel)
+                        .background(.black)
         }
     }
     }
