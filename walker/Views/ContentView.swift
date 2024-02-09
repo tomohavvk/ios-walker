@@ -54,7 +54,7 @@ struct ContentView: View {
                                 withAnimation {
                                     Spacer()
                                         .sheet(isPresented: $instrumentModel.isGPXFilesSheetPresented, onDismiss:  {
-                                            instrumentModel.currentTabName = "gear"
+//                                            instrumentModel.currentTabName = "gear"
                                         }, content: {
                                             
                                             GPXFilesSheetView(instrumentModel: instrumentModel, gpxFilesModel: GPXFilesModel(gpxFileNameList: (1...20).map { String($0)}))

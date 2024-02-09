@@ -34,6 +34,7 @@ struct GPXFilesSheetView: View {
                 Spacer()
                 
                 Button("Close") {
+                    instrumentModel.currentTabName = "gear"
                     instrumentModel.isGPXFilesSheetPresented.toggle()
                 }  .bold().padding()
                   
