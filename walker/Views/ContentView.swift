@@ -2,22 +2,12 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    private let minHeight: CGFloat = 140
-    private let snapThreshold: CGFloat = 200
     
-    @State private var topViewHeight: CGFloat = 480
-    
-    private let screenWidth  = UIScreen.main.bounds.width
     private static let walkerClient  =   WalkerClient(baseURL: "", deviceId: UIDevice.current.identifierForVendor!.uuidString)
-    
-    @State private var sheetOffset: CGPoint = .zero
-    
-    
     @StateObject private var polylineHelper: PolylineHelper
     @StateObject private var locationService: LocationWatcherService
     
     @ObservedObject private var locationWatcherModel: LocationWatcherModel
-    
     
     init(locationWatcherModel: LocationWatcherModel) {
         self.locationWatcherModel = locationWatcherModel
@@ -28,52 +18,69 @@ struct ContentView: View {
     
     
     @State private var searchText = ""
+    @State private var gpxFileNameList = (1...20).map { String($0)}
     
     var body: some View {
         GeometryReader { geometry in
             ZStack  {
                 NewView(polylineHelper: polylineHelper)
-
+                
                     .edgesIgnoringSafeArea(.all)
                 
                 Spacer()
                     .sheet(isPresented: .constant(true), content: {
                         ScrollView()  {
-                            Grid {
-                                GridRow {
-                                    Image(systemName: "person")
-                                    Text("Groups").fontWeight(.bold)
-                                    Image(systemName: "trash")
-                                        .frame(width: 32, height: 32)
-                                        .background(Color.blue)
-                                        .mask(Circle())
-                                }.foregroundColor(.black)
-                                Divider()
-                            }.padding()
+                            VStack {
+                                Grid {
+                                    GridRow {
+                                        Image(systemName: "person")
+                                        Text("Groups").fontWeight(.bold)
+                                        Image(systemName: "trash")
+                                            .frame(width: 32, height: 32)
+                                            .background(Color.blue)
+                                            .mask(Circle())
+                                    }
+                                    Divider()
+                                    
+                                    
+                                }.foregroundColor(.black).padding()
+                                
+                                ScrollView()  {
+                                    
+                                    List {
+                                        ForEach(self.gpxFileNameList, id: \.self) { filename in
+                                            HStack {
+                                                Image(systemName: "person")
+                                                Text("Walker group")
+                                            }
+                                            .font(.title2)
+                                            .foregroundColor(.black)
+                                            .listRowBackground(Color.clear)
+                                        }
+                                        .onDelete(perform: delete)
+                                        
+                                    } .frame( height: UIScreen.main.bounds.height - 300)
+                                        .listStyle(.plain)
+                                }
+                            }
                         }
-       
+                        
                         .background(
                             LinearGradient(gradient: Gradient(colors: [.mint, .blue]), startPoint: .top, endPoint: .bottom)
                         )
-                        .scrollDisabled(true)
                         .interactiveDismissDisabled(true)
-                        .presentationDetents([.fraction(CGFloat(0.2)),.fraction(CGFloat(0.5)),.fraction(CGFloat(0.95))])
+                        .presentationDetents([.fraction(CGFloat(0.15)),.fraction(CGFloat(0.5)),.fraction(CGFloat(0.95))])
                         .presentationBackgroundInteraction(.enabled )
                         .presentationCompactAdaptation(.none)
-                      
+                        
                         .overlay(alignment: Alignment.bottom) {
-                                    
-                                             
-                                               FooterView( )
-                                           }
-                                           
-                            
-                      
-                     
-                      
+                            FooterView( )
+                                .background(.black)
+                              
+                        }
                         
                     })
-                   
+                
                     .onAppear { start() }
             }
             .background(
@@ -82,6 +89,11 @@ struct ContentView: View {
         }
     }
     
+    func delete(at offsets: IndexSet) {
+        withAnimation {
+         print("DELETED")
+        }
+    }
     
     private func start() {
         locationService.startWatcher()

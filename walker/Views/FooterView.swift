@@ -51,7 +51,7 @@ struct FooterView: View {
             .padding()
             Spacer()
         }
-        .background(.black)
+      //  .background(.black)
   
     }
 }
