@@ -4,6 +4,8 @@
 .idea/
 Pods/
 Podfile.lock
+metals.log
+metals.mv.db
 
 # Xcode
 build/

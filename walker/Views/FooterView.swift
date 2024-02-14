@@ -9,7 +9,6 @@ import SwiftUI
 
 struct FooterView: View {
     
-    @ObservedObject  var instrumentModel: InstrumentModel
     
     var body: some View {
         
@@ -17,11 +16,10 @@ struct FooterView: View {
         HStack {
             Spacer()
             Button(action: {
-                instrumentModel.currentTabName = "gear"
-                instrumentModel.isGPXFilesSheetPresented = false
+              
             }) {
                 
-                Image(systemName: "gear").foregroundColor( instrumentModel.currentTabName == "gear" ? .blue : .white)
+                Image(systemName: "gear").foregroundColor( .white)
                 
             }
             .padding()
@@ -29,10 +27,9 @@ struct FooterView: View {
             Spacer()
             
             Button(action: {
-                instrumentModel.currentTabName = "person"
-                instrumentModel.isGPXFilesSheetPresented = true
+              
             }) {
-                Image(systemName: "person").foregroundColor( instrumentModel.currentTabName == "person" ? .blue : .white)
+                Image(systemName: "person").foregroundColor( .white)
                 
             }
             .padding()
@@ -55,11 +52,10 @@ struct FooterView: View {
             Spacer()
         }
         .background(.black)
-        .ignoresSafeArea(.all)
-        .frame( height: 60)
+  
     }
 }
 
 #Preview {
-    FooterView(instrumentModel: InstrumentModel(recordLocation: true))
+    FooterView()
 }
