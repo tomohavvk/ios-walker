@@ -7,7 +7,20 @@
 
 import SwiftUI
 
+
+
+class FooterModel : ObservableObject {
+    @Published var currentTabOpened: String
+    
+    init(currentTabOpened: String) {
+        self.currentTabOpened = currentTabOpened
+    }
+}
 struct FooterView: View {
+    
+   
+    @State var footerModel: FooterModel
+    
     
     
     var body: some View {
@@ -16,10 +29,9 @@ struct FooterView: View {
         HStack {
             Spacer()
             Button(action: {
-              
+                footerModel.currentTabOpened = "person"
             }) {
-                
-                Image(systemName: "gear").foregroundColor( .white)
+                Image(systemName: "person.fill").foregroundColor( .white)
                 
             }
             .padding()
@@ -27,35 +39,22 @@ struct FooterView: View {
             Spacer()
             
             Button(action: {
-              
+                footerModel.currentTabOpened = "person.3"
             }) {
-                Image(systemName: "person").foregroundColor( .white)
+                
+                Image(systemName: "person.3.fill").foregroundColor( .white)
                 
             }
             .padding()
             Spacer()
-            Button(action: {
-                print("Notifications button tapped")
-            }) {
-                Image(systemName: "bell")
-                    .foregroundColor(.white)
-            }
-            .padding()
-            Spacer()
-            Button(action: {
-                print("More button tapped")
-            }) {
-                Image(systemName: "ellipsis")
-                    .foregroundColor(.white)
-            }
-            .padding()
-            Spacer()
+
         }
-      //  .background(.black)
-  
+
+        
     }
 }
 
 #Preview {
-    FooterView()
+    FooterView(footerModel: FooterModel(currentTabOpened: "person"))
+        .background(.black)
 }
