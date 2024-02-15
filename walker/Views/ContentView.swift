@@ -16,7 +16,7 @@ struct ContentView: View {
     
     
     init(locationWatcherModel: LocationWatcherModel, navModel: NavigationBarModel, groupSheetModel: GroupSheetModel) {
-        print("INITS DAD SA")
+        print("INIT ContentView")
         self.locationWatcherModel = locationWatcherModel
         self.navModel = navModel
         self.groupSheetModel = groupSheetModel

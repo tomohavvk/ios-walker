@@ -14,7 +14,7 @@ struct walkerApp: App {
 
     @StateObject private var locationWatcherModel: LocationWatcherModel = LocationWatcherModel()
     @StateObject var navModel: NavigationBarModel = NavigationBarModel(currentTabOpened: "person")
-    @StateObject var groupSheetModel: GroupSheetModel = GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting)
+    @StateObject var groupSheetModel: GroupSheetModel = GroupSheetModel(searchingFor: "", groupsToShow: [])
     
     @State  var topViewHeight: CGFloat = 480
     
@@ -36,15 +36,15 @@ struct walkerApp: App {
                 GeometryReader { geometry in
                     ContentView( locationWatcherModel: locationWatcherModel, navModel: navModel, groupSheetModel: groupSheetModel)
                         .background(.black)
-                        .task {
-                            print("going to make request")
-                                 do {
-                                     self.groupSheetModel.groupsToShow = try await Self.walkerClient.getDeviceOwnedOrJoinedGroups()
-                                 } catch {
-                                     // Handle errors here
-                                     print("Error: \(error)")
-                                 }
-                        }
+//                        .task {
+//                            print("going to make request")
+//                                 do {
+//                                     self.groupSheetModel.groupsToShow = try await Self.walkerClient.getDeviceOwnedOrJoinedGroups()
+//                                 } catch {
+//                                     // Handle errors here
+//                                     print("Error: \(error)")
+//                                 }
+//                        }
         }
     }
     }

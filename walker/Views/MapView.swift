@@ -18,6 +18,7 @@ struct NewView: UIViewRepresentable  {
     }
     
     func makeUIView(context: Context) -> MKMapView {
+        print("INIT MapView")
         let mapView: MKMapView = MKMapView()
         
         mapView.delegate = context.coordinator
