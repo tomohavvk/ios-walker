@@ -17,6 +17,7 @@ struct walkerApp: App {
 
     @StateObject private var locationWatcherModel: LocationWatcherModel = LocationWatcherModel()
     @StateObject var navModel: NavigationBarModel = NavigationBarModel(currentTabOpened: "person")
+    @StateObject var groupSheetModel: GroupSheetModel = GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting)
     
     @State  var topViewHeight: CGFloat = 480
     var body: some Scene {
@@ -24,7 +25,7 @@ struct walkerApp: App {
        
             WindowGroup {
                 GeometryReader { geometry in
-                    ContentView( locationWatcherModel: locationWatcherModel, navModel: navModel)
+                    ContentView( locationWatcherModel: locationWatcherModel, navModel: navModel, groupSheetModel: groupSheetModel)
                         .background(.black)
         }
     }

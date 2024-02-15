@@ -171,7 +171,7 @@ var day: String {
 
 struct ContactView_Previews: PreviewProvider {
     static var previews: some View {
-        ContactView(contact: groups[0])
+        ContactView(contact: groupsTesting[0])
     }
 }
 

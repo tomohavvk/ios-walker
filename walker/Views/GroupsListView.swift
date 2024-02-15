@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct GroupsListView: View {
-    @State var contactsShown = groups.sorted { $0.name < $1.name }
+    var groupsToShow :[Group]
+
+    init(groupsToShow: [Group]) {
+        self.groupsToShow = groupsToShow
+    }
     
     var body: some View {
         List {
-            ForEach(contactsShown) { contact in
+            ForEach(groupsToShow) { contact in
                 NavigationLink(destination:
                                 ContactView(contact: contact)
                 ) {
@@ -49,7 +53,7 @@ struct GroupsListView: View {
 
 struct GroupsList_Previews: PreviewProvider {
     static var previews: some View {
-        GroupsListView()
+        GroupsListView(groupsToShow: groupsTesting.sorted { $0.name < $1.name })
     }
 }
 

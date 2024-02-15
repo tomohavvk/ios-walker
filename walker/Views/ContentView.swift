@@ -9,15 +9,17 @@ struct ContentView: View {
     
     @ObservedObject private var locationWatcherModel: LocationWatcherModel
     @ObservedObject private var navModel: NavigationBarModel
+    @ObservedObject private var groupSheetModel: GroupSheetModel
     
     
     @State private var searchText = "dasdas"
     
     
-    init(locationWatcherModel: LocationWatcherModel, navModel: NavigationBarModel) {
+    init(locationWatcherModel: LocationWatcherModel, navModel: NavigationBarModel, groupSheetModel: GroupSheetModel) {
         print("INITS DAD SA")
         self.locationWatcherModel = locationWatcherModel
         self.navModel = navModel
+        self.groupSheetModel = groupSheetModel
         
         self._polylineHelper =  StateObject(wrappedValue: PolylineHelper( locationWatcherModel: locationWatcherModel))
         self._locationService =  StateObject(wrappedValue: LocationWatcherService(model: locationWatcherModel))
@@ -28,36 +30,27 @@ struct ContentView: View {
         GeometryReader { geo in
             
             NewView(polylineHelper: polylineHelper)
-            
                 .edgesIgnoringSafeArea(.all)
             
             Spacer()
                 .sheet(isPresented: .constant(true), content: {
                     NavigationView {
-                        
-                  
-                    ZStack {
-                        if navModel.currentTabOpened == "person" {
-                            withAnimation {
-                                GroupsSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: navModel))
-                            }
-
-                        } else {
-                            withAnimation {
-                  
-                                    PersonSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: navModel))
-                
-                                 
+                        ZStack {
+                            if navModel.currentTabOpened == "person" {
+                                GroupsSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: navModel), groupSheetModel: groupSheetModel)
+                            } else {
+                                PersonSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: navModel))
                             }
                         }
                     }
-                    }
-                 
+                    
                     .interactiveDismissDisabled(true)
                     .presentationDetents([.fraction(CGFloat(0.4)),.fraction(CGFloat(0.5)),.fraction(CGFloat(0.99))])
                     .presentationBackgroundInteraction(.enabled )
                     .presentationCompactAdaptation(.none)
+                    
                 })
+            
             
                 .onAppear { start() }
         }
@@ -83,6 +76,6 @@ extension Array where Element: Hashable {
 
 
 #Preview {
-    ContentView( locationWatcherModel: LocationWatcherModel(), navModel: NavigationBarModel(currentTabOpened: "person") )
+    ContentView( locationWatcherModel: LocationWatcherModel(), navModel: NavigationBarModel(currentTabOpened: "person"),groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting) )
 }
 

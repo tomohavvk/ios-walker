@@ -12,7 +12,7 @@ struct PersonSheetView: View {
     @State var searchingFor = ""
     @State var sortByOptions = [ContactSortingMethod.alphabetical.rawValue, ContactSortingMethod.rank.rawValue, ContactSortingMethod.recent.rawValue]
     @State var selectedSortMethod = ContactSortingMethod.alphabetical
-    @State var contactsShown = groups.sorted { $0.name < $1.name }
+    @State var contactsShown = groupsTesting.sorted { $0.name < $1.name }
     
     let geo: GeometryProxy
     let navView: NavigationBarView
@@ -26,7 +26,7 @@ struct PersonSheetView: View {
       
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
-                GroupsListView()
+                GroupsListView(groupsToShow: groupsTesting)
             
                 
                 Menu("Sort".uppercased()) {

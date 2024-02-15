@@ -7,77 +7,68 @@
 
 import SwiftUI
 
-struct GroupsSheetView: View {
-    @State var searchingFor = ""
-    @State var sortByOptions = [ContactSortingMethod.alphabetical.rawValue, ContactSortingMethod.rank.rawValue, ContactSortingMethod.recent.rawValue]
-    @State var selectedSortMethod = ContactSortingMethod.alphabetical
-    @State var contactsShown = groups.sorted { $0.name < $1.name }
+class GroupSheetModel : ObservableObject {
+    @Published var searchingFor: String
+    @Published var groupsToShow: [Group]
     
-    let geo: GeometryProxy
-    let navView: NavigationBarView
-    init (geo: GeometryProxy, navView: NavigationBarView) {
+    
+    init(searchingFor: String,  groupsToShow: [Group]) {
+        self.searchingFor = searchingFor
+        self.groupsToShow = groupsToShow
+        }
+
+}
+
+
+struct GroupsSheetView: View {
+    
+    var results: [Group]
+    
+    
+    private let geo: GeometryProxy
+    private  let navView: NavigationBarView
+    @ObservedObject  var groupSheetModel: GroupSheetModel
+    
+ 
+    init ( geo: GeometryProxy, navView: NavigationBarView, groupSheetModel: GroupSheetModel) {
+      
         self.geo = geo
         self.navView = navView
+        self.groupSheetModel = groupSheetModel
+        
+        print(groupSheetModel.searchingFor)
+        if groupSheetModel.searchingFor.isEmpty {
+       
+            self.results =  groupSheetModel.groupsToShow
+        } else {
+            self.results  = groupSheetModel.groupsToShow.filter { $0.name.contains(groupSheetModel.searchingFor) }
+        }
+
     }
-  
     
     var body: some View {
-      
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
-                GroupsListView()
-                .searchable(text: $searchingFor)
-                .navigationTitle("")
-
-
-                .navigationBarTitleDisplayMode(.inline)
-                
-                Menu("Sort".uppercased()) {
-                    Button("Abc", action: { sortAlphabetically() })
-                    Button("Rank", action: { sortByRank() })
-                    Button("Recent", action: { sortByRecent() })
-                }
-                .frame(width: 70, height: 16)
-                .padding()
-                .foregroundStyle(
-                    .linearGradient(colors: [.purple, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
-                )
-                .font(.headline)
-                .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                .offset(x: -20)
-                .shadow(color: Color.black.opacity(0.4), radius: 4, x: 2, y: 2)
+                GroupsListView(groupsToShow: results)
+                    .searchable(text:  $groupSheetModel.searchingFor)
+                    .navigationBarTitleDisplayMode(.inline)
             }
             
             .navigationBarItems(leading: navView)
         }
+    }
+    
+    
 
-    }
-    
-    var results: [Group] {
-        if searchingFor.isEmpty {
-            return contactsShown
-        } else {
-            return contactsShown.filter { $0.name.contains(searchingFor) }
-        }
-    }
-    
-    func sortAlphabetically() {
-        contactsShown.sort { $0.name < $1.name }
-    }
-    
-    func sortByRank() {
-        contactsShown.sort { $0.rank < $1.rank }
-    }
-    
-    func sortByRecent() {
-        contactsShown.shuffle()
-    }
-    }
+}
 
 #Preview {
     GeometryReader { geo in
-        GroupsSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: NavigationBarModel(currentTabOpened: "person")))
+        GroupsSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: NavigationBarModel(currentTabOpened: "person")),
+                        
+                        groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting)
+        
+        )
     }
-  
+    
 }
