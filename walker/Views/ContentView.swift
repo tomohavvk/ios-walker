@@ -42,10 +42,10 @@ struct ContentView: View {
                                 PersonSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: navModel))
                             }
                         }
-                    }
+                    } .animation(nil)
                     
                     .interactiveDismissDisabled(true)
-                    .presentationDetents([.fraction(CGFloat(0.4)),.fraction(CGFloat(0.5)),.fraction(CGFloat(0.99))])
+                    .presentationDetents([.fraction(CGFloat(0.1)),.fraction(CGFloat(0.5)),.fraction(CGFloat(0.99))])
                     .presentationBackgroundInteraction(.enabled )
                     .presentationCompactAdaptation(.none)
                     

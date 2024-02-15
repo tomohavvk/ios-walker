@@ -21,28 +21,33 @@ class GroupSheetModel : ObservableObject {
         
         
         self.$searchingFor
-            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .debounce(for: .seconds(0.2), scheduler: RunLoop.main)
             .sink { [] filter in
                 print("groupSheetModel.searchingFor", filter)
-                
+                if self.lastFilterValue != filter {
                 Task {
                     do {
                         
-                        if self.lastFilterValue != filter {
-                            self.lastFilterValue = filter
                      
+                            self.lastFilterValue = filter
+                            print("$searchingFor.GET DATA FROM SERVER", filter)
+            
+                           let groups = try await walkerApp.walkerClient.getDeviceOwnedOrJoinedGroups()
                         
-                        self.groupsToShow = try await walkerApp.walkerClient.getDeviceOwnedOrJoinedGroups()
-                        if  !self.searchingFor.isEmpty {
-                            self.groupsToShow = self.groupsToShow.filter { $0.name.contains(filter) }
-                        }
+                        DispatchQueue.main.async {
+                            self.groupsToShow = groups
+                            if  !self.searchingFor.isEmpty {
+                                self.groupsToShow = self.groupsToShow.filter { $0.name.contains(filter) }
+                            }
+                            
+                            return
                         }
                     } catch {
                         // Handle errors here
                         print("Error: \(error)")
                     }
                 }
-                
+                }
                 
             } .store(in: &cancellables)
     }
@@ -78,11 +83,13 @@ struct GroupsSheetView: View {
             
             GroupsListView(groupsToShow: groupSheetModel.groupsToShow)
                 .searchable(text:  $groupSheetModel.searchingFor)
+               
                 .navigationBarTitleDisplayMode(.inline)
             
             
                 .navigationBarItems(leading: navView)
         }
+     
         .navigationViewStyle(.stack)
     }
     
