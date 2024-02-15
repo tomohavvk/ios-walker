@@ -45,7 +45,8 @@ struct ContentView: View {
                     } .animation(nil)
                     
                     .interactiveDismissDisabled(true)
-                    .presentationDetents([.fraction(CGFloat(0.12)),.fraction(CGFloat(0.5)),.fraction(CGFloat(0.99))])
+                    .presentationDetents([.fraction(CGFloat(0.1)),.fraction(CGFloat(0.4)),.fraction(CGFloat(0.99))], selection: .constant(.fraction(0.4)))
+
                     .presentationBackgroundInteraction(.enabled )
                     .presentationCompactAdaptation(.none)
                     
