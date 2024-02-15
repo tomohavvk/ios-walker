@@ -37,15 +37,15 @@ struct ContentView: View {
                     NavigationView {
                         ZStack {
                             if navModel.currentTabOpened == "person" {
-                                GroupsSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: navModel), groupSheetModel: groupSheetModel)
+                                GroupsSheetView(geo: geo, leadingNavView: LeadingNavigationBarView(geo: geo, navModel: navModel), trailingNavView: TrailingNavigationBarView(geo: geo, navModel: navModel), groupSheetModel: groupSheetModel)
                             } else {
-                                PersonSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: navModel))
+                                PersonSheetView(geo: geo, navView: LeadingNavigationBarView(geo: geo, navModel: navModel))
                             }
                         }
                     } .animation(nil)
                     
                     .interactiveDismissDisabled(true)
-                    .presentationDetents([.fraction(CGFloat(0.1)),.fraction(CGFloat(0.5)),.fraction(CGFloat(0.99))])
+                    .presentationDetents([.fraction(CGFloat(0.12)),.fraction(CGFloat(0.5)),.fraction(CGFloat(0.99))])
                     .presentationBackgroundInteraction(.enabled )
                     .presentationCompactAdaptation(.none)
                     

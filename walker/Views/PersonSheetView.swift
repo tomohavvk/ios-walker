@@ -15,8 +15,8 @@ struct PersonSheetView: View {
     @State var contactsShown = groupsTesting.sorted { $0.name < $1.name }
     
     let geo: GeometryProxy
-    let navView: NavigationBarView
-    init (geo: GeometryProxy, navView: NavigationBarView) {
+    let navView: LeadingNavigationBarView
+    init (geo: GeometryProxy, navView: LeadingNavigationBarView) {
         self.geo = geo
         self.navView = navView
     }
@@ -74,7 +74,7 @@ struct PersonSheetView: View {
 
 #Preview {
     GeometryReader { geo in
-        PersonSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: NavigationBarModel(currentTabOpened: "person")))
+        PersonSheetView(geo: geo, navView: LeadingNavigationBarView(geo: geo, navModel: NavigationBarModel(currentTabOpened: "person")))
     }
   
 }

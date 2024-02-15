@@ -1,5 +1,5 @@
 //
-//  NavigationBarView.swift
+//  TrailingNavigationBarView.swift
 //  walker
 //
 //  Created by IZ on 15.02.2024.
@@ -7,16 +7,7 @@
 
 import SwiftUI
 
-
-class NavigationBarModel : ObservableObject {
-    @Published var currentTabOpened: String
-    
-    init(currentTabOpened: String) {
-        self.currentTabOpened = currentTabOpened
-    }
-}
-
-struct NavigationBarView: View {
+struct TrailingNavigationBarView: View {
     
     let geo: GeometryProxy
     let navModel: NavigationBarModel
@@ -29,26 +20,27 @@ struct NavigationBarView: View {
     var body: some View {
       
         HStack {
+
             Spacer()
             Button(action: {
                 navModel.currentTabOpened = "person"
             }) {
-                Image(systemName: "person.fill").foregroundColor( .black)
+                Image(systemName: "location.fill").foregroundColor( .black)
                 
             }
             .padding()
             
-            Spacer()
+
             
             Button(action: {
                 navModel.currentTabOpened = "person.3"
             }) {
                 
-                Image(systemName: "person.3.fill").foregroundColor( .black)
+                Image(systemName: "plus").foregroundColor( .black)
                 
             }
             .padding()
-            Spacer()
+            
 
         }
     }
@@ -56,7 +48,7 @@ struct NavigationBarView: View {
 
 #Preview {
     GeometryReader { geo in
-        NavigationBarView(geo: geo, navModel: NavigationBarModel(currentTabOpened: "person"))
+        TrailingNavigationBarView(geo: geo, navModel: NavigationBarModel(currentTabOpened: "person"))
             .background(.white)
     }
   

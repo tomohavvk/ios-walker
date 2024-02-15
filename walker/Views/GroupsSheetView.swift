@@ -58,14 +58,16 @@ class GroupSheetModel : ObservableObject {
 struct GroupsSheetView: View {
     
     private let geo: GeometryProxy
-    private  let navView: NavigationBarView
+    private  let leadingNavView: LeadingNavigationBarView
+    private  let trailingNavView: TrailingNavigationBarView
     @ObservedObject  var groupSheetModel: GroupSheetModel
     
     
-    init ( geo: GeometryProxy, navView: NavigationBarView, groupSheetModel: GroupSheetModel) {
+    init ( geo: GeometryProxy, leadingNavView: LeadingNavigationBarView, trailingNavView: TrailingNavigationBarView, groupSheetModel: GroupSheetModel) {
         
         self.geo = geo
-        self.navView = navView
+        self.leadingNavView = leadingNavView
+        self.trailingNavView = trailingNavView
         self.groupSheetModel = groupSheetModel
         
         //        print("groupSheetModel.searchingFor", groupSheetModel.searchingFor)
@@ -85,10 +87,11 @@ struct GroupsSheetView: View {
                 .searchable(text:  $groupSheetModel.searchingFor)
                
                 .navigationBarTitleDisplayMode(.inline)
+              
             
-            
-                .navigationBarItems(leading: navView)
+                .navigationBarItems(leading: leadingNavView, trailing: trailingNavView)
         }
+      
      
         .navigationViewStyle(.stack)
     }
@@ -99,7 +102,7 @@ struct GroupsSheetView: View {
 
 #Preview {
     GeometryReader { geo in
-        GroupsSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: NavigationBarModel(currentTabOpened: "person")),
+        GroupsSheetView(geo: geo, leadingNavView: LeadingNavigationBarView(geo: geo, navModel: NavigationBarModel(currentTabOpened: "person")), trailingNavView: TrailingNavigationBarView(geo: geo, navModel: NavigationBarModel(currentTabOpened: "person")),
                         
                         groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting)
                         

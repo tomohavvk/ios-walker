@@ -26,7 +26,8 @@
 		2BA226202B7DFE5100585630 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2261F2B7DFE5100585630 /* Group.swift */; };
 		2BA226222B7DFEA100585630 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226212B7DFEA100585630 /* ContactView.swift */; };
 		2BA226242B7DFECC00585630 /* BackgroundShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226232B7DFECC00585630 /* BackgroundShapes.swift */; };
-		2BA226262B7E024900585630 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226252B7E024900585630 /* NavigationBarView.swift */; };
+		2BA226262B7E024900585630 /* LeadingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226252B7E024900585630 /* LeadingNavigationBarView.swift */; };
+		2BA226282B7E4B2400585630 /* TrailingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226272B7E4B2400585630 /* TrailingNavigationBarView.swift */; };
 		2BA5624E2B69644B0057D200 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5624D2B69644B0057D200 /* MapView.swift */; };
 		2BA562772B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562762B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift */; };
 		2BA5627A2B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562782B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld */; };
@@ -74,7 +75,8 @@
 		2BA2261F2B7DFE5100585630 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		2BA226212B7DFEA100585630 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
 		2BA226232B7DFECC00585630 /* BackgroundShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundShapes.swift; sourceTree = "<group>"; };
-		2BA226252B7E024900585630 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
+		2BA226252B7E024900585630 /* LeadingNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingNavigationBarView.swift; sourceTree = "<group>"; };
+		2BA226272B7E4B2400585630 /* TrailingNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingNavigationBarView.swift; sourceTree = "<group>"; };
 		2BA5624D2B69644B0057D200 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		2BA562762B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationHistory+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2BA562792B6CDACC0057D200 /* WalkerCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WalkerCoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -214,7 +216,8 @@
 				2BA5624D2B69644B0057D200 /* MapView.swift */,
 				2BA226192B7D2DB700585630 /* GroupsListView.swift */,
 				2BA2261B2B7D2E8C00585630 /* GroupsSheetView.swift */,
-				2BA226252B7E024900585630 /* NavigationBarView.swift */,
+				2BA226252B7E024900585630 /* LeadingNavigationBarView.swift */,
+				2BA226272B7E4B2400585630 /* TrailingNavigationBarView.swift */,
 				2BA2261D2B7D30B900585630 /* PersonSheetView.swift */,
 				2BA226212B7DFEA100585630 /* ContactView.swift */,
 			);
@@ -397,11 +400,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BA226282B7E4B2400585630 /* TrailingNavigationBarView.swift in Sources */,
 				2B603F502B67D05C00B4663A /* LocationRecordingService.swift in Sources */,
 				2BA5627A2B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld in Sources */,
 				2B73F1292B63DA25000C2637 /* Injector.swift in Sources */,
 				2BA2261C2B7D2E8C00585630 /* GroupsSheetView.swift in Sources */,
-				2BA226262B7E024900585630 /* NavigationBarView.swift in Sources */,
+				2BA226262B7E024900585630 /* LeadingNavigationBarView.swift in Sources */,
 				2BA226162B7CB83B00585630 /* WalkerClient.swift in Sources */,
 				2BA5627D2B6D265E0057D200 /* PolylineHelper.swift in Sources */,
 				2B603F652B68EB0D00B4663A /* LocationDTO.swift in Sources */,
