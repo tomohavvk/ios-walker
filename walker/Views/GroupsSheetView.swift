@@ -36,9 +36,9 @@ struct GroupsSheetView: View {
         self.navView = navView
         self.groupSheetModel = groupSheetModel
         
-        print(groupSheetModel.searchingFor)
+        print("groupSheetModel.searchingFor", groupSheetModel.searchingFor)
         if groupSheetModel.searchingFor.isEmpty {
-       
+//       
             self.results =  groupSheetModel.groupsToShow
         } else {
             self.results  = groupSheetModel.groupsToShow.filter { $0.name.contains(groupSheetModel.searchingFor) }
@@ -48,14 +48,15 @@ struct GroupsSheetView: View {
     
     var body: some View {
         NavigationView {
-            ZStack(alignment: .bottomTrailing) {
-                GroupsListView(groupsToShow: results)
+
+                GroupsListView(groupsToShow: groupSheetModel.groupsToShow)
                     .searchable(text:  $groupSheetModel.searchingFor)
                     .navigationBarTitleDisplayMode(.inline)
-            }
+         
             
             .navigationBarItems(leading: navView)
         }
+        .navigationViewStyle(.stack)
     }
     
     
