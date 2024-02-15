@@ -16,9 +16,9 @@ struct GroupsListView: View {
     
     var body: some View {
         List {
-            ForEach(groupsToShow) { contact in
+            ForEach(groupsToShow) { group in
                 NavigationLink(destination:
-                                ContactView(contact: contact)
+                                ContactView(contact: group)
                 ) {
                     HStack {
                         ZStack {
@@ -35,14 +35,14 @@ struct GroupsListView: View {
                                     )
                                     .shadow(color: Color.black.opacity(0.3), radius: 3, x: 1, y: 2)
                                 
-                                Text("\(contact.rank)")
+                                Text("\(group.deviceCount)")
                                     .bold()
                                     .foregroundColor(.white)
                                     
                             }
                             .offset(x: 25, y: 25)
                         }
-                        Text(contact.name)
+                        Text(group.name)
                             .font(.system(size: 20, weight: .medium, design: .rounded))
                     }
                 }

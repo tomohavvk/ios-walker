@@ -29,21 +29,21 @@ struct PersonSheetView: View {
                 GroupsListView(groupsToShow: groupsTesting)
             
                 
-                Menu("Sort".uppercased()) {
-                    Button("Abc", action: { sortAlphabetically() })
-                    Button("Rank", action: { sortByRank() })
-                    Button("Recent", action: { sortByRecent() })
-                }
-                .frame(width: 70, height: 16)
-                .padding()
-                .foregroundStyle(
-                    .linearGradient(colors: [.purple, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
-                )
-                .font(.headline)
-                .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                .offset(x: -20)
-                .shadow(color: Color.black.opacity(0.4), radius: 4, x: 2, y: 2)
+//                Menu("Sort".uppercased()) {
+//                    Button("Abc", action: { sortAlphabetically() })
+//                    Button("Rank", action: { sortByRank() })
+//                    Button("Recent", action: { sortByRecent() })
+//                }
+//                .frame(width: 70, height: 16)
+//                .padding()
+//                .foregroundStyle(
+//                    .linearGradient(colors: [.purple, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
+//                )
+//                .font(.headline)
+//                .background(Color.white)
+//                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+//                .offset(x: -20)
+//                .shadow(color: Color.black.opacity(0.4), radius: 4, x: 2, y: 2)
             }
             
             .navigationBarItems(leading: navView)
@@ -58,18 +58,18 @@ struct PersonSheetView: View {
             return contactsShown.filter { $0.name.contains(searchingFor) }
         }
     }
-    
-    func sortAlphabetically() {
-        contactsShown.sort { $0.name < $1.name }
-    }
-    
-    func sortByRank() {
-        contactsShown.sort { $0.rank < $1.rank }
-    }
-    
-    func sortByRecent() {
-        contactsShown.shuffle()
-    }
+//    
+//    func sortAlphabetically() {
+//        contactsShown.sort { $0.name < $1.name }
+//    }
+//    
+//    func sortByRank() {
+//        contactsShown.sort { $0.rank < $1.rank }
+//    }
+//    
+//    func sortByRecent() {
+//        contactsShown.shuffle()
+//    }
     }
 
 #Preview {

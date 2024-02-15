@@ -49,7 +49,7 @@ struct GroupsSheetView: View {
     var body: some View {
         NavigationView {
 
-                GroupsListView(groupsToShow: groupSheetModel.groupsToShow)
+                GroupsListView(groupsToShow: results)
                     .searchable(text:  $groupSheetModel.searchingFor)
                     .navigationBarTitleDisplayMode(.inline)
          

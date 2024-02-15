@@ -3,7 +3,7 @@ import CoreData
 
 struct ContentView: View {
     
-    private static let walkerClient  =   WalkerClient(baseURL: "", deviceId: UIDevice.current.identifierForVendor!.uuidString)
+
     @StateObject private var polylineHelper: PolylineHelper
     @StateObject private var locationService: LocationWatcherService
     
@@ -63,7 +63,7 @@ struct ContentView: View {
     
     private func start() {
         locationService.startWatcher()
-        LocationRecordingService( locationService: locationService, walkerClient: Self.walkerClient)
+        LocationRecordingService( locationService: locationService, walkerClient: walkerApp.walkerClient)
             .start()
     }
     

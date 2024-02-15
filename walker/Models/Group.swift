@@ -8,24 +8,19 @@
 import Foundation
 import SwiftUI
 
-struct Group: Identifiable {
-    var id = UUID()
+struct Group: Identifiable, Codable {
+    var id : String
+    var ownerDeviceId: String
     var name: String
-    var phoneNumber: String
-    var email: String
-    var address: String
-    var birthday: String
-    var age: String
-    var notes: String
-    var awayMessage: String
-    var mood: String
-    var updateTimestamp: String
-    var rank: Int
-    var photo: String
-    var mostRecentText: String
+    var deviceCount: Int
+    var isPrivate: Bool
+    var createdAt: String
 }
 
 var groupsTesting = [
-    Group(name: "Logan Koshenka", phoneNumber: "(555)555-5555", email: "logan@email.com", address: "123 Main St.", birthday: "Nov 3", age: "26", notes: "super cool guy", awayMessage: "I worked all week and now I just want to relax and watch some football!", mood: "relieved 😎", updateTimestamp: "6:04 PM", rank: 3, photo: "logan", mostRecentText: "yeah I tried to go yesterday but they were closed so maybe tomorrow idk"),
-    Group(name: "Hugh Jass", phoneNumber: "(555)555-5555", email: "hughjass@email.com", address: "123 Main St.", birthday: "Apr 1", age: "27", notes: "sick name", awayMessage: "I love the Pittsburgh Steelers", mood: "lazy 😞", updateTimestamp: "12:53 PM", rank: 7, photo: "chuck", mostRecentText: "I was thinking that earlier about how awesome it is but it does get old lol")
+    Group(id : UUID().uuidString, ownerDeviceId: "device_id", name: "Walker Group 1", deviceCount: 3, isPrivate:  true, createdAt: "2024"),
+    Group(id : UUID().uuidString, ownerDeviceId: "device_id", name: "Walker Group 2", deviceCount: 2, isPrivate:  true, createdAt: "2024"),
+    Group(id : UUID().uuidString, ownerDeviceId: "device_id", name: "Walker Group 3", deviceCount: 11111, isPrivate:  true, createdAt: "2024"),
+    Group(id : UUID().uuidString, ownerDeviceId: "device_id", name: "Walker Group 4", deviceCount: 6, isPrivate:  true, createdAt: "2024")
+  
 ]
