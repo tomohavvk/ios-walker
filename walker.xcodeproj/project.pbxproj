@@ -20,13 +20,13 @@
 		2B73F10F2B6397C2000C2637 /* walkerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F10E2B6397C2000C2637 /* walkerUITestsLaunchTests.swift */; };
 		2B73F1292B63DA25000C2637 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F1282B63DA25000C2637 /* Injector.swift */; };
 		2BA226162B7CB83B00585630 /* WalkerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226152B7CB83B00585630 /* WalkerClient.swift */; };
-		2BA226182B7CF17D00585630 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226172B7CF17D00585630 /* FooterView.swift */; };
 		2BA2261A2B7D2DB700585630 /* GroupsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226192B7D2DB700585630 /* GroupsListView.swift */; };
 		2BA2261C2B7D2E8C00585630 /* GroupsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2261B2B7D2E8C00585630 /* GroupsSheetView.swift */; };
 		2BA2261E2B7D30B900585630 /* PersonSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2261D2B7D30B900585630 /* PersonSheetView.swift */; };
 		2BA226202B7DFE5100585630 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2261F2B7DFE5100585630 /* Group.swift */; };
 		2BA226222B7DFEA100585630 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226212B7DFEA100585630 /* ContactView.swift */; };
 		2BA226242B7DFECC00585630 /* BackgroundShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226232B7DFECC00585630 /* BackgroundShapes.swift */; };
+		2BA226262B7E024900585630 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226252B7E024900585630 /* NavigationBarView.swift */; };
 		2BA5624E2B69644B0057D200 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5624D2B69644B0057D200 /* MapView.swift */; };
 		2BA562772B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562762B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift */; };
 		2BA5627A2B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562782B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld */; };
@@ -68,13 +68,13 @@
 		2B73F10E2B6397C2000C2637 /* walkerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walkerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2B73F1282B63DA25000C2637 /* Injector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
 		2BA226152B7CB83B00585630 /* WalkerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkerClient.swift; sourceTree = "<group>"; };
-		2BA226172B7CF17D00585630 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		2BA226192B7D2DB700585630 /* GroupsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsListView.swift; sourceTree = "<group>"; };
 		2BA2261B2B7D2E8C00585630 /* GroupsSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSheetView.swift; sourceTree = "<group>"; };
 		2BA2261D2B7D30B900585630 /* PersonSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSheetView.swift; sourceTree = "<group>"; };
 		2BA2261F2B7DFE5100585630 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		2BA226212B7DFEA100585630 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
 		2BA226232B7DFECC00585630 /* BackgroundShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundShapes.swift; sourceTree = "<group>"; };
+		2BA226252B7E024900585630 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		2BA5624D2B69644B0057D200 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		2BA562762B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationHistory+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2BA562792B6CDACC0057D200 /* WalkerCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WalkerCoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -212,9 +212,9 @@
 				2BA5627B2B6D26490057D200 /* Helpers */,
 				2B73F0F32B6397C0000C2637 /* ContentView.swift */,
 				2BA5624D2B69644B0057D200 /* MapView.swift */,
-				2BA226172B7CF17D00585630 /* FooterView.swift */,
 				2BA226192B7D2DB700585630 /* GroupsListView.swift */,
 				2BA2261B2B7D2E8C00585630 /* GroupsSheetView.swift */,
+				2BA226252B7E024900585630 /* NavigationBarView.swift */,
 				2BA2261D2B7D30B900585630 /* PersonSheetView.swift */,
 				2BA226212B7DFEA100585630 /* ContactView.swift */,
 			);
@@ -398,10 +398,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B603F502B67D05C00B4663A /* LocationRecordingService.swift in Sources */,
-				2BA226182B7CF17D00585630 /* FooterView.swift in Sources */,
 				2BA5627A2B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld in Sources */,
 				2B73F1292B63DA25000C2637 /* Injector.swift in Sources */,
 				2BA2261C2B7D2E8C00585630 /* GroupsSheetView.swift in Sources */,
+				2BA226262B7E024900585630 /* NavigationBarView.swift in Sources */,
 				2BA226162B7CB83B00585630 /* WalkerClient.swift in Sources */,
 				2BA5627D2B6D265E0057D200 /* PolylineHelper.swift in Sources */,
 				2B603F652B68EB0D00B4663A /* LocationDTO.swift in Sources */,

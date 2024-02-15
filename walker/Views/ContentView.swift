@@ -8,16 +8,17 @@ struct ContentView: View {
     @StateObject private var locationService: LocationWatcherService
     
     @ObservedObject private var locationWatcherModel: LocationWatcherModel
-    @ObservedObject private var footerModel: FooterModel
+    @ObservedObject private var navModel: NavigationBarModel
     
     
     @State private var searchText = "dasdas"
     
     
-    init(locationWatcherModel: LocationWatcherModel, footerModel: FooterModel) {
+    init(locationWatcherModel: LocationWatcherModel, navModel: NavigationBarModel) {
         print("INITS DAD SA")
         self.locationWatcherModel = locationWatcherModel
-        self.footerModel = footerModel
+        self.navModel = navModel
+        
         self._polylineHelper =  StateObject(wrappedValue: PolylineHelper( locationWatcherModel: locationWatcherModel))
         self._locationService =  StateObject(wrappedValue: LocationWatcherService(model: locationWatcherModel))
         
@@ -36,16 +37,16 @@ struct ContentView: View {
                         
                   
                     ZStack {
-                        if footerModel.currentTabOpened == "person" {
+                        if navModel.currentTabOpened == "person" {
                             withAnimation {
-                                GroupsSheetView()
+                                GroupsSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: navModel))
                             }
 
                         } else {
                             withAnimation {
-                                NavigationStack {
-                                GroupsSheetView()
-                            }.searchable(text: $searchText) 
+                  
+                                    PersonSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: navModel))
+                
                                  
                             }
                         }
@@ -56,12 +57,6 @@ struct ContentView: View {
                     .presentationDetents([.fraction(CGFloat(0.4)),.fraction(CGFloat(0.5)),.fraction(CGFloat(0.99))])
                     .presentationBackgroundInteraction(.enabled )
                     .presentationCompactAdaptation(.none)
-                    .overlay(alignment: Alignment.bottom) {
-                        FooterView(footerModel: footerModel )
-                            .background(.black)
-                        
-                    }
-
                 })
             
                 .onAppear { start() }
@@ -88,6 +83,6 @@ extension Array where Element: Hashable {
 
 
 #Preview {
-    ContentView( locationWatcherModel: LocationWatcherModel(), footerModel: FooterModel(currentTabOpened: "person") )
+    ContentView( locationWatcherModel: LocationWatcherModel(), navModel: NavigationBarModel(currentTabOpened: "person") )
 }
 

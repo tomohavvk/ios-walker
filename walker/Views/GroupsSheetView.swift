@@ -13,30 +13,22 @@ struct GroupsSheetView: View {
     @State var selectedSortMethod = ContactSortingMethod.alphabetical
     @State var contactsShown = groups.sorted { $0.name < $1.name }
     
+    let geo: GeometryProxy
+    let navView: NavigationBarView
+    init (geo: GeometryProxy, navView: NavigationBarView) {
+        self.geo = geo
+        self.navView = navView
+    }
+  
+    
     var body: some View {
-        GeometryReader { geo in
+      
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
-GroupsListView()
+                GroupsListView()
                 .searchable(text: $searchingFor)
                 .navigationTitle("")
-                
-                .navigationBarItems(leading: HStack{
-                    
-                    Spacer().frame(width: geo.size.width * 0.5)
-                    
-                    VStack{
-                        Text("Title")
-                        Button(action: {
-                            print("I'm feeling lucky ;)")
-                        })
-                        {
-                            Text("Button")
-                        }
-                    }
-                    
-                    Spacer().frame(width: geo.size.width * 0.5)
-                })
+
 
                 .navigationBarTitleDisplayMode(.inline)
                 
@@ -56,8 +48,10 @@ GroupsListView()
                 .offset(x: -20)
                 .shadow(color: Color.black.opacity(0.4), radius: 4, x: 2, y: 2)
             }
+            
+            .navigationBarItems(leading: navView)
         }
-    }
+
     }
     
     var results: [Group] {
@@ -82,5 +76,8 @@ GroupsListView()
     }
 
 #Preview {
-    GroupsSheetView()
+    GeometryReader { geo in
+        GroupsSheetView(geo: geo, navView: NavigationBarView(geo: geo, navModel: NavigationBarModel(currentTabOpened: "person")))
+    }
+  
 }
