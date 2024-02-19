@@ -27,7 +27,7 @@ class PolylineHelper: ObservableObject {
     }
     
     public func drawPolylines(_ mapView: MKMapView) {
-        print("drawPolylines", "polylinesToDraw", self.polylinesToDraw.count, "drawedPolylines", self.drawedPolylines.count)
+//        print("drawPolylines", "polylinesToDraw", self.polylinesToDraw.count, "drawedPolylines", self.drawedPolylines.count)
         DispatchQueue.main.async {
             self.polylinesToDraw.forEach { polyline in
                 mapView.addOverlay(polyline)

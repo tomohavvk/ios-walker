@@ -10,46 +10,46 @@ import Combine
 class GroupSheetModel : ObservableObject {
     @Published var searchingFor: String
     @Published var groupsToShow: [Group]
-    var lastFilterValue  =  "init"
+  
     
-    private var cancellables: Set<AnyCancellable> = []
+
     
     init(searchingFor: String,  groupsToShow: [Group]) {
         self.searchingFor = searchingFor
         self.groupsToShow = groupsToShow
      
-        
-        
-        self.$searchingFor
-            .debounce(for: .seconds(0.2), scheduler: RunLoop.main)
-            .sink { [] filter in
-                print("groupSheetModel.searchingFor", filter)
-                if self.lastFilterValue != filter {
-                Task {
-                    do {
-                        
-                     
-                            self.lastFilterValue = filter
-                            print("$searchingFor.GET DATA FROM SERVER", filter)
-            
-                           let groups = try await walkerApp.walkerClient.getDeviceOwnedOrJoinedGroups()
-                        
-                        DispatchQueue.main.async {
-                            self.groupsToShow = groups
-                            if  !self.searchingFor.isEmpty {
-                                self.groupsToShow = self.groupsToShow.filter { $0.name.contains(filter) }
-                            }
-                            
-                            return
-                        }
-                    } catch {
-                        // Handle errors here
-                        print("Error: \(error)")
-                    }
-                }
-                }
-                
-            } .store(in: &cancellables)
+//        var lastFilterValue  =  "init"
+//        private var cancellables: Set<AnyCancellable> = []
+//        self.$searchingFor
+//            .debounce(for: .seconds(0.2), scheduler: RunLoop.main)
+//            .sink { [] filter in
+//                print("groupSheetModel.searchingFor", filter)
+//                if self.lastFilterValue != filter {
+//                Task {
+//                    do {
+//                        
+//                     
+//                        self.lastFilterValue = filter
+//                            print("$searchingFor.GET DATA FROM SERVER", filter)
+//            
+//                           let groups = try await walkerApp.walkerClient.getDeviceOwnedOrJoinedGroups()
+//                        
+//                        DispatchQueue.main.async {
+//                            self.groupsToShow = groups
+//                            if  !self.searchingFor.isEmpty {
+//                                self.groupsToShow = self.groupsToShow.filter { $0.name.contains(filter) }
+//                            }
+//                            
+//                            return
+//                        }
+//                    } catch {
+//                        // Handle errors here
+//                        print("Error: \(error)")
+//                    }
+//                }
+//                }
+//                
+//            } .store(in: &cancellables)
     }
     
 }

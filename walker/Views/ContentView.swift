@@ -6,6 +6,7 @@ struct ContentView: View {
 
     @StateObject private var polylineHelper: PolylineHelper
     @StateObject private var locationService: LocationWatcherService
+    @StateObject private var wsMessageHandler: WalkerWSMessageHandler
     
     @ObservedObject private var locationWatcherModel: LocationWatcherModel
     @ObservedObject private var navModel: NavigationBarModel
@@ -23,6 +24,7 @@ struct ContentView: View {
         
         self._polylineHelper =  StateObject(wrappedValue: PolylineHelper( locationWatcherModel: locationWatcherModel))
         self._locationService =  StateObject(wrappedValue: LocationWatcherService(model: locationWatcherModel))
+        self._wsMessageHandler =  StateObject(wrappedValue: WalkerWSMessageHandler(groupSheetModel: groupSheetModel))
         
     }
     
@@ -60,12 +62,16 @@ struct ContentView: View {
         )
         
     }
-    func sendMessage() { }
     
     private func start() {
+        print("ON_APPEAR CONTENT VIEW")
+       wsMessageHandler.start()
+      
         locationService.startWatcher()
-        LocationRecordingService( locationService: locationService, walkerClient: walkerApp.walkerClient)
+        LocationRecordingService( locationService: locationService )
             .start()
+        
+        walkerApp.wsMessageSender.getGroups(limit: 100, offset: 0)
     }
     
 }

@@ -49,6 +49,7 @@ public class LocationWatcherService : NSObject, ObservableObject, CLLocationMana
     @ObservedObject  var model: LocationWatcherModel
     
     init(model: LocationWatcherModel) {
+        print("INIT LocationWatcherService")
         self.model = model
         UIDevice.current.isBatteryMonitoringEnabled = true
     }

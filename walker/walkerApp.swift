@@ -6,35 +6,57 @@
 //
 
 import SwiftUI
-
+import Combine
 @main
 struct walkerApp: App {
-     static let walkerClient  =   WalkerClient(baseURL: "", deviceId: UIDevice.current.identifierForVendor!.uuidString)
+    static let wsMessageSender =  WalkerWSMessageSender()
 
+    static let walkerWS = WalkerWS(deviceId: UIDevice.current.identifierForVendor!.uuidString)
 
     @StateObject private var locationWatcherModel: LocationWatcherModel = LocationWatcherModel()
     @StateObject var navModel: NavigationBarModel = NavigationBarModel(currentTabOpened: "person")
     @StateObject var groupSheetModel: GroupSheetModel = GroupSheetModel(searchingFor: "", groupsToShow: [])
+//    @StateObject  var wsMessageHandler: WalkerWSMessageHandler
+    
+     private var cancellables: Set<AnyCancellable> = []
+    
+  
+//     lazy  var wsMessageSender =
     
     @State  var topViewHeight: CGFloat = 480
     
     
     init() {
+        print("INIT walkerApp")
+        print(Self.walkerWS)
         _ = Injector()
-        print("INIT ROOT")
         
-
         
-       
+////        self._wsMessageHandler = StateObject(wrappedValue: WalkerWSMessageHandler(groupSheetModel: groupSheetModel))
+//        
+//        DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
+//              print(Self.wsMessageSender.getGroups(limit: 100, offset: 0))
+//            
+//            
+//           
+//          }
+//      
+//        walkerApp.walkerWS.$messageReceived.sink { message in
+//            
+//            DispatchQueue.main.async {
+//                wsMessageHandler.handleMessage(message)
+//            }
+//       
+//        }.store(in: &cancellables)
+//       
     }
 
-    
     var body: some Scene {
-
-        
+    
+   
           return  WindowGroup {
                 GeometryReader { geometry in
-                    ContentView( locationWatcherModel: locationWatcherModel, navModel: navModel, groupSheetModel: groupSheetModel)
+                    ContentView(locationWatcherModel: locationWatcherModel, navModel: navModel, groupSheetModel: groupSheetModel)
                         .background(.black)
 //                        .task {
 //                            print("going to make request")
@@ -46,6 +68,26 @@ struct walkerApp: App {
 //                                 }
 //                        }
         }
+                .onAppear {
+//                    print("ON_APPEAR ROOT")
+//                     var cancellables: Set<AnyCancellable> = []
+//                    
+//                    var wsMessageHandler: WalkerWSMessageHandler = WalkerWSMessageHandler(groupSheetModel: groupSheetModel)
+//                  
+//                    walkerApp.walkerWS.$messageReceived.sink { message in
+//                        
+////                        DispatchQueue.main.async {
+//                            wsMessageHandler.handleMessage(message)
+////                        }
+//                   
+//                    }.store(in: &cancellables)
+//
+//                    
+//                    DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
+//                        Self.wsMessageSender.getGroups(limit: 100, offset: 0)
+//                    }
+            //        var wsMessageHandler: WalkerWSMessageHandler = WalkerWSMessageHandler(isInit: isInit, groupSheetModel: groupSheetModel)
+                }
     }
     }
 }

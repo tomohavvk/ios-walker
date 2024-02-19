@@ -21,8 +21,8 @@ class WalkerClient {
     
     init(baseURL: String, deviceId: String) {
         self.deviceId = deviceId
-        self.walkerServiceClient = APIClient(baseURL: URL(string:"http://92.118.77.33:9001"))
-        self.locationDispatcherServiceClient = APIClient(baseURL: URL(string:"http://92.118.77.33:9000"))
+        self.walkerServiceClient = APIClient(baseURL: URL(string:"http://92.118.77.33:8888"))
+        self.locationDispatcherServiceClient = APIClient(baseURL: URL(string:"http://92.118.77.33:8888"))
         
         self.walkerServiceClient.configuration.decoder.keyDecodingStrategy = .convertFromSnakeCase
         self.locationDispatcherServiceClient.configuration.decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -36,8 +36,6 @@ class WalkerClient {
             return
         }
     }
-    
-    
     
     func getDeviceOwnedOrJoinedGroups()  async  throws -> [Group] {
         do {

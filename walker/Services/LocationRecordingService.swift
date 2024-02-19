@@ -16,16 +16,16 @@ class LocationRecordingService : ObservableObject{
     private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: String(describing: LocationRecordingService.self))
     
     @ObservedObject var locationService: LocationWatcherService
-   private let walkerClient: WalkerClient
+   
     
     private var locationsBuffer: [CLLocation] = []
     
     private var cancellables: Set<AnyCancellable> = []
     
-    init( locationService: LocationWatcherService, walkerClient: WalkerClient) {
+    init( locationService: LocationWatcherService ) {
+        print("INIT LocationRecordingService")
         self.locationService = locationService
-        self.walkerClient = walkerClient
-    }
+     }
     
     func start() {
 //        recordLocation()
@@ -56,9 +56,11 @@ class LocationRecordingService : ObservableObject{
                     Task {
                         LocationHistoryDataManager.shared.saveLocationHistory(location.asLocationDTO())
                         
-                        if self.locationsBuffer.count >= 10 {
+                        if self.locationsBuffer.count >= 5 {
                             
-                            try await self.walkerClient.sendLocationData(self.locationsBuffer)
+                              walkerApp.wsMessageSender.sendDeviceLocation(self.locationsBuffer.map({ location in
+                                location.asLocationDTO()
+                            }))
                             
                             self.locationsBuffer.removeAll()
                         }
