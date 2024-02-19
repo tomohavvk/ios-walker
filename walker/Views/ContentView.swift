@@ -41,30 +41,31 @@ struct ContentView: View {
         .sheet(
           isPresented: .constant(true),
           content: {
-            NavigationView {
-              ZStack {
-                if navModel.currentTabOpened == "person" {
-                  GroupsSheetView(
-                    geo: geo,
-                    leadingNavView: LeadingNavigationBarView(geo: geo, navModel: navModel),
-                    trailingNavView: TrailingNavigationBarView(geo: geo, navModel: navModel),
-                    groupSheetModel: groupSheetModel)
+            withAnimation(.none) {
+              NavigationView {
+                ZStack {
+                  if navModel.currentTabOpened == "person" {
+                    GroupsSheetView(
+                      geo: geo,
+                      leadingNavView: LeadingNavigationBarView(geo: geo, navModel: navModel),
+                      trailingNavView: TrailingNavigationBarView(geo: geo, navModel: navModel),
+                      groupSheetModel: groupSheetModel)
 
-                } else {
-                  PersonSheetView(
-                    geo: geo, navView: LeadingNavigationBarView(geo: geo, navModel: navModel))
+                  } else {
+                    PersonSheetView(
+                      geo: geo, navView: LeadingNavigationBarView(geo: geo, navModel: navModel))
+                  }
                 }
               }
-            }.animation(nil)
+            }
+            .interactiveDismissDisabled(true)
+            .presentationDetents(
+              [.fraction(CGFloat(0.1)), .fraction(CGFloat(0.4)), .fraction(CGFloat(0.99))],
+              selection: .constant(.fraction(0.4))
+            )
 
-              .interactiveDismissDisabled(true)
-              .presentationDetents(
-                [.fraction(CGFloat(0.1)), .fraction(CGFloat(0.4)), .fraction(CGFloat(0.99))],
-                selection: .constant(.fraction(0.4))
-              )
-
-              .presentationBackgroundInteraction(.enabled)
-              .presentationCompactAdaptation(.none)
+            .presentationBackgroundInteraction(.enabled)
+            .presentationCompactAdaptation(.none)
 
           }
         )

@@ -46,12 +46,12 @@ class WalkerWSMessageHandler: ObservableObject {
 
       switch anyWSMessageIn.type {
       case .LocationPersisted:
-        let result = try decoder.decode(LocationPersisted.self, from: data)
+        _ = try decoder.decode(LocationPersisted.self, from: data)
 
         print("LocationPersisted")
 
       case .GroupJoined:
-        let result = try decoder.decode(GroupJoined.self, from: data)
+        _ = try decoder.decode(GroupJoined.self, from: data)
 
         print("GroupJoined")
 

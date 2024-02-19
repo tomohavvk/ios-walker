@@ -47,6 +47,7 @@ struct GroupsListView: View {
             Text(group.name)
               .font(.system(size: 20, weight: .medium, design: .rounded))
           }
+                .navigationBarTitleDisplayMode(.inline)
         }
       }
     }

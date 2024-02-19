@@ -28,6 +28,7 @@ struct GroupInsideView: View {
   var body: some View {
 
     VStack {
+       
       ScrollViewReader { proxy in
         ScrollView {
           LazyVStack {
@@ -60,6 +61,7 @@ struct GroupInsideView: View {
         .padding()
       }
     }.background(.black)
+          .navigationBarItems(trailing:  Text(group.name))
 
   }
 }

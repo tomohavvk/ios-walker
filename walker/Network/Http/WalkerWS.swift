@@ -73,7 +73,7 @@ class WalkerWS: ObservableObject {
 
           walkerApp.walkerWS.messageReceived = text
 
-        case .data(let data):
+        case .data(_):
           // Handle binary data
           break
         @unknown default:
