@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 class Injector {
-    
-    init() {
-        Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle")?.load()
-    }
+
+  init() {
+    Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle")?.load()
+  }
 }

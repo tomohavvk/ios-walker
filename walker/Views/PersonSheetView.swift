@@ -7,74 +7,33 @@
 
 import SwiftUI
 
-
 struct PersonSheetView: View {
-    @State var searchingFor = ""
-    @State var sortByOptions = [ContactSortingMethod.alphabetical.rawValue, ContactSortingMethod.rank.rawValue, ContactSortingMethod.recent.rawValue]
-    @State var selectedSortMethod = ContactSortingMethod.alphabetical
-    @State var contactsShown = groupsTesting.sorted { $0.name < $1.name }
-    
-    let geo: GeometryProxy
-    let navView: LeadingNavigationBarView
-    init (geo: GeometryProxy, navView: LeadingNavigationBarView) {
-        self.geo = geo
-        self.navView = navView
-    }
-  
-    
-    var body: some View {
-      
-        NavigationView {
-            ZStack(alignment: .bottomTrailing) {
-                GroupsListView(groupsToShow: groupsTesting)
-            
-                
-//                Menu("Sort".uppercased()) {
-//                    Button("Abc", action: { sortAlphabetically() })
-//                    Button("Rank", action: { sortByRank() })
-//                    Button("Recent", action: { sortByRecent() })
-//                }
-//                .frame(width: 70, height: 16)
-//                .padding()
-//                .foregroundStyle(
-//                    .linearGradient(colors: [.purple, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
-//                )
-//                .font(.headline)
-//                .background(Color.white)
-//                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-//                .offset(x: -20)
-//                .shadow(color: Color.black.opacity(0.4), radius: 4, x: 2, y: 2)
-            }
-            
-            .navigationBarItems(leading: navView)
-        }
 
+  let geo: GeometryProxy
+  let navView: LeadingNavigationBarView
+  init(geo: GeometryProxy, navView: LeadingNavigationBarView) {
+    self.geo = geo
+    self.navView = navView
+  }
+
+  var body: some View {
+    NavigationView {
+      ZStack(alignment: .bottomTrailing) {
+        GroupsListView(groupsToShow: groupsTesting)
+      }
+
+      .navigationBarItems(leading: navView)
     }
-    
-    var results: [Group] {
-        if searchingFor.isEmpty {
-            return contactsShown
-        } else {
-            return contactsShown.filter { $0.name.contains(searchingFor) }
-        }
-    }
-//    
-//    func sortAlphabetically() {
-//        contactsShown.sort { $0.name < $1.name }
-//    }
-//    
-//    func sortByRank() {
-//        contactsShown.sort { $0.rank < $1.rank }
-//    }
-//    
-//    func sortByRecent() {
-//        contactsShown.shuffle()
-//    }
-    }
+
+  }
+}
 
 #Preview {
-    GeometryReader { geo in
-        PersonSheetView(geo: geo, navView: LeadingNavigationBarView(geo: geo, navModel: NavigationBarModel(currentTabOpened: "person")))
-    }
-  
+  GeometryReader { geo in
+    PersonSheetView(
+      geo: geo,
+      navView: LeadingNavigationBarView(
+        geo: geo, navModel: NavigationBarModel(currentTabOpened: "person")))
+  }
+
 }

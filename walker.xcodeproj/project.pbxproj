@@ -19,13 +19,11 @@
 		2B73F10D2B6397C2000C2637 /* walkerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F10C2B6397C2000C2637 /* walkerUITests.swift */; };
 		2B73F10F2B6397C2000C2637 /* walkerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F10E2B6397C2000C2637 /* walkerUITestsLaunchTests.swift */; };
 		2B73F1292B63DA25000C2637 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F1282B63DA25000C2637 /* Injector.swift */; };
-		2BA226162B7CB83B00585630 /* WalkerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226152B7CB83B00585630 /* WalkerClient.swift */; };
 		2BA2261A2B7D2DB700585630 /* GroupsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226192B7D2DB700585630 /* GroupsListView.swift */; };
 		2BA2261C2B7D2E8C00585630 /* GroupsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2261B2B7D2E8C00585630 /* GroupsSheetView.swift */; };
 		2BA2261E2B7D30B900585630 /* PersonSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2261D2B7D30B900585630 /* PersonSheetView.swift */; };
-		2BA226202B7DFE5100585630 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2261F2B7DFE5100585630 /* Group.swift */; };
-		2BA226222B7DFEA100585630 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226212B7DFEA100585630 /* ContactView.swift */; };
-		2BA226242B7DFECC00585630 /* BackgroundShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226232B7DFECC00585630 /* BackgroundShapes.swift */; };
+		2BA226202B7DFE5100585630 /* GroupDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2261F2B7DFE5100585630 /* GroupDTO.swift */; };
+		2BA226222B7DFEA100585630 /* GroupInsideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226212B7DFEA100585630 /* GroupInsideView.swift */; };
 		2BA226262B7E024900585630 /* LeadingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226252B7E024900585630 /* LeadingNavigationBarView.swift */; };
 		2BA226282B7E4B2400585630 /* TrailingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226272B7E4B2400585630 /* TrailingNavigationBarView.swift */; };
 		2BA2262A2B82043C00585630 /* WalkerWS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226292B82043C00585630 /* WalkerWS.swift */; };
@@ -71,13 +69,11 @@
 		2B73F10C2B6397C2000C2637 /* walkerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walkerUITests.swift; sourceTree = "<group>"; };
 		2B73F10E2B6397C2000C2637 /* walkerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walkerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2B73F1282B63DA25000C2637 /* Injector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
-		2BA226152B7CB83B00585630 /* WalkerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkerClient.swift; sourceTree = "<group>"; };
 		2BA226192B7D2DB700585630 /* GroupsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsListView.swift; sourceTree = "<group>"; };
 		2BA2261B2B7D2E8C00585630 /* GroupsSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSheetView.swift; sourceTree = "<group>"; };
 		2BA2261D2B7D30B900585630 /* PersonSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSheetView.swift; sourceTree = "<group>"; };
-		2BA2261F2B7DFE5100585630 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		2BA226212B7DFEA100585630 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
-		2BA226232B7DFECC00585630 /* BackgroundShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundShapes.swift; sourceTree = "<group>"; };
+		2BA2261F2B7DFE5100585630 /* GroupDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDTO.swift; sourceTree = "<group>"; };
+		2BA226212B7DFEA100585630 /* GroupInsideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInsideView.swift; sourceTree = "<group>"; };
 		2BA226252B7E024900585630 /* LeadingNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingNavigationBarView.swift; sourceTree = "<group>"; };
 		2BA226272B7E4B2400585630 /* TrailingNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingNavigationBarView.swift; sourceTree = "<group>"; };
 		2BA226292B82043C00585630 /* WalkerWS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkerWS.swift; sourceTree = "<group>"; };
@@ -144,7 +140,6 @@
 		2B603F5D2B68E80500B4663A /* Http */ = {
 			isa = PBXGroup;
 			children = (
-				2BA226152B7CB83B00585630 /* WalkerClient.swift */,
 				2BA226292B82043C00585630 /* WalkerWS.swift */,
 			);
 			path = Http;
@@ -153,6 +148,7 @@
 		2B603F632B68EAFC00B4663A /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
+				2BA2261F2B7DFE5100585630 /* GroupDTO.swift */,
 				2B603F642B68EB0D00B4663A /* LocationDTO.swift */,
 			);
 			path = DTOs;
@@ -227,7 +223,7 @@
 				2BA226252B7E024900585630 /* LeadingNavigationBarView.swift */,
 				2BA226272B7E4B2400585630 /* TrailingNavigationBarView.swift */,
 				2BA2261D2B7D30B900585630 /* PersonSheetView.swift */,
-				2BA226212B7DFEA100585630 /* ContactView.swift */,
+				2BA226212B7DFEA100585630 /* GroupInsideView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,7 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				2BA562512B6A2C370057D200 /* View */,
-				2BA2261F2B7DFE5100585630 /* Group.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -268,7 +263,6 @@
 			isa = PBXGroup;
 			children = (
 				2BA5627C2B6D265E0057D200 /* PolylineHelper.swift */,
-				2BA226232B7DFECC00585630 /* BackgroundShapes.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -292,6 +286,7 @@
 				2B73F0EA2B6397C0000C2637 /* Sources */,
 				2B73F0EB2B6397C0000C2637 /* Frameworks */,
 				2B73F0EC2B6397C0000C2637 /* Resources */,
+				2B986C162B83BB3200F6E7C8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -412,6 +407,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2B986C162B83BB3200F6E7C8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2B73F0EA2B6397C0000C2637 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -423,17 +439,15 @@
 				2B73F1292B63DA25000C2637 /* Injector.swift in Sources */,
 				2BA2261C2B7D2E8C00585630 /* GroupsSheetView.swift in Sources */,
 				2BA226262B7E024900585630 /* LeadingNavigationBarView.swift in Sources */,
-				2BA226162B7CB83B00585630 /* WalkerClient.swift in Sources */,
 				2BA5627D2B6D265E0057D200 /* PolylineHelper.swift in Sources */,
 				2B603F652B68EB0D00B4663A /* LocationDTO.swift in Sources */,
 				2BA2261A2B7D2DB700585630 /* GroupsListView.swift in Sources */,
-				2BA226202B7DFE5100585630 /* Group.swift in Sources */,
+				2BA226202B7DFE5100585630 /* GroupDTO.swift in Sources */,
 				2BA2262A2B82043C00585630 /* WalkerWS.swift in Sources */,
-				2BA226222B7DFEA100585630 /* ContactView.swift in Sources */,
+				2BA226222B7DFEA100585630 /* GroupInsideView.swift in Sources */,
 				2BA2261E2B7D30B900585630 /* PersonSheetView.swift in Sources */,
 				2BED4CE52B83665A00D5D8DA /* WalkerWSMessageHandler.swift in Sources */,
 				2B603F532B67D0AB00B4663A /* Transformers.swift in Sources */,
-				2BA226242B7DFECC00585630 /* BackgroundShapes.swift in Sources */,
 				2B73F0F42B6397C0000C2637 /* ContentView.swift in Sources */,
 				2BA562812B6E31DB0057D200 /* LocationWatcherModel.swift in Sources */,
 				2B73F0F22B6397C0000C2637 /* walkerApp.swift in Sources */,
