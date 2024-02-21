@@ -19,7 +19,7 @@ struct GroupsListView: View {
 
       }
 
-    }
+    }.listStyle(.inset)
 
   }
 }

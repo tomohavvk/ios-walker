@@ -8,35 +8,44 @@
 import SwiftUI
 
 struct CreateGroupSheetView: View {
+    @Binding  var showingCreateGroupSheet: Bool
   @State private var name: String = ""
   @State private var isPublic: Bool = false
   @State private var publicId: String = ""
   @State private var description: String = ""
 
   var body: some View {
-    //          NavigationView {
+      VStack {
+          HStack {
+           
+              Button("Cancel") {
+                  showingCreateGroupSheet = false
+              }
+              .padding()
+              Spacer()
+              Button("Create") {
+                  createGroup()
+              }
+              .padding()
+          }
+    Divider()
     Form {
       Section(header: Text("Group Information")) {
-        TextField("Name", text: $name)
+          TextField("Name", text: $name)
         Toggle("Public", isOn: $isPublic)
+        
 
         if isPublic {
           TextField("Public ID", text: $publicId)
         }
 
         TextField("Description", text: $description)
-      }
-
-      Section {
-        Button("Create Group") {
-          createGroup()
-        }
+            
       }
     }
-    .navigationTitle("Create Group")
+    }
     .background(.black)
     .scrollContentBackground(.hidden)
-    //          }
   }
 
   private func createGroup() {
@@ -47,7 +56,7 @@ struct CreateGroupSheetView: View {
       isPublic: isPublic,
       publicId: isPublic ? publicId : nil,
       description: description)
-
+      showingCreateGroupSheet = false
     // Optionally, you can navigate back or perform other actions after group creation
   }
 
@@ -56,5 +65,5 @@ struct CreateGroupSheetView: View {
 }
 
 #Preview {
-  CreateGroupSheetView()
+    CreateGroupSheetView(showingCreateGroupSheet: .constant(true))
 }

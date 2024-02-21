@@ -39,7 +39,7 @@ struct TrailingNavigationBarView: View {
 
       }
       .sheet(isPresented: $showingSheet) {
-        CreateGroupSheetView()
+          CreateGroupSheetView(showingCreateGroupSheet: .constant(true))
       }
 
     }

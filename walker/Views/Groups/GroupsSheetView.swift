@@ -54,7 +54,7 @@ struct GroupsSheetView: View {
               showingCreateGroupSheet = false
             }
           ) {
-            CreateGroupSheetView()
+              CreateGroupSheetView(showingCreateGroupSheet: $showingCreateGroupSheet)
           }
 
         }

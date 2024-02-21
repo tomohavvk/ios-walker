@@ -76,8 +76,8 @@ struct GroupInsideView: View {
     .onAppear {
       walkerApp.eventPublisher.event = "chat opened"
 
-    }
-    //    .navigationBarItems(trailing:  Text(group.name))
+    }  .background(.black)
+          .scrollContentBackground(.hidden)
 
   }
 }

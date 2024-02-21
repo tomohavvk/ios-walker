@@ -15,8 +15,7 @@ struct GroupRow: View {
     NavigationLink(
       destination:
         GroupInsideView(detent: $detent, group: group)
-        .background(.black)
-        .scrollContentBackground(.hidden)
+      
     ) {
       HStack {
         ZStack {
@@ -35,7 +34,7 @@ struct GroupRow: View {
                 .linearGradient(
                   colors: [.purple, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
               )
-              .shadow(color: Color.black.opacity(0.3), radius: 3, x: 1, y: 2)
+              .shadow(color: Color.gray.opacity(0.3), radius: 3, x: 1, y: 2)
 
             Text("\(group.deviceCount)")
               .bold()
@@ -49,15 +48,23 @@ struct GroupRow: View {
           Text(group.name)
             .font(.system(size: 20, weight: .medium, design: .rounded))
 
-          Text(group.name)
-            .font(.system(size: 10, weight: .medium, design: .rounded))
+            if (group.isPublic) {
+                Text("@" + group.publicId)
+                  .font(.system(size: 12, weight: .medium, design: .rounded))
+            } else {
+                Text("private")
+                  .font(.system(size: 12, weight: .medium, design: .rounded))
+            }
 
         }
       }
+  
 
       .navigationBarTitleDisplayMode(.inline)
     }
+   
   }
+    
 }
 
 #Preview {
