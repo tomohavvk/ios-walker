@@ -12,7 +12,8 @@ import SwiftUI
 import UIKit
 
 struct GroupInsideView: View {
-  @State var group: GroupDTO
+  @Binding var detent: PresentationDetent
+  @ObservedObject var group: GroupDTO
   @State var messages = DataSource.messages
   @State var newMessage: String = ""
 
@@ -25,43 +26,58 @@ struct GroupInsideView: View {
     }
   }
 
+  func joinGroup() {
+    walkerApp.wsMessageSender.joinGroup(groupId: group.id)
+    group.isJoined = true
+  }
+
   var body: some View {
 
-    VStack {
-       
+    return VStack {
+
       ScrollViewReader { proxy in
         ScrollView {
-          LazyVStack {
+          VStack {
             ForEach(messages, id: \.self) { message in
               MessageView(currentMessage: message)
                 .id(message)
             }
           }
           .onReceive(Just(messages)) { _ in
-            withAnimation {
-              proxy.scrollTo(messages.last, anchor: .bottom)
-            }
+            //            withAnimation {
+            proxy.scrollTo(messages.last, anchor: .bottom)
+            //            }
 
           }.onAppear {
-            withAnimation {
-              proxy.scrollTo(messages.last, anchor: .bottom)
-            }
+            //            withAnimation {
+            proxy.scrollTo(messages.last, anchor: .bottom)
+            //            }
           }
         }
 
-        // send new message
         HStack {
-          TextField("Send a message", text: $newMessage)
-            .textFieldStyle(.roundedBorder)
-            .cornerRadius(5)
-          Button(action: sendMessage) {
-            Image(systemName: "paperplane")
+          if group.isJoined {
+            TextField("Send a message", text: $newMessage)
+              .textFieldStyle(.roundedBorder)
+              .cornerRadius(5)
+            Button(action: sendMessage) {
+              Image(systemName: "paperplane")
+            }
+          } else {
+            Button(action: joinGroup) {
+              Text("Join")
+            }
+
           }
         }
         .padding()
       }
-    }.background(.black)
-          .navigationBarItems(trailing:  Text(group.name))
+    }
+    .onAppear {
+      walkerApp.eventPublisher.event = "chat opened"
+
+    }
+    //    .navigationBarItems(trailing:  Text(group.name))
 
   }
 }
@@ -133,8 +149,7 @@ struct DataSource {
 
   ]
 }
-struct ContactView_Previews: PreviewProvider {
-  static var previews: some View {
-    GroupInsideView(group: groupsTesting[0])
-  }
+
+#Preview {
+  GroupInsideView(detent: .constant(.large), group: groupsTesting[0])
 }

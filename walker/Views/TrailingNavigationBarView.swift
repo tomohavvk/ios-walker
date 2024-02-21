@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TrailingNavigationBarView: View {
+  @State private var showingSheet = false
 
   let geo: GeometryProxy
   let navModel: NavigationBarModel
@@ -31,13 +32,15 @@ struct TrailingNavigationBarView: View {
       .padding()
 
       Button(action: {
-        navModel.currentTabOpened = "person.3"
+        showingSheet.toggle()
       }) {
 
         Image(systemName: "plus").foregroundColor(.black)
 
       }
-      .padding()
+      .sheet(isPresented: $showingSheet) {
+        CreateGroupSheetView()
+      }
 
     }
   }

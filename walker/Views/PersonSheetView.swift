@@ -19,7 +19,7 @@ struct PersonSheetView: View {
   var body: some View {
     NavigationView {
       ZStack(alignment: .bottomTrailing) {
-        GroupsListView(groupsToShow: groupsTesting)
+        //        GroupsListView(groupsToShow: groupsTesting)
       }
 
       .navigationBarItems(leading: navView)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B2059AB2B84F0E000C14EE2 /* CreateGroupSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2059AA2B84F0E000C14EE2 /* CreateGroupSheetView.swift */; };
 		2B24F7862B6506FF00AE4E64 /* LocationWatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24F7852B6506FF00AE4E64 /* LocationWatcherService.swift */; };
 		2B603F502B67D05C00B4663A /* LocationRecordingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F4F2B67D05C00B4663A /* LocationRecordingService.swift */; };
 		2B603F532B67D0AB00B4663A /* Transformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F522B67D0AB00B4663A /* Transformers.swift */; };
@@ -27,6 +28,9 @@
 		2BA226262B7E024900585630 /* LeadingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226252B7E024900585630 /* LeadingNavigationBarView.swift */; };
 		2BA226282B7E4B2400585630 /* TrailingNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226272B7E4B2400585630 /* TrailingNavigationBarView.swift */; };
 		2BA2262A2B82043C00585630 /* WalkerWS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226292B82043C00585630 /* WalkerWS.swift */; };
+		2BA4528B2B85DB920018F4A0 /* GroupRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4528A2B85DB920018F4A0 /* GroupRow.swift */; };
+		2BA4528D2B85FE200018F4A0 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4528C2B85FE200018F4A0 /* Test.swift */; };
+		2BA452902B8621FC0018F4A0 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4528F2B8621FC0018F4A0 /* FooterView.swift */; };
 		2BA5624E2B69644B0057D200 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5624D2B69644B0057D200 /* MapView.swift */; };
 		2BA562772B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562762B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift */; };
 		2BA5627A2B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562782B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld */; };
@@ -54,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B2059AA2B84F0E000C14EE2 /* CreateGroupSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupSheetView.swift; sourceTree = "<group>"; };
 		2B24F7852B6506FF00AE4E64 /* LocationWatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWatcherService.swift; sourceTree = "<group>"; };
 		2B24F7872B65172700AE4E64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2B603F4F2B67D05C00B4663A /* LocationRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecordingService.swift; sourceTree = "<group>"; };
@@ -77,6 +82,9 @@
 		2BA226252B7E024900585630 /* LeadingNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingNavigationBarView.swift; sourceTree = "<group>"; };
 		2BA226272B7E4B2400585630 /* TrailingNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingNavigationBarView.swift; sourceTree = "<group>"; };
 		2BA226292B82043C00585630 /* WalkerWS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkerWS.swift; sourceTree = "<group>"; };
+		2BA4528A2B85DB920018F4A0 /* GroupRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRow.swift; sourceTree = "<group>"; };
+		2BA4528C2B85FE200018F4A0 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		2BA4528F2B8621FC0018F4A0 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		2BA5624D2B69644B0057D200 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		2BA562762B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationHistory+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2BA562792B6CDACC0057D200 /* WalkerCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WalkerCoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -215,15 +223,15 @@
 		2B73F11B2B639DFF000C2637 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2BA452892B85DAF90018F4A0 /* Groups */,
 				2BA5627B2B6D26490057D200 /* Helpers */,
 				2B73F0F32B6397C0000C2637 /* ContentView.swift */,
 				2BA5624D2B69644B0057D200 /* MapView.swift */,
-				2BA226192B7D2DB700585630 /* GroupsListView.swift */,
-				2BA2261B2B7D2E8C00585630 /* GroupsSheetView.swift */,
 				2BA226252B7E024900585630 /* LeadingNavigationBarView.swift */,
+				2BA4528F2B8621FC0018F4A0 /* FooterView.swift */,
+				2BA4528C2B85FE200018F4A0 /* Test.swift */,
 				2BA226272B7E4B2400585630 /* TrailingNavigationBarView.swift */,
 				2BA2261D2B7D30B900585630 /* PersonSheetView.swift */,
-				2BA226212B7DFEA100585630 /* GroupInsideView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -241,6 +249,18 @@
 			children = (
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		2BA452892B85DAF90018F4A0 /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				2BA226192B7D2DB700585630 /* GroupsListView.swift */,
+				2BA2261B2B7D2E8C00585630 /* GroupsSheetView.swift */,
+				2B2059AA2B84F0E000C14EE2 /* CreateGroupSheetView.swift */,
+				2BA226212B7DFEA100585630 /* GroupInsideView.swift */,
+				2BA4528A2B85DB920018F4A0 /* GroupRow.swift */,
+			);
+			path = Groups;
 			sourceTree = "<group>";
 		};
 		2BA562512B6A2C370057D200 /* View */ = {
@@ -413,6 +433,7 @@
 			files = (
 				2BA226282B7E4B2400585630 /* TrailingNavigationBarView.swift in Sources */,
 				2B603F502B67D05C00B4663A /* LocationRecordingService.swift in Sources */,
+				2B2059AB2B84F0E000C14EE2 /* CreateGroupSheetView.swift in Sources */,
 				2BA5627A2B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld in Sources */,
 				2B73F1292B63DA25000C2637 /* Injector.swift in Sources */,
 				2BA2261C2B7D2E8C00585630 /* GroupsSheetView.swift in Sources */,
@@ -421,9 +442,11 @@
 				2B603F652B68EB0D00B4663A /* LocationDTO.swift in Sources */,
 				2BA2261A2B7D2DB700585630 /* GroupsListView.swift in Sources */,
 				2BA226202B7DFE5100585630 /* GroupDTO.swift in Sources */,
+				2BA452902B8621FC0018F4A0 /* FooterView.swift in Sources */,
 				2BA2262A2B82043C00585630 /* WalkerWS.swift in Sources */,
 				2BA226222B7DFEA100585630 /* GroupInsideView.swift in Sources */,
 				2BA2261E2B7D30B900585630 /* PersonSheetView.swift in Sources */,
+				2BA4528B2B85DB920018F4A0 /* GroupRow.swift in Sources */,
 				2BED4CE52B83665A00D5D8DA /* WalkerWSMessageHandler.swift in Sources */,
 				2B603F532B67D0AB00B4663A /* Transformers.swift in Sources */,
 				2B73F0F42B6397C0000C2637 /* ContentView.swift in Sources */,
@@ -431,6 +454,7 @@
 				2B73F0F22B6397C0000C2637 /* walkerApp.swift in Sources */,
 				2BED4CE72B83678300D5D8DA /* WalkerWSMessageSender.swift in Sources */,
 				2B24F7862B6506FF00AE4E64 /* LocationWatcherService.swift in Sources */,
+				2BA4528D2B85FE200018F4A0 /* Test.swift in Sources */,
 				2BA562772B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift in Sources */,
 				2BA5624E2B69644B0057D200 /* MapView.swift in Sources */,
 			);

@@ -31,11 +31,15 @@ class WalkerWSMessageHandler: ObservableObject {
       }
     }.store(in: &cancellables)
 
+    walkerApp.wsMessageSender.getGroups(limit: 100, offset: 0)
+
     startGroupSearchHandling()
+
   }
 
   // FIXME double docoding
   func handleMessage(_ message: String) {
+    //  print(message)
     do {
       guard let data = message.data(using: .utf8) else {
         print("Error converting message to data.")
@@ -45,6 +49,11 @@ class WalkerWSMessageHandler: ObservableObject {
       let anyWSMessageIn = try decoder.decode(AnyWSMessageIn.self, from: data)
 
       switch anyWSMessageIn.type {
+      case .Error:
+        let error = try decoder.decode(WSError.self, from: data)
+
+        print("WS Error:", error)
+
       case .LocationPersisted:
         _ = try decoder.decode(LocationPersisted.self, from: data)
 
@@ -74,18 +83,19 @@ class WalkerWSMessageHandler: ObservableObject {
 
   fileprivate func startGroupSearchHandling() {
     self.groupSheetModel.$searchingFor
-      .debounce(for: .seconds(0.2), scheduler: RunLoop.main)
+      .debounce(for: .seconds(0.4), scheduler: RunLoop.main)
       .sink { [] filter in
-        if self.lastGroupsFilterValue != filter && !filter.isEmpty {
+        let trimmed = filter.trimmingCharacters(in: .whitespaces)
+        if self.lastGroupsFilterValue != trimmed && !trimmed.isEmpty {
           Task {
-            self.lastGroupsFilterValue = filter
-            walkerApp.wsMessageSender.searchGroups(search: filter, limit: 1000, offset: 0)
+            self.lastGroupsFilterValue = trimmed
+            walkerApp.wsMessageSender.searchGroups(search: trimmed, limit: 200, offset: 0)
 
           }
-        } else if self.lastGroupsFilterValue != filter && filter.isEmpty {
-          self.lastGroupsFilterValue = filter
+        } else if self.lastGroupsFilterValue != trimmed && trimmed.isEmpty {
+          self.lastGroupsFilterValue = trimmed
           Task {
-            walkerApp.wsMessageSender.getGroups(limit: 1000, offset: 0)
+            walkerApp.wsMessageSender.getGroups(limit: 200, offset: 0)
           }
         }
       }.store(in: &cancellables)
@@ -93,6 +103,7 @@ class WalkerWSMessageHandler: ObservableObject {
 }
 
 enum MessageInType: String, Codable {
+  case Error = "error"
   case LocationPersisted = "location_persisted"
   case GroupJoined = "group_joined"
   case GroupsGot = "groups_got"
@@ -117,8 +128,12 @@ struct AnyWSMessageIn: Codable {
   }
 }
 
-protocol WSMessageIn: Codable {
+protocol WSMessageIn: Decodable {
   var type: MessageInType { get }
+}
+
+struct WSError: WSMessageIn {
+  var type: MessageInType = .Error
 }
 
 struct LocationPersisted: WSMessageIn {
@@ -127,7 +142,7 @@ struct LocationPersisted: WSMessageIn {
 
 struct GroupJoined: WSMessageIn {
   var type: MessageInType = .GroupJoined
-  let deviceGroup: String
+  let deviceGroup: DeviceGroup
 }
 
 struct GroupsGot: WSMessageIn {
@@ -138,4 +153,10 @@ struct GroupsGot: WSMessageIn {
 struct GroupsSearched: WSMessageIn {
   var type: MessageInType = .GroupsSearched
   let groups: [GroupDTO]
+}
+
+struct DeviceGroup: Decodable {
+  let deviceId: String
+  let groupId: String
+  let createdAt: String
 }

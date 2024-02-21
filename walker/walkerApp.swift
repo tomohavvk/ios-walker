@@ -13,6 +13,7 @@ struct walkerApp: App {
   static let wsMessageSender = WalkerWSMessageSender()
 
   static let walkerWS = WalkerWS(deviceId: UIDevice.current.identifierForVendor!.uuidString)
+  static let eventPublisher: EventPublisher = EventPublisher()
 
   @StateObject private var locationWatcherModel: LocationWatcherModel = LocationWatcherModel()
   @StateObject var navModel: NavigationBarModel = NavigationBarModel(currentTabOpened: "person")
@@ -26,7 +27,9 @@ struct walkerApp: App {
   init() {
     print("INIT walkerApp")
     print(Self.walkerWS)
+    print(Self.eventPublisher)
     _ = Injector()
+
   }
 
   var body: some Scene {
@@ -34,11 +37,13 @@ struct walkerApp: App {
     return WindowGroup {
       GeometryReader { geometry in
         ContentView(
+
           locationWatcherModel: locationWatcherModel, navModel: navModel,
           groupSheetModel: groupSheetModel
         )
         .background(.black)
       }
+
     }
   }
 }
