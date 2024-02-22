@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MinimalistAlertView: View {
+struct NotImplementedAlert: View {
   @Binding var showAlert: Bool
 
   var body: some View {
@@ -49,6 +49,6 @@ struct MinimalistAlertView: View {
 
 struct MinimalistAlertView_Previews: PreviewProvider {
   static var previews: some View {
-    MinimalistAlertView(showAlert: .constant(true))
+    NotImplementedAlert(showAlert: .constant(true))
   }
 }

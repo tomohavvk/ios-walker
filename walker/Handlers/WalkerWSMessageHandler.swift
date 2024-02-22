@@ -10,7 +10,9 @@ import Foundation
 import SwiftUI
 
 class WalkerWSMessageHandler: ObservableObject {
-  @State private var isInit: Bool = false
+
+    
+    
   @ObservedObject private var groupSheetModel: GroupSheetModel
 
   private let decoder = JSONDecoder()
@@ -80,6 +82,12 @@ class WalkerWSMessageHandler: ObservableObject {
 
         print("GroupsSearched")
         self.groupSheetModel.groupsToShow = result.groups
+          
+      case .PublicIdAvailabilityChecked:
+        let result = try decoder.decode(PublicIdAvailabilityChecked.self, from: data)
+          groupSheetModel.lastPublicIdAvailability = result.available
+          print("PublicIdAvailabilityChecked:", result.available)
+ 
       }
     } catch {
       print("Error decoding message: \(error)")
@@ -114,6 +122,7 @@ enum MessageInType: String, Codable {
   case GroupJoined = "group_joined"
   case GroupsGot = "groups_got"
   case GroupsSearched = "groups_searched"
+  case PublicIdAvailabilityChecked = "public_id_availability_checked"
 }
 
 struct AnyWSMessageIn: Codable {
@@ -164,6 +173,11 @@ struct GroupsGot: WSMessageIn {
 struct GroupsSearched: WSMessageIn {
   var type: MessageInType = .GroupsSearched
   let groups: [GroupDTO]
+}
+
+struct PublicIdAvailabilityChecked: WSMessageIn {
+  var type: MessageInType = .PublicIdAvailabilityChecked
+  let available: Bool
 }
 
 struct DeviceGroup: Decodable {

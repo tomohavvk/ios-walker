@@ -6,26 +6,32 @@
 //
 
 import SwiftUI
+import Combine
 
-struct CreateGroupSheetView: View {
+struct CreateGroupView: View {
+    @ObservedObject var groupSheetModel: GroupSheetModel
+  @Binding var detent: PresentationDetent
   @Binding var showingCreateGroupSheet: Bool
   @State var nanoid: String
+
+    
   @State private var name: String = ""
-
   @State private var isPublic: Bool = true
-
   @State private var publicId: String = ""
   @State private var description: String = ""
-  @State private var showAlert = false
-
+    
+    
   @State private var isNameValid: Bool = false
   @State private var isPublicIdValid: Bool = true
   @State private var isTriedToCreate: Bool = false
 
+  @State private var showNotImplementedAlert = false
+
   var body: some View {
+   
     ZStack {
-      if showAlert {
-        MinimalistAlertView(showAlert: $showAlert)
+      if showNotImplementedAlert {
+        NotImplementedAlert(showAlert: $showNotImplementedAlert)
           .zIndex(1)
       }
 
@@ -53,12 +59,13 @@ struct CreateGroupSheetView: View {
             .foregroundColor(.green)
             .background(Color.green.opacity(0.2))
             .clipShape(Circle())
+            
           Text("Set New Photo")
             .font(.system(size: 15, weight: .medium, design: .rounded))
             .foregroundColor(.green)
 
         }.onTapGesture {
-          self.showAlert = true
+          self.showNotImplementedAlert = true
         }
 
         Form(content: {
@@ -77,9 +84,9 @@ struct CreateGroupSheetView: View {
               if (isTriedToCreate && name.count == 0) || (name.count != 0 && !isNameValid) {
                 HStack {
                   Spacer()
-                  Text("Group name must have at least 1 character")
-                    .font(.system(size: 10, weight: .medium, design: .rounded))
-                    .foregroundColor(.red)
+                  Text("Group name should not be empty")
+                    .font(.system(size: 9, weight: .medium, design: .rounded))
+                    .foregroundColor(.red.opacity(0.8))
                   Spacer()
                 }
               }
@@ -94,42 +101,69 @@ struct CreateGroupSheetView: View {
                     .foregroundColor(.gray)
 
                   TextField("id", text: $publicId)
-
                     .validateMinLength(value: $publicId, isValid: $isPublicIdValid, minLength: 5)
                     .limitInputSpacing(value: $publicId)
                     .limitInputLength(value: $publicId, length: 32)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                 }
-              }, header: {},
+              }, header: {
+                  Text("public link")
+              },
               footer: {
                 if (isTriedToCreate && publicId.count == 0)
                   || (publicId.count != 0 && !isPublicIdValid)
                 {
+                    
                   Text("Public id must have at least 5 characters")
-                    .foregroundColor(.red)
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                        .foregroundColor(.red.opacity(0.8))
+                } else if groupSheetModel.lastPublicIdAvailability {
+                    withAnimation {
+                        Text("Public id is available")
+                              .font(.system(size: 12, weight: .medium, design: .rounded))
+                              .foregroundColor(.green.opacity(0.8))
+                    }
+                } else if publicId.count != 0 && !groupSheetModel.lastPublicIdAvailability {
+                      withAnimation {
+                      Text("This public id already taken")
+                          .font(.system(size: 12, weight: .medium, design: .rounded))
+                          .foregroundColor(.red.opacity(0.8))
                 }
+                }
+
+                  EmptyView()
+                        .onChange(of: publicId, {
+                            if publicId.count >= 5 {
+                                withAnimation {
+                                  //  groupSheetModel.lastPublicIdAvailability = false
+                                }
+                                // FIXME SEND ONLY AFTER USER STOP TAPYNG
+                                walkerApp.wsMessageSender.checkPublicIdAvailability(publicId: publicId)
+                            }
+                        })
+                       
+      
               })
 
           } else {
-            Section {
-              HStack(spacing: 1) {
-                Text("walker.com/" + nanoid)
-                  .foregroundColor(.gray)
-                  .font(.system(size: 15, weight: .medium, design: .rounded))
-                Spacer()
-              }
-            }
-
-          }
+              Section {
+                  HStack(spacing: 1) {
+                    Text("walker.com/" + nanoid)
+                      .foregroundColor(.gray)
+                      .font(.system(size: 15, weight: .medium, design: .rounded))
+                    Spacer()
+                  }
+              } header: {
+                  Text("private link")
+              } footer: {}
+}
 
           Section("GROUP TYPE") {
             HStack {
               Image(systemName: "person.3").foregroundColor(.blue)
               if isPublic {
-
                 Toggle("Public", isOn: $isPublic)
-
               } else {
                 Toggle("Private", isOn: $isPublic)
               }
@@ -141,6 +175,10 @@ struct CreateGroupSheetView: View {
       }
       .background(.black)
       .scrollContentBackground(.hidden)
+    }
+    .onAppear {
+
+        self.detent = .fraction(0.99)
     }
   }
 
@@ -160,6 +198,33 @@ struct CreateGroupSheetView: View {
       isTriedToCreate = true
     }
   }
+    
+    
+    private func validatePublicId() {
+        // Perform your logic here
+        if publicId.count >= 5 {
+            walkerApp.wsMessageSender.checkPublicIdAvailability(publicId: publicId)
+        }
+    }
+}
+
+class Debouncer: ObservableObject {
+    let objectWillChange = PassthroughSubject<Void, Never>()
+    private var cancellable: Cancellable? {
+        didSet { oldValue?.cancel() }
+    }
+
+    deinit {
+        cancellable?.cancel()
+    }
+
+    func debounce(interval: TimeInterval, action: @escaping () -> Void) {
+        cancellable = Timer.publish(every: interval, on: .main, in: .common)
+            .autoconnect()
+            .sink { _ in
+                action()
+            }
+    }
 }
 
 struct TextFieldMinLengthValidationModifer: ViewModifier {
@@ -218,5 +283,5 @@ extension View {
 }
 
 #Preview {
-  CreateGroupSheetView(showingCreateGroupSheet: .constant(true), nanoid: NanoID.new(21))
+    CreateGroupView(groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting) ,detent: .constant(.large) ,showingCreateGroupSheet: .constant(true), nanoid: NanoID.new(21))
 }

@@ -12,7 +12,7 @@ class GroupSheetModel: ObservableObject {
 
   @Published var searchingFor: String
   @Published var groupsToShow: [GroupDTO]
-
+  @Published  var lastPublicIdAvailability: Bool = false
   init(searchingFor: String, groupsToShow: [GroupDTO]) {
 
     self.searchingFor = searchingFor
@@ -54,7 +54,8 @@ struct GroupsSheetView: View {
               showingCreateGroupSheet = false
             }
           ) {
-            CreateGroupSheetView(
+
+              CreateGroupView(groupSheetModel: groupSheetModel, detent: $detent,
               showingCreateGroupSheet: $showingCreateGroupSheet, nanoid: NanoID.new(21))
           }
 
