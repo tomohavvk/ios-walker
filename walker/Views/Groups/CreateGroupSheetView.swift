@@ -11,14 +11,20 @@ struct CreateGroupSheetView: View {
   @Binding var showingCreateGroupSheet: Bool
   @State var nanoid: String
   @State private var name: String = ""
-  @State private var isPublic: Bool = false
+
+  @State private var isPublic: Bool = true
+
   @State private var publicId: String = ""
   @State private var description: String = ""
   @State private var showAlert = false
 
+  @State private var isNameValid: Bool = false
+  @State private var isPublicIdValid: Bool = true
+  @State private var isTriedToCreate: Bool = false
+
   var body: some View {
     ZStack {
-      if self.showAlert {
+      if showAlert {
         MinimalistAlertView(showAlert: $showAlert)
           .zIndex(1)
       }
@@ -55,22 +61,55 @@ struct CreateGroupSheetView: View {
           self.showAlert = true
         }
 
-        Form {
-          TextField("Group Name", text: $name)
-            
-          TextField("Description", text: $description)
+        Form(content: {
+
+          Section(
+            content: {
+              TextField("Group Name", text: $name)
+                .validateMinLength(value: $name, isValid: $isNameValid, minLength: 1)
+                .limitInputLength(value: $name, length: 128)
+
+              TextField("Description", text: $description)
+                .limitInputLength(value: $description, length: 256)
+            },
+            header: {
+
+              if (isTriedToCreate && name.count == 0) || (name.count != 0 && !isNameValid) {
+                HStack {
+                  Spacer()
+                  Text("Group name must have at least 1 character")
+                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                    .foregroundColor(.red)
+                  Spacer()
+                }
+              }
+            }, footer: {}
+          )
 
           if isPublic {
-            Section {
-              HStack(spacing: 1) {
-                Text("walker.com/")
-                  .foregroundColor(.gray)
-                TextField("id", text: $publicId)
-                  .autocapitalization(.none)
-                  .disableAutocorrection(true)
-                Spacer()
-              }
-            }
+            Section(
+              content: {
+                HStack(spacing: 1) {
+                  Text("walker.com/")
+                    .foregroundColor(.gray)
+
+                  TextField("id", text: $publicId)
+
+                    .validateMinLength(value: $publicId, isValid: $isPublicIdValid, minLength: 5)
+                    .limitInputSpacing(value: $publicId)
+                    .limitInputLength(value: $publicId, length: 32)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                }
+              }, header: {},
+              footer: {
+                if (isTriedToCreate && publicId.count == 0)
+                  || (publicId.count != 0 && !isPublicIdValid)
+                {
+                  Text("Public id must have at least 5 characters")
+                    .foregroundColor(.red)
+                }
+              })
 
           } else {
             Section {
@@ -98,7 +137,7 @@ struct CreateGroupSheetView: View {
 
           }
 
-        }
+        })
       }
       .background(.black)
       .scrollContentBackground(.hidden)
@@ -107,13 +146,74 @@ struct CreateGroupSheetView: View {
 
   private func createGroup() {
 
-    walkerApp.wsMessageSender.createGroup(
-      id: NanoID.new(21),
-      name: name,
-      isPublic: isPublic,
-      publicId: isPublic ? publicId : nil,
-      description: description)
-    showingCreateGroupSheet = false
+    if isPublicIdValid && isNameValid {
+
+      walkerApp.wsMessageSender.createGroup(
+        id: NanoID.new(21),
+        name: name,
+        isPublic: isPublic,
+        publicId: isPublic ? publicId : nil,
+        description: description)
+      showingCreateGroupSheet = false
+
+    } else {
+      isTriedToCreate = true
+    }
+  }
+}
+
+struct TextFieldMinLengthValidationModifer: ViewModifier {
+  @Binding var value: String
+  @Binding var isValid: Bool
+  var minLength: Int
+  func body(content: Content) -> some View {
+    content
+      .onReceive(value.publisher.collect()) {
+
+        if String($0).count < minLength {
+          isValid = false
+        } else {
+          isValid = true
+        }
+      }
+  }
+}
+
+struct TextFieldLimitModifer: ViewModifier {
+  @Binding var value: String
+  var length: Int
+  func body(content: Content) -> some View {
+    content
+      .onReceive(value.publisher.collect()) {
+        value = String($0.prefix(length))
+      }
+  }
+}
+
+struct TextFieldLimitSpacingModifer: ViewModifier {
+  @Binding var value: String
+
+  func body(content: Content) -> some View {
+    content
+      .onReceive(value.publisher.collect()) {
+        value = String($0).trimmingCharacters(in: .whitespaces)
+      }
+  }
+}
+
+extension View {
+  func validateMinLength(value: Binding<String>, isValid: Binding<Bool>, minLength: Int)
+    -> some View
+  {
+    self.modifier(
+      TextFieldMinLengthValidationModifer(value: value, isValid: isValid, minLength: minLength))
+  }
+
+  func limitInputLength(value: Binding<String>, length: Int) -> some View {
+    self.modifier(TextFieldLimitModifer(value: value, length: length))
+  }
+  func limitInputSpacing(value: Binding<String>) -> some View {
+    self.modifier(TextFieldLimitSpacingModifer(value: value))
   }
 }
 
