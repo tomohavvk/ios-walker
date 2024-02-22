@@ -54,7 +54,8 @@ struct GroupsSheetView: View {
               showingCreateGroupSheet = false
             }
           ) {
-              CreateGroupSheetView(showingCreateGroupSheet: $showingCreateGroupSheet)
+            CreateGroupSheetView(
+              showingCreateGroupSheet: $showingCreateGroupSheet, nanoid: NanoID.new(21))
           }
 
         }

@@ -15,16 +15,14 @@ struct ContentView: View {
   @StateObject private var wsMessageHandler: WalkerWSMessageHandler
 
   @ObservedObject private var locationWatcherModel: LocationWatcherModel
-  @ObservedObject private var navModel: NavigationBarModel
   @ObservedObject private var groupSheetModel: GroupSheetModel
 
   init(
-    locationWatcherModel: LocationWatcherModel, navModel: NavigationBarModel,
+    locationWatcherModel: LocationWatcherModel,
     groupSheetModel: GroupSheetModel
   ) {
     //  print("INIT ContentView")
     self.locationWatcherModel = locationWatcherModel
-    self.navModel = navModel
     self.groupSheetModel = groupSheetModel
 
     self._polylineHelper = StateObject(
@@ -50,17 +48,11 @@ struct ContentView: View {
           withAnimation(.none) {
             NavigationView {
               ZStack {
-                if navModel.currentTabOpened == "person" {
+                GroupsSheetView(
+                  detent: $detent,
+                  geo: geo,
+                  groupSheetModel: groupSheetModel)
 
-                  GroupsSheetView(
-                    detent: $detent,
-                    geo: geo,
-                    groupSheetModel: groupSheetModel)
-
-                } else {
-                  PersonSheetView(
-                    geo: geo, navView: LeadingNavigationBarView(geo: geo, navModel: navModel))
-                }
               }
             }
           }
@@ -104,6 +96,5 @@ extension Array where Element: Hashable {
 
   ContentView(
     locationWatcherModel: LocationWatcherModel(),
-    navModel: NavigationBarModel(currentTabOpened: "person"),
     groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting))
 }

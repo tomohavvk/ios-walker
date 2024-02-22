@@ -39,7 +39,7 @@ class WalkerWSMessageHandler: ObservableObject {
 
   // FIXME double docoding
   func handleMessage(_ message: String) {
-    //  print(message)
+    print(message)
     do {
       guard let data = message.data(using: .utf8) else {
         print("Error converting message to data.")
@@ -58,6 +58,11 @@ class WalkerWSMessageHandler: ObservableObject {
         _ = try decoder.decode(LocationPersisted.self, from: data)
 
         print("LocationPersisted")
+
+      case .GroupCreated:
+        let group = try decoder.decode(GroupCreated.self, from: data)
+        self.groupSheetModel.groupsToShow.append(group.group)
+        print("GroupCreated")
 
       case .GroupJoined:
         _ = try decoder.decode(GroupJoined.self, from: data)
@@ -105,6 +110,7 @@ class WalkerWSMessageHandler: ObservableObject {
 enum MessageInType: String, Codable {
   case Error = "error"
   case LocationPersisted = "location_persisted"
+  case GroupCreated = "group_created"
   case GroupJoined = "group_joined"
   case GroupsGot = "groups_got"
   case GroupsSearched = "groups_searched"
@@ -138,6 +144,11 @@ struct WSError: WSMessageIn {
 
 struct LocationPersisted: WSMessageIn {
   var type: MessageInType = .LocationPersisted
+}
+
+struct GroupCreated: WSMessageIn {
+  var type: MessageInType = .GroupCreated
+  let group: GroupDTO
 }
 
 struct GroupJoined: WSMessageIn {

@@ -76,8 +76,8 @@ struct GroupInsideView: View {
     .onAppear {
       walkerApp.eventPublisher.event = "chat opened"
 
-    }  .background(.black)
-          .scrollContentBackground(.hidden)
+    }.background(.black)
+    .scrollContentBackground(.hidden)
 
   }
 }

@@ -16,7 +16,6 @@ struct walkerApp: App {
   static let eventPublisher: EventPublisher = EventPublisher()
 
   @StateObject private var locationWatcherModel: LocationWatcherModel = LocationWatcherModel()
-  @StateObject var navModel: NavigationBarModel = NavigationBarModel(currentTabOpened: "person")
   @StateObject var groupSheetModel: GroupSheetModel = GroupSheetModel(
     searchingFor: "", groupsToShow: [])
 
@@ -37,8 +36,7 @@ struct walkerApp: App {
     return WindowGroup {
       GeometryReader { geometry in
         ContentView(
-
-          locationWatcherModel: locationWatcherModel, navModel: navModel,
+          locationWatcherModel: locationWatcherModel,
           groupSheetModel: groupSheetModel
         )
         .background(.black)

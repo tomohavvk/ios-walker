@@ -15,7 +15,7 @@ struct GroupRow: View {
     NavigationLink(
       destination:
         GroupInsideView(detent: $detent, group: group)
-      
+
     ) {
       HStack {
         ZStack {
@@ -48,23 +48,22 @@ struct GroupRow: View {
           Text(group.name)
             .font(.system(size: 20, weight: .medium, design: .rounded))
 
-            if (group.isPublic) {
-                Text("@" + group.publicId)
-                  .font(.system(size: 12, weight: .medium, design: .rounded))
-            } else {
-                Text("private")
-                  .font(.system(size: 12, weight: .medium, design: .rounded))
-            }
+          if group.isPublic {
+            Text("@" + group.publicId)
+              .font(.system(size: 12, weight: .medium, design: .rounded))
+          } else {
+            Text("private")
+              .font(.system(size: 12, weight: .medium, design: .rounded))
+          }
 
         }
       }
-  
 
       .navigationBarTitleDisplayMode(.inline)
     }
-   
+
   }
-    
+
 }
 
 #Preview {
