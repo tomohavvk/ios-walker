@@ -55,7 +55,8 @@ struct GroupsSheetView: View {
             }
           ) {
 
-              CreateGroupView(groupSheetModel: groupSheetModel, createGroupModel: createGroupModel, detent: $detent,
+            CreateGroupView(
+              groupSheetModel: groupSheetModel, createGroupModel: createGroupModel, detent: $detent,
               showingCreateGroupSheet: $showingCreateGroupSheet, nanoid: NanoID.new(21))
           }
 

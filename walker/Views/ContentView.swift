@@ -33,7 +33,8 @@ struct ContentView: View {
     self._locationService = StateObject(
       wrappedValue: LocationWatcherService(model: locationWatcherModel))
     self._wsMessageHandler = StateObject(
-        wrappedValue: WalkerWSMessageHandler(groupSheetModel: groupSheetModel, createGroupModel: createGroupModel))
+      wrappedValue: WalkerWSMessageHandler(
+        groupSheetModel: groupSheetModel, createGroupModel: createGroupModel))
   }
 
   var body: some View {
@@ -100,5 +101,6 @@ extension Array where Element: Hashable {
 
   ContentView(
     locationWatcherModel: LocationWatcherModel(),
-    groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting),createGroupModel: CreateGroupModel())
+    groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting),
+    createGroupModel: CreateGroupModel())
 }

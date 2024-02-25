@@ -11,8 +11,6 @@ import SwiftUI
 
 class WalkerWSMessageHandler: ObservableObject {
 
-    
-    
   @ObservedObject private var groupSheetModel: GroupSheetModel
   @ObservedObject private var createGroupModel: CreateGroupModel
 
@@ -20,7 +18,7 @@ class WalkerWSMessageHandler: ObservableObject {
   private var lastGroupsFilterValue = "init"
   private var cancellables: Set<AnyCancellable> = []
 
-    init(groupSheetModel: GroupSheetModel, createGroupModel: CreateGroupModel) {
+  init(groupSheetModel: GroupSheetModel, createGroupModel: CreateGroupModel) {
     print("INIT WalkerWSMessageHandler")
 
     self.groupSheetModel = groupSheetModel
@@ -65,7 +63,8 @@ class WalkerWSMessageHandler: ObservableObject {
 
       case .GroupCreated:
         let group = try decoder.decode(GroupCreated.self, from: data)
-        self.groupSheetModel.groupsToShow.append(group.group)
+
+        self.groupSheetModel.groupsToShow.insert(group.group, at: 0)
         print("GroupCreated")
 
       case .GroupJoined:
@@ -84,13 +83,13 @@ class WalkerWSMessageHandler: ObservableObject {
 
         print("GroupsSearched")
         self.groupSheetModel.groupsToShow = result.groups
-          
+
       case .PublicIdAvailabilityChecked:
         let result = try decoder.decode(PublicIdAvailabilityChecked.self, from: data)
-          createGroupModel.lastPublicIdAvailability = result.available
-          createGroupModel.isCheckingPubicAvailability = false
-          print("PublicIdAvailabilityChecked:", result.available)
- 
+        createGroupModel.lastPublicIdAvailability = result.available
+        createGroupModel.isCheckingPubicAvailability = false
+        print("PublicIdAvailabilityChecked:", result.available)
+
       }
     } catch {
       print("Error decoding message: \(error)")

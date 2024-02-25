@@ -18,8 +18,8 @@ struct walkerApp: App {
   @StateObject private var locationWatcherModel: LocationWatcherModel = LocationWatcherModel()
   @StateObject var groupSheetModel: GroupSheetModel = GroupSheetModel(
     searchingFor: "", groupsToShow: [])
-    
-  @StateObject var createGroupModel: CreateGroupModel = CreateGroupModel( )
+
+  @StateObject var createGroupModel: CreateGroupModel = CreateGroupModel()
 
   private var cancellables: Set<AnyCancellable> = []
 
