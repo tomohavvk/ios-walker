@@ -16,21 +16,24 @@ struct ContentView: View {
 
   @ObservedObject private var locationWatcherModel: LocationWatcherModel
   @ObservedObject private var groupSheetModel: GroupSheetModel
+  @ObservedObject private var createGroupModel: CreateGroupModel
 
   init(
     locationWatcherModel: LocationWatcherModel,
-    groupSheetModel: GroupSheetModel
+    groupSheetModel: GroupSheetModel,
+    createGroupModel: CreateGroupModel
   ) {
     //  print("INIT ContentView")
     self.locationWatcherModel = locationWatcherModel
     self.groupSheetModel = groupSheetModel
+    self.createGroupModel = createGroupModel
 
     self._polylineHelper = StateObject(
       wrappedValue: PolylineHelper(locationWatcherModel: locationWatcherModel))
     self._locationService = StateObject(
       wrappedValue: LocationWatcherService(model: locationWatcherModel))
     self._wsMessageHandler = StateObject(
-      wrappedValue: WalkerWSMessageHandler(groupSheetModel: groupSheetModel))
+        wrappedValue: WalkerWSMessageHandler(groupSheetModel: groupSheetModel, createGroupModel: createGroupModel))
   }
 
   var body: some View {
@@ -51,7 +54,8 @@ struct ContentView: View {
                 GroupsSheetView(
                   detent: $detent,
                   geo: geo,
-                  groupSheetModel: groupSheetModel)
+                  groupSheetModel: groupSheetModel,
+                  createGroupModel: createGroupModel)
 
               }
             }
@@ -96,5 +100,5 @@ extension Array where Element: Hashable {
 
   ContentView(
     locationWatcherModel: LocationWatcherModel(),
-    groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting))
+    groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting),createGroupModel: CreateGroupModel())
 }

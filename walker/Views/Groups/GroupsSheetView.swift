@@ -12,7 +12,6 @@ class GroupSheetModel: ObservableObject {
 
   @Published var searchingFor: String
   @Published var groupsToShow: [GroupDTO]
-  @Published  var lastPublicIdAvailability: Bool = false
   init(searchingFor: String, groupsToShow: [GroupDTO]) {
 
     self.searchingFor = searchingFor
@@ -30,6 +29,7 @@ struct GroupsSheetView: View {
   let geo: GeometryProxy
 
   @ObservedObject var groupSheetModel: GroupSheetModel
+  @ObservedObject var createGroupModel: CreateGroupModel
 
   var body: some View {
     NavigationView {
@@ -55,7 +55,7 @@ struct GroupsSheetView: View {
             }
           ) {
 
-              CreateGroupView(groupSheetModel: groupSheetModel, detent: $detent,
+              CreateGroupView(groupSheetModel: groupSheetModel, createGroupModel: createGroupModel, detent: $detent,
               showingCreateGroupSheet: $showingCreateGroupSheet, nanoid: NanoID.new(21))
           }
 
@@ -80,7 +80,8 @@ struct GroupsSheetView: View {
       detent: .constant(.large),
       geo: geo,
 
-      groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting)
+      groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting),
+      createGroupModel: CreateGroupModel()
 
     )
   }

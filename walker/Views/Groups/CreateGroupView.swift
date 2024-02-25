@@ -8,16 +8,37 @@
 import SwiftUI
 import Combine
 
+class CreateGroupModel: ObservableObject {
+    @Published  var lastPublicIdAvailability: Bool = false
+
+    @Published var isCheckingPubicAvailability = false
+    @Published var publicId = ""    //to store real-time value
+    @Published var debouncedPublicId = ""        //to store debounced value
+        
+        init() {
+            setupTitleDebounce()
+        }
+        
+        func setupTitleDebounce() {
+            debouncedPublicId = self.publicId
+            $publicId
+                .debounce(for: .seconds(0.3), scheduler: RunLoop.main)
+                .assign(to: &$debouncedPublicId)
+        }
+        
+}
+
+
 struct CreateGroupView: View {
-    @ObservedObject var groupSheetModel: GroupSheetModel
+  @ObservedObject var groupSheetModel: GroupSheetModel
+  @ObservedObject var createGroupModel: CreateGroupModel
   @Binding var detent: PresentationDetent
   @Binding var showingCreateGroupSheet: Bool
   @State var nanoid: String
 
-    
   @State private var name: String = ""
   @State private var isPublic: Bool = true
-  @State private var publicId: String = ""
+
   @State private var description: String = ""
     
     
@@ -26,7 +47,8 @@ struct CreateGroupView: View {
   @State private var isTriedToCreate: Bool = false
 
   @State private var showNotImplementedAlert = false
-
+    @State private var isKeyboardVisible = false
+    
   var body: some View {
    
     ZStack {
@@ -34,7 +56,7 @@ struct CreateGroupView: View {
         NotImplementedAlert(showAlert: $showNotImplementedAlert)
           .zIndex(1)
       }
-
+        ScrollViewReader { scrollView in
       VStack {
 
         HStack {
@@ -70,15 +92,14 @@ struct CreateGroupView: View {
 
         Form(content: {
 
-          Section(
-            content: {
+          Section {
               TextField("Group Name", text: $name)
                 .validateMinLength(value: $name, isValid: $isNameValid, minLength: 1)
                 .limitInputLength(value: $name, length: 128)
 
               TextField("Description", text: $description)
                 .limitInputLength(value: $description, length: 256)
-            },
+            }
             header: {
 
               if (isTriedToCreate && name.count == 0) || (name.count != 0 && !isNameValid) {
@@ -90,61 +111,86 @@ struct CreateGroupView: View {
                   Spacer()
                 }
               }
-            }, footer: {}
-          )
+            }  footer: {}
+                .listRowBackground(Color(UIColor.gray).opacity(0.15))
 
           if isPublic {
-            Section(
-              content: {
+            Section {
                 HStack(spacing: 1) {
                   Text("walker.com/")
                     .foregroundColor(.gray)
 
-                  TextField("id", text: $publicId)
-                    .validateMinLength(value: $publicId, isValid: $isPublicIdValid, minLength: 5)
-                    .limitInputSpacing(value: $publicId)
-                    .limitInputLength(value: $publicId, length: 32)
+                    TextField("id", text: $createGroupModel.publicId)
+                   
+                    .validateMinLength(value: $createGroupModel.debouncedPublicId, isValid: $isPublicIdValid, minLength: 5)
+                    .limitInputSpacing(value: $createGroupModel.debouncedPublicId)
+                    .limitInputLength(value: $createGroupModel.debouncedPublicId, length: 32)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                 }
-              }, header: {
+              }
+          header: {
                   Text("public link")
-              },
-              footer: {
-                if (isTriedToCreate && publicId.count == 0)
-                  || (publicId.count != 0 && !isPublicIdValid)
-                {
-                    
+              } 
+          footer: {
+              
+              if createGroupModel.isCheckingPubicAvailability {
+                  HStack {
+                      
+       
+                  Text("Checking    ")
+                       
+                  
+                  Text("")
+                  .background(
+                       RoundedRectangle(cornerRadius: 8)
+                          .stroke(createGroupModel.isCheckingPubicAvailability ? Color.blue : Color.gray, lineWidth: 2)
+                   )
+                   .overlay(
+                       HStack {
+                           Spacer()
+                           if createGroupModel.isCheckingPubicAvailability {
+                               ProgressView()
+                                   .progressViewStyle(CircularProgressViewStyle())
+                                   .padding(.trailing, 16)
+                           }
+                       }
+                   )
+                  }
+              } else if (isTriedToCreate && createGroupModel.debouncedPublicId.count == 0)
+                    || (createGroupModel.debouncedPublicId.count != 0 && !isPublicIdValid)
+              {
+                  
                   Text("Public id must have at least 5 characters")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                        .foregroundColor(.red.opacity(0.8))
-                } else if groupSheetModel.lastPublicIdAvailability {
-                    withAnimation {
-                        Text("Public id is available")
-                              .font(.system(size: 12, weight: .medium, design: .rounded))
-                              .foregroundColor(.green.opacity(0.8))
-                    }
-                } else if publicId.count != 0 && !groupSheetModel.lastPublicIdAvailability {
-                      withAnimation {
-                      Text("This public id already taken")
+                      .font(.system(size: 12, weight: .medium, design: .rounded))
+                      .foregroundColor(.red.opacity(0.8))
+              } else if createGroupModel.lastPublicIdAvailability {
+                  withAnimation {
+                      Text(createGroupModel.debouncedPublicId + " is available")
+                          .font(.system(size: 12, weight: .medium, design: .rounded))
+                          .foregroundColor(.green.opacity(0.8))
+                  }
+              } else if createGroupModel.debouncedPublicId.count != 0 && !createGroupModel.lastPublicIdAvailability {
+                  withAnimation {
+                      Text(createGroupModel.debouncedPublicId + " is already taken")
                           .font(.system(size: 12, weight: .medium, design: .rounded))
                           .foregroundColor(.red.opacity(0.8))
-                }
-                }
-
-                  EmptyView()
-                        .onChange(of: publicId, {
-                            if publicId.count >= 5 {
-                                withAnimation {
-                                  //  groupSheetModel.lastPublicIdAvailability = false
-                                }
-                                // FIXME SEND ONLY AFTER USER STOP TAPYNG
-                                walkerApp.wsMessageSender.checkPublicIdAvailability(publicId: publicId)
-                            }
-                        })
-                       
-      
-              })
+                  }
+              }
+              
+              EmptyView()
+                  .onChange(of: createGroupModel.debouncedPublicId, {
+                      if createGroupModel.debouncedPublicId.count >= 5 {
+                          withAnimation {
+                              //  groupSheetModel.lastPublicIdAvailability = false
+                          }
+                          // FIXME SEND ONLY AFTER USER STOP TAPYNG
+                          createGroupModel.isCheckingPubicAvailability = true
+                          walkerApp.wsMessageSender.checkPublicIdAvailability(publicId: createGroupModel.debouncedPublicId)
+                      }
+                  })
+              
+          } .listRowBackground(Color(UIColor.gray).opacity(0.15))
 
           } else {
               Section {
@@ -157,6 +203,7 @@ struct CreateGroupView: View {
               } header: {
                   Text("private link")
               } footer: {}
+                  .listRowBackground(Color(UIColor.gray).opacity(0.15))
 }
 
           Section("GROUP TYPE") {
@@ -168,17 +215,39 @@ struct CreateGroupView: View {
                 Toggle("Private", isOn: $isPublic)
               }
             }
-
-          }
+            .id(1)
+          }.listRowBackground(Color(UIColor.gray).opacity(0.15))
 
         })
       }
       .background(.black)
-      .scrollContentBackground(.hidden)
-    }
-    .onAppear {
+     .onAppear {
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: .main) { notification in
+                                     withAnimation {
+                                 
+                                         scrollView.scrollTo(1, anchor: .bottom)
+                                     }
+                                 }
 
-        self.detent = .fraction(0.99)
+                                 NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: .main) { _ in
+                                     withAnimation {
+                                
+                                     }
+                                 }
+         
+            self.detent = .fraction(0.99)
+        }
+    }
+      
+       
+    }
+
+    .onDisappear {
+        // Handle actions when the sheet disappears
+        // For example, you might want to reset some state variables
+        createGroupModel.publicId = ""
+        createGroupModel.debouncedPublicId = ""
+        createGroupModel.lastPublicIdAvailability = false
     }
   }
 
@@ -190,7 +259,7 @@ struct CreateGroupView: View {
         id: NanoID.new(21),
         name: name,
         isPublic: isPublic,
-        publicId: isPublic ? publicId : nil,
+        publicId: isPublic ? createGroupModel.debouncedPublicId : nil,
         description: description)
       showingCreateGroupSheet = false
 
@@ -202,8 +271,8 @@ struct CreateGroupView: View {
     
     private func validatePublicId() {
         // Perform your logic here
-        if publicId.count >= 5 {
-            walkerApp.wsMessageSender.checkPublicIdAvailability(publicId: publicId)
+        if createGroupModel.debouncedPublicId.count >= 5 {
+            walkerApp.wsMessageSender.checkPublicIdAvailability(publicId: createGroupModel.debouncedPublicId)
         }
     }
 }
@@ -283,5 +352,5 @@ extension View {
 }
 
 #Preview {
-    CreateGroupView(groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting) ,detent: .constant(.large) ,showingCreateGroupSheet: .constant(true), nanoid: NanoID.new(21))
+    CreateGroupView(groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting), createGroupModel: CreateGroupModel() ,detent: .constant(.large) ,showingCreateGroupSheet: .constant(true), nanoid: NanoID.new(21))
 }

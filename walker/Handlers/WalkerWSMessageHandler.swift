@@ -14,15 +14,17 @@ class WalkerWSMessageHandler: ObservableObject {
     
     
   @ObservedObject private var groupSheetModel: GroupSheetModel
+  @ObservedObject private var createGroupModel: CreateGroupModel
 
   private let decoder = JSONDecoder()
   private var lastGroupsFilterValue = "init"
   private var cancellables: Set<AnyCancellable> = []
 
-  init(groupSheetModel: GroupSheetModel) {
+    init(groupSheetModel: GroupSheetModel, createGroupModel: CreateGroupModel) {
     print("INIT WalkerWSMessageHandler")
 
     self.groupSheetModel = groupSheetModel
+    self.createGroupModel = createGroupModel
     decoder.keyDecodingStrategy = .convertFromSnakeCase
   }
 
@@ -85,7 +87,8 @@ class WalkerWSMessageHandler: ObservableObject {
           
       case .PublicIdAvailabilityChecked:
         let result = try decoder.decode(PublicIdAvailabilityChecked.self, from: data)
-          groupSheetModel.lastPublicIdAvailability = result.available
+          createGroupModel.lastPublicIdAvailability = result.available
+          createGroupModel.isCheckingPubicAvailability = false
           print("PublicIdAvailabilityChecked:", result.available)
  
       }
