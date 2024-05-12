@@ -41,7 +41,7 @@ struct CreateGroupView: View {
   @State private var description: String = ""
 
   @State private var isNameValid: Bool = false
-  @State private var isPublicIdValid: Bool = true
+  @State private var isPublicIdValid: Bool = false
   @State private var isTriedToCreate: Bool = false
 
   @State private var showNotImplementedAlert = false
@@ -267,7 +267,7 @@ struct CreateGroupView: View {
 
   private func createGroup() {
 
-    if isPublicIdValid && isNameValid {
+    if ( !isPublic || isPublicIdValid) && isNameValid {
 
       walkerApp.wsMessageSender.createGroup(
         id: NanoID.new(21),

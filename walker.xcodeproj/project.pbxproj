@@ -35,6 +35,7 @@
 		2BA562812B6E31DB0057D200 /* LocationWatcherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562802B6E31DB0057D200 /* LocationWatcherModel.swift */; };
 		2BED4CE52B83665A00D5D8DA /* WalkerWSMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BED4CE42B83665A00D5D8DA /* WalkerWSMessageHandler.swift */; };
 		2BED4CE72B83678300D5D8DA /* WalkerWSMessageSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BED4CE62B83678300D5D8DA /* WalkerWSMessageSender.swift */; };
+		D77946732BEFC3560011E3C8 /* GroupMessageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77946722BEFC3560011E3C8 /* GroupMessageDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +59,7 @@
 		2B2059AA2B84F0E000C14EE2 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
 		2B24F7852B6506FF00AE4E64 /* LocationWatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWatcherService.swift; sourceTree = "<group>"; };
 		2B24F7872B65172700AE4E64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		2B2D9C892B872BEE001EC43A /* location2.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = location2.gpx; sourceTree = "<group>"; };
+		2B2D9C892B872BEE001EC43A /* location2.gpx */ = {isa = PBXFileReference; lastKnownFileType = file; name = location2.gpx; path = ../../location2.gpx; sourceTree = "<group>"; };
 		2B2D9C8A2B874259001EC43A /* NotImplementedAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotImplementedAlert.swift; sourceTree = "<group>"; };
 		2B603F4F2B67D05C00B4663A /* LocationRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecordingService.swift; sourceTree = "<group>"; };
 		2B603F522B67D0AB00B4663A /* Transformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformers.swift; sourceTree = "<group>"; };
@@ -87,6 +88,7 @@
 		2BA562802B6E31DB0057D200 /* LocationWatcherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWatcherModel.swift; sourceTree = "<group>"; };
 		2BED4CE42B83665A00D5D8DA /* WalkerWSMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkerWSMessageHandler.swift; sourceTree = "<group>"; };
 		2BED4CE62B83678300D5D8DA /* WalkerWSMessageSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkerWSMessageSender.swift; sourceTree = "<group>"; };
+		D77946722BEFC3560011E3C8 /* GroupMessageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMessageDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				2BA2261F2B7DFE5100585630 /* GroupDTO.swift */,
+				D77946722BEFC3560011E3C8 /* GroupMessageDTO.swift */,
 				2B603F642B68EB0D00B4663A /* LocationDTO.swift */,
 			);
 			path = DTOs;
@@ -160,7 +163,6 @@
 		2B73F0E52B6397C0000C2637 = {
 			isa = PBXGroup;
 			children = (
-				2B2D9C892B872BEE001EC43A /* location2.gpx */,
 				2BA562782B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld */,
 				2B73F0F02B6397C0000C2637 /* walker */,
 				2B73F1012B6397C1000C2637 /* walkerTests */,
@@ -283,6 +285,7 @@
 		2BED4CE32B83663D00D5D8DA /* Handlers */ = {
 			isa = PBXGroup;
 			children = (
+				2B2D9C892B872BEE001EC43A /* location2.gpx */,
 				2BED4CE42B83665A00D5D8DA /* WalkerWSMessageHandler.swift */,
 				2BED4CE62B83678300D5D8DA /* WalkerWSMessageSender.swift */,
 			);
@@ -425,6 +428,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B603F502B67D05C00B4663A /* LocationRecordingService.swift in Sources */,
+				D77946732BEFC3560011E3C8 /* GroupMessageDTO.swift in Sources */,
 				2B2059AB2B84F0E000C14EE2 /* CreateGroupView.swift in Sources */,
 				2BA5627A2B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld in Sources */,
 				2B73F1292B63DA25000C2637 /* Injector.swift in Sources */,

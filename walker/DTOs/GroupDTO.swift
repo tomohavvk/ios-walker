@@ -10,7 +10,7 @@ import SwiftUI
 
 class GroupDTO: Identifiable, Decodable, ObservableObject {
   @Published var id: String
-  @Published var publicId: String
+  @Published var publicId: String?
   @Published var ownerDeviceId: String
   @Published var name: String
   @Published var deviceCount: Int
@@ -19,7 +19,7 @@ class GroupDTO: Identifiable, Decodable, ObservableObject {
   @Published var createdAt: String
 
   init(
-    id: String, publicId: String, ownerDeviceId: String, name: String, deviceCount: Int,
+    id: String, publicId: String?, ownerDeviceId: String, name: String, deviceCount: Int,
     isPublic: Bool,
     isJoined: Bool, createdAt: String
   ) {
@@ -48,7 +48,7 @@ class GroupDTO: Identifiable, Decodable, ObservableObject {
   required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     id = try container.decode(String.self, forKey: .id)
-    publicId = try container.decode(String.self, forKey: .publicId)
+    publicId = (try? container.decode(String.self, forKey: .publicId)) ?? nil
     ownerDeviceId = try container.decode(String.self, forKey: .ownerDeviceId)
     name = try container.decode(String.self, forKey: .name)
     deviceCount = try container.decode(Int.self, forKey: .deviceCount)

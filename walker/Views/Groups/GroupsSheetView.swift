@@ -17,7 +17,6 @@ class GroupSheetModel: ObservableObject {
     self.searchingFor = searchingFor
     self.groupsToShow = groupsToShow
   }
-
 }
 
 struct GroupsSheetView: View {
@@ -29,6 +28,7 @@ struct GroupsSheetView: View {
   let geo: GeometryProxy
 
   @ObservedObject var groupSheetModel: GroupSheetModel
+  @ObservedObject var groupMessagesModel: GroupMessagesModel
   @ObservedObject var createGroupModel: CreateGroupModel
 
   var body: some View {
@@ -62,7 +62,7 @@ struct GroupsSheetView: View {
 
         }
 
-        GroupsListView(detent: $detent, groupsToShow: groupSheetModel.groupsToShow)
+          GroupsListView(detent: $detent, groupsToShow: groupSheetModel.groupsToShow,  groupMessagesModel: groupMessagesModel)
       }
       .background(.black)
       .scrollContentBackground(.hidden)
@@ -82,6 +82,7 @@ struct GroupsSheetView: View {
       geo: geo,
 
       groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting),
+      groupMessagesModel: GroupMessagesModel(messagesToShow: []),
       createGroupModel: CreateGroupModel()
 
     )

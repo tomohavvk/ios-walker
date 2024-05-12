@@ -12,16 +12,18 @@ import SwiftUI
 class WalkerWSMessageHandler: ObservableObject {
 
   @ObservedObject private var groupSheetModel: GroupSheetModel
+  @ObservedObject private var groupMessagesModel: GroupMessagesModel
   @ObservedObject private var createGroupModel: CreateGroupModel
 
   private let decoder = JSONDecoder()
   private var lastGroupsFilterValue = "init"
   private var cancellables: Set<AnyCancellable> = []
 
-  init(groupSheetModel: GroupSheetModel, createGroupModel: CreateGroupModel) {
+  init(groupSheetModel: GroupSheetModel, groupMessagesModel: GroupMessagesModel, createGroupModel: CreateGroupModel) {
     print("INIT WalkerWSMessageHandler")
 
     self.groupSheetModel = groupSheetModel
+    self.groupMessagesModel = groupMessagesModel
     self.createGroupModel = createGroupModel
     decoder.keyDecodingStrategy = .convertFromSnakeCase
   }
@@ -56,39 +58,51 @@ class WalkerWSMessageHandler: ObservableObject {
 
         print("WS Error:", error)
 
-      case .LocationPersisted:
-        _ = try decoder.decode(LocationPersisted.self, from: data)
+      case .PersistLocationIn:
+        _ = try decoder.decode(LocationPersistIn.self, from: data)
 
         print("LocationPersisted")
 
-      case .GroupCreated:
-        let group = try decoder.decode(GroupCreated.self, from: data)
+      case .CreateGroupIn:
+        let group = try decoder.decode(CreateGroupIn.self, from: data)
 
-        self.groupSheetModel.groupsToShow.insert(group.group, at: 0)
+        self.groupSheetModel.groupsToShow.insert(group.data, at: 0)
         print("GroupCreated")
 
-      case .GroupJoined:
-        _ = try decoder.decode(GroupJoined.self, from: data)
+      case .CreateGroupMessageIn:
+        let message = try decoder.decode(CreateGroupMessageIn.self, from: data)
+
+          self.groupMessagesModel.messagesToShow.insert(message.data, at: groupMessagesModel.messagesToShow.count)
+        print("CreateGroupMessageIn")
+
+      case .GetGroupMessagesIn:
+        let message = try decoder.decode(GetGroupMessagesIn.self, from: data)
+
+          self.groupMessagesModel.messagesToShow = message.data
+        print("GetGroupMessagesIn")
+
+      case .GroupJoinedIn:
+        _ = try decoder.decode(JoinGroupIn.self, from: data)
 
         print("GroupJoined")
 
-      case .GroupsGot:
-        let result = try decoder.decode(GroupsGot.self, from: data)
+      case .GetGroupsIn:
+        let result = try decoder.decode(GetGroupsIn.self, from: data)
 
         print("GroupsGot")
-        self.groupSheetModel.groupsToShow = result.groups
+        self.groupSheetModel.groupsToShow = result.data
 
-      case .GroupsSearched:
-        let result = try decoder.decode(GroupsSearched.self, from: data)
+      case .SearchGroupsIn:
+        let result = try decoder.decode(SearchGroupsIn.self, from: data)
 
         print("GroupsSearched")
-        self.groupSheetModel.groupsToShow = result.groups
+        self.groupSheetModel.groupsToShow = result.data
 
-      case .PublicIdAvailabilityChecked:
-        let result = try decoder.decode(PublicIdAvailabilityChecked.self, from: data)
-        createGroupModel.lastPublicIdAvailability = result.available
+      case .IsPublicIdAvailableIn:
+        let result = try decoder.decode(IsPublicIdAvailableIn.self, from: data)
+          createGroupModel.lastPublicIdAvailability = result.data.available
         createGroupModel.isCheckingPubicAvailability = false
-        print("PublicIdAvailabilityChecked:", result.available)
+          print("PublicIdAvailabilityChecked:", result.data.available)
 
       }
     } catch {
@@ -104,7 +118,7 @@ class WalkerWSMessageHandler: ObservableObject {
         if self.lastGroupsFilterValue != trimmed && !trimmed.isEmpty {
           Task {
             self.lastGroupsFilterValue = trimmed
-            walkerApp.wsMessageSender.searchGroups(search: trimmed, limit: 200, offset: 0)
+            walkerApp.wsMessageSender.searchGroups(filter: trimmed, limit: 200, offset: 0)
 
           }
         } else if self.lastGroupsFilterValue != trimmed && trimmed.isEmpty {
@@ -119,12 +133,14 @@ class WalkerWSMessageHandler: ObservableObject {
 
 enum MessageInType: String, Codable {
   case Error = "error"
-  case LocationPersisted = "location_persisted"
-  case GroupCreated = "group_created"
-  case GroupJoined = "group_joined"
-  case GroupsGot = "groups_got"
-  case GroupsSearched = "groups_searched"
-  case PublicIdAvailabilityChecked = "public_id_availability_checked"
+  case PersistLocationIn = "persist_location"
+  case CreateGroupIn = "create_group"
+  case CreateGroupMessageIn = "create_group_message"
+  case GetGroupMessagesIn = "get_group_messages"
+  case GroupJoinedIn = "join_group"
+  case GetGroupsIn = "get_groups"
+  case SearchGroupsIn = "search_groups"
+  case IsPublicIdAvailableIn = "is_public_id_available"
 }
 
 struct AnyWSMessageIn: Codable {
@@ -153,33 +169,53 @@ struct WSError: WSMessageIn {
   var type: MessageInType = .Error
 }
 
-struct LocationPersisted: WSMessageIn {
-  var type: MessageInType = .LocationPersisted
+struct LocationPersistIn: WSMessageIn {
+  var type: MessageInType = .PersistLocationIn
 }
 
-struct GroupCreated: WSMessageIn {
-  var type: MessageInType = .GroupCreated
-  let group: GroupDTO
+struct CreateGroupIn: WSMessageIn {
+  var type: MessageInType = .CreateGroupIn
+  let data: GroupDTO
 }
 
-struct GroupJoined: WSMessageIn {
-  var type: MessageInType = .GroupJoined
-  let deviceGroup: DeviceGroup
+struct JoinGroupIn: WSMessageIn {
+  var type: MessageInType = .GroupJoinedIn
+  let data: DeviceGroup
 }
 
-struct GroupsGot: WSMessageIn {
-  var type: MessageInType = .GroupsGot
-  let groups: [GroupDTO]
+struct GetGroupsIn: WSMessageIn {
+  var type: MessageInType = .GetGroupsIn
+  let data: [GroupDTO]
 }
 
-struct GroupsSearched: WSMessageIn {
-  var type: MessageInType = .GroupsSearched
-  let groups: [GroupDTO]
+
+struct CreateGroupMessageIn: WSMessageIn {
+  var type: MessageInType = .CreateGroupMessageIn
+  let data: GroupMessageDTO
 }
 
-struct PublicIdAvailabilityChecked: WSMessageIn {
-  var type: MessageInType = .PublicIdAvailabilityChecked
+struct GetGroupMessagesIn: WSMessageIn {
+  var type: MessageInType = .GetGroupMessagesIn
+  let data: [GroupMessageDTO]
+}
+
+struct SearchGroupsIn: WSMessageIn {
+  var type: MessageInType = .SearchGroupsIn
+  let data: [GroupDTO]
+}
+
+struct IsPublicIdAvailableInData: Decodable {
   let available: Bool
+    
+    init(available: Bool) {
+        self.available = available
+    }
+}
+
+struct IsPublicIdAvailableIn: WSMessageIn {
+  var type: MessageInType = .IsPublicIdAvailableIn
+  let data: IsPublicIdAvailableInData
+    
 }
 
 struct DeviceGroup: Decodable {

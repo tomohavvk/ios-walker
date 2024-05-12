@@ -40,7 +40,7 @@ class WalkerWS: ObservableObject {
 
   fileprivate func connect() {
 
-    guard let url = URL(string: "ws://92.118.77.33:9001/api/v1/ws/" + deviceId) else { return }
+    guard let url = URL(string: "ws://92.118.77.33:8080/api/v1/ws/" + deviceId) else { return }
     let request = URLRequest(url: url)
     self.webSocketTask = URLSession.shared.webSocketTask(with: request)
 

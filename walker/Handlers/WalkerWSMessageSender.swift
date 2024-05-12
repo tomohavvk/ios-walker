@@ -18,7 +18,7 @@ class WalkerWSMessageSender {
   }
 
   func sendDeviceLocation(_ locations: [LocationDTO]) {
-    let message = LocationPersist(locations)
+    let message = LocationPersistOut(locations)
 
     do {
       walkerApp.walkerWS.sendWebSocketMessage(try encodeMessage(message))
@@ -30,7 +30,7 @@ class WalkerWSMessageSender {
   func createGroup(
     id: String, name: String, isPublic: Bool, publicId: String?, description: String?
   ) {
-    let message = GroupCreate(
+    let message = CreateGroupOut(
       id: id, name: name, isPublic: isPublic, publicId: publicId, description: description)
 
     do {
@@ -40,8 +40,33 @@ class WalkerWSMessageSender {
     }
   }
 
+  func createGroupMessage(
+    groupId: String, message: String
+  ) {
+    let message = CreateGroupMessageOut(
+        groupId: groupId, message: message)
+
+    do {
+      walkerApp.walkerWS.sendWebSocketMessage(try encodeMessage(message))
+    } catch {
+      print("Error creating group message: \(error)")
+    }
+  }
+    
+  func getGroupMessages(
+    groupId: String,limit: Int, offset: Int
+  ) {
+    let message = GetGroupMessagesOut(groupId: groupId, limit: limit, offset: offset)
+
+    do {
+      walkerApp.walkerWS.sendWebSocketMessage(try encodeMessage(message))
+    } catch {
+      print("Error getting group messages: \(error)")
+    }
+  }
+
   func joinGroup(groupId: String) {
-    let message = GroupJoin(groupId: groupId)
+    let message = JoinGroup(groupId: groupId)
 
     do {
       walkerApp.walkerWS.sendWebSocketMessage(try encodeMessage(message))
@@ -51,7 +76,7 @@ class WalkerWSMessageSender {
   }
 
   func getGroups(limit: Int, offset: Int) {
-    let message = GroupsGet(limit: limit, offset: offset)
+    let message = GetGroupsOut(limit: limit, offset: offset)
 
     do {
       walkerApp.walkerWS.sendWebSocketMessage(try encodeMessage(message))
@@ -60,8 +85,8 @@ class WalkerWSMessageSender {
     }
   }
 
-  func searchGroups(search: String, limit: Int, offset: Int) {
-    let message = GroupsSearch(search: search, limit: limit, offset: offset)
+  func searchGroups(filter: String, limit: Int, offset: Int) {
+    let message = SearchGroups(filter: filter, limit: limit, offset: offset)
 
     do {
       walkerApp.walkerWS.sendWebSocketMessage(try encodeMessage(message))
@@ -71,7 +96,7 @@ class WalkerWSMessageSender {
   }
 
   func checkPublicIdAvailability(publicId: String) {
-    let message = PublicIdAvailabilityCheck(publicId: publicId)
+    let message = IsPublicIdAvailableOut(publicId: publicId)
 
     do {
       walkerApp.walkerWS.sendWebSocketMessage(try encodeMessage(message))
@@ -92,34 +117,55 @@ class WalkerWSMessageSender {
   }
 }
 
-struct LocationPersist: Encodable {
-  let type: MessageOutType = MessageOutType.location_persist
-  let locations: [LocationDTO]
+
+enum MessageOutType: String, Encodable {
+  case persist_location
+  case create_group
+  case create_group_message
+  case get_group_messages
+  case join_group
+  case get_groups
+  case search_groups
+  case is_public_id_available
+}
+
+struct LocationPersistOut: Encodable {
+  let type: MessageOutType = MessageOutType.persist_location
+    let data: [String: [LocationDTO]]
 
   init(_ locations: [LocationDTO]) {
-    self.locations = locations
+      self.data = ["locations": locations]
   }
 }
 
-struct GroupCreate: Encodable {
-  let type: MessageOutType = MessageOutType.group_create
+
+struct CreateGroupData: Encodable {
   let id: String
   let name: String
   let isPublic: Bool
   let publicId: String?
   let description: String?
-
+    
   init(id: String, name: String, isPublic: Bool, publicId: String?, description: String?) {
     self.id = id
     self.name = name
+    self.description = description
     self.isPublic = isPublic
     self.publicId = publicId
-    self.description = description
   }
 }
 
-struct GroupJoin: Encodable {
-  let type: MessageOutType = MessageOutType.group_join
+
+struct CreateGroupOut: Encodable {
+  let type: MessageOutType = MessageOutType.create_group
+  let data: CreateGroupData
+
+  init(id: String, name: String, isPublic: Bool, publicId: String?, description: String?) {
+      self.data = CreateGroupData(id: id, name: name, isPublic:isPublic, publicId:publicId, description: description)
+  }
+}
+
+struct JoinGroupData: Encodable {
   let groupId: String
 
   init(groupId: String) {
@@ -127,32 +173,105 @@ struct GroupJoin: Encodable {
   }
 }
 
-struct GroupsGet: Encodable {
-  let type: MessageOutType = MessageOutType.groups_get
-  let limit: Int
-  let offset: Int
+struct JoinGroup: Encodable {
+  let type: MessageOutType = MessageOutType.join_group
+  let data: JoinGroupData
 
+  init(groupId: String) {
+    self.data = JoinGroupData(groupId: groupId)
+  }
+}
+
+
+struct CreateGroupMessageData: Encodable {
+  let groupId: String
+  let message: String
+    
+  init(groupId: String, message: String) {
+    self.groupId = groupId
+    self.message = message
+  }
+}
+
+
+struct CreateGroupMessageOut: Encodable {
+  let type: MessageOutType = MessageOutType.create_group_message
+  let data: CreateGroupMessageData
+
+  init(groupId: String, message: String) {
+      self.data = CreateGroupMessageData(groupId: groupId, message: message)
+  }
+}
+
+
+struct GetGroupMessagesOutData: Encodable {
+    let groupId: String
+    let limit: Int
+    let offset: Int
+  
+    init(groupId: String, limit: Int, offset: Int) {
+      self.limit = limit
+      self.offset = offset
+      self.groupId = groupId
+  }
+}
+
+
+struct GetGroupMessagesOut: Encodable {
+  let type: MessageOutType = MessageOutType.get_group_messages
+    let data: GetGroupMessagesOutData
+    
+  init(groupId: String, limit: Int, offset: Int) {
+      self.data = GetGroupMessagesOutData(groupId: groupId, limit: limit, offset: offset)
+  }
+}
+
+struct GetGroupsOutData: Encodable {
+    let limit: Int
+    let offset: Int
+  
+    init(limit: Int, offset: Int) {
+      self.limit = limit
+      self.offset = offset
+  }
+}
+
+
+struct GetGroupsOut: Encodable {
+  let type: MessageOutType = MessageOutType.get_groups
+    let data: GetGroupsOutData
+    
   init(limit: Int, offset: Int) {
-    self.limit = limit
-    self.offset = offset
+      self.data = GetGroupsOutData(limit: limit, offset: offset)
   }
 }
 
-struct GroupsSearch: Encodable {
-  let type: MessageOutType = MessageOutType.groups_search
-  let search: String
+struct SearchGroupsData: Encodable {
+  let type: MessageOutType = MessageOutType.search_groups
+  let filter: String
   let limit: Int
   let offset: Int
 
-  init(search: String, limit: Int, offset: Int) {
-    self.search = search
+  init(filter: String, limit: Int, offset: Int) {
+    self.filter = filter
     self.limit = limit
     self.offset = offset
   }
 }
 
-struct PublicIdAvailabilityCheck: Encodable {
-  let type: MessageOutType = MessageOutType.public_id_availability_check
+struct SearchGroups: Encodable {
+  let type: MessageOutType = MessageOutType.search_groups
+  let data: SearchGroupsData
+ 
+
+  init(filter: String, limit: Int, offset: Int) {
+    self.data = SearchGroupsData(filter: filter, limit: limit, offset: offset)
+
+  }
+}
+
+
+struct IsPublicIdAvailableOutData: Encodable {
   let publicId: String
 
   init(publicId: String) {
@@ -160,14 +279,15 @@ struct PublicIdAvailabilityCheck: Encodable {
   }
 }
 
-enum MessageOutType: String, Encodable {
-  case location_persist
-  case group_create
-  case group_join
-  case groups_get
-  case groups_search
-  case public_id_availability_check
+struct IsPublicIdAvailableOut: Encodable {
+  let type: MessageOutType = MessageOutType.is_public_id_available
+  let data: IsPublicIdAvailableOutData
+
+  init(publicId: String) {
+    self.data = IsPublicIdAvailableOutData(publicId: publicId)
+  }
 }
+
 
 /// Author https://github.com/antiflasher/NanoID
 class NanoID {

@@ -10,11 +10,11 @@ import SwiftUI
 struct GroupRow: View {
   @Binding var detent: PresentationDetent
   @State var group: GroupDTO
-
+    @ObservedObject var groupMessagesModel: GroupMessagesModel
   var body: some View {
     NavigationLink(
       destination:
-        GroupInsideView(detent: $detent, group: group)
+        GroupInsideView(detent: $detent, group: group, groupMessagesModel: groupMessagesModel)
 
     ) {
       HStack {
@@ -49,7 +49,7 @@ struct GroupRow: View {
             .font(.system(size: 20, weight: .medium, design: .rounded))
 
           if group.isPublic {
-            Text("@" + group.publicId)
+              Text("@" + (group.publicId ?? ""))
               .font(.system(size: 12, weight: .medium, design: .rounded))
           } else {
             Text("private")
@@ -67,5 +67,5 @@ struct GroupRow: View {
 }
 
 #Preview {
-  GroupRow(detent: .constant(.large), group: groupsTesting[0])
+    GroupRow(detent: .constant(.large), group: groupsTesting[0], groupMessagesModel: GroupMessagesModel(messagesToShow: []))
 }

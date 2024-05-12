@@ -11,21 +11,45 @@ import MapKit
 import SwiftUI
 import UIKit
 
+class GroupMessagesModel: ObservableObject {
+
+  @Published var messagesToShow: [GroupMessageDTO]
+  init( messagesToShow: [GroupMessageDTO]) {
+
+    self.messagesToShow = messagesToShow
+  }
+}
+
+
 struct GroupInsideView: View {
   @Binding var detent: PresentationDetent
   @ObservedObject var group: GroupDTO
-  @State var messages = DataSource.messages
   @State var newMessage: String = ""
-
+  @ObservedObject var groupMessagesModel: GroupMessagesModel
+    
   func sendMessage() {
 
     if !newMessage.isEmpty {
-      messages.append(Message(content: newMessage, isCurrentUser: true))
-      messages.append(Message(content: "Reply of " + newMessage, isCurrentUser: false))
+      createMessage()
+//      messages.append(Message(content: newMessage, isCurrentUser: true))
+//      messages.append(Message(content: "Reply of " + newMessage, isCurrentUser: false))
       newMessage = ""
     }
   }
 
+    
+    private func createMessage() {
+        if !newMessage.isEmpty {
+        walkerApp.wsMessageSender.createGroupMessage(groupId: group.id, message: newMessage)
+    }
+        
+    }
+    private func getMessages() {
+      
+        walkerApp.wsMessageSender.getGroupMessages(groupId: group.id,  limit: 100, offset: 0)
+
+    }
+    
   func joinGroup() {
     walkerApp.wsMessageSender.joinGroup(groupId: group.id)
     group.isJoined = true
@@ -38,20 +62,21 @@ struct GroupInsideView: View {
       ScrollViewReader { proxy in
         ScrollView {
           VStack {
-            ForEach(messages, id: \.self) { message in
+              ForEach(groupMessagesModel.messagesToShow) { message in
               MessageView(currentMessage: message)
                 .id(message)
             }
           }
-          .onReceive(Just(messages)) { _ in
-            //            withAnimation {
-            proxy.scrollTo(messages.last, anchor: .bottom)
-            //            }
+          .onReceive(Just(groupMessagesModel.messagesToShow)) { _ in
+          
+            proxy.scrollTo(groupMessagesModel.messagesToShow.last, anchor: .bottom)
 
-          }.onAppear {
-            //            withAnimation {
-            proxy.scrollTo(messages.last, anchor: .bottom)
-            //            }
+          }
+
+          .onAppear {
+              groupMessagesModel.messagesToShow = []
+              getMessages()
+              proxy.scrollTo(groupMessagesModel.messagesToShow.last, anchor: .bottom)
           }
         }
 
@@ -60,14 +85,21 @@ struct GroupInsideView: View {
             TextField("Send a message", text: $newMessage)
               .textFieldStyle(.roundedBorder)
               .cornerRadius(5)
+              .padding(.bottom, 50)
+              .onTapGesture{
+                  print(5)
+                  proxy.scrollTo(groupMessagesModel.messagesToShow.last, anchor: .bottom)
+              }
             Button(action: sendMessage) {
               Image(systemName: "paperplane")
+                    .padding(.bottom, 50)
             }
           } else {
             Button(action: joinGroup) {
               Text("Join")
             }
-
+            .padding(.bottom, 50)
+              
           }
         }
         .padding()
@@ -96,11 +128,11 @@ struct MessageCell: View {
 }
 
 struct MessageView: View {
-  var currentMessage: Message
+  var currentMessage: GroupMessageDTO
 
   var body: some View {
     HStack(alignment: .bottom, spacing: 10) {
-      if !currentMessage.isCurrentUser {
+        if currentMessage.authorDeviceId != walkerApp.deviceId {
         Image(systemName: "person.circle.fill")
           .resizable()
           .frame(width: 40, height: 40, alignment: .center)
@@ -109,8 +141,8 @@ struct MessageView: View {
         Spacer()
       }
       MessageCell(
-        contentMessage: currentMessage.content,
-        isCurrentUser: currentMessage.isCurrentUser)
+        contentMessage: currentMessage.message,
+        isCurrentUser: currentMessage.authorDeviceId == walkerApp.deviceId)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -150,6 +182,6 @@ struct DataSource {
   ]
 }
 
-#Preview {
-  GroupInsideView(detent: .constant(.large), group: groupsTesting[0])
-}
+//#Preview {
+//  GroupInsideView(detent: .constant(.large), group: groupsTesting[0])
+//}
