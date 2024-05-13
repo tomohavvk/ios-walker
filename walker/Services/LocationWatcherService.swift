@@ -13,6 +13,10 @@ import OSLog
 import SwiftUI
 import UIKit
 
+class LocationWatcherModel: ObservableObject {
+  @Published var lastLocation: CLLocation?
+}
+
 class Watcher {
   private static let logger = Logger(
     subsystem: Bundle.main.bundleIdentifier!, category: String(describing: Watcher.self))

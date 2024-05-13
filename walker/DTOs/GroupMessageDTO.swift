@@ -1,27 +1,11 @@
-//
-//  GroupMessageDTO.swift
-//  walker
-//
-//  Created by Ihor Zadyra on 11.05.2024.
-//
-
 import Foundation
 
-//
-//  Group.swift
-//  walker
-//
-//  Created by IZ on 15.02.2024.
-//
-
-import Foundation
-import SwiftUI
 
 class GroupMessageDTO: Identifiable, Decodable, ObservableObject, Hashable {
-  @Published var groupId: String
-  @Published var authorDeviceId: String
-  @Published var message: String
-  @Published var createdAt: String
+  var groupId: String
+  var authorDeviceId: String
+  var message: String
+  var createdAt: String
 
   init(
     groupId: String,  authorDeviceId: String, message: String, createdAt: String
@@ -33,7 +17,6 @@ class GroupMessageDTO: Identifiable, Decodable, ObservableObject, Hashable {
 
   }
 
-  // Add Decodable conformance
   private enum CodingKeys: String, CodingKey {
     case groupId
     case authorDeviceId

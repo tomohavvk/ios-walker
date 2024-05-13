@@ -17,10 +17,6 @@
 		2B73F0F22B6397C0000C2637 /* walkerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F0F12B6397C0000C2637 /* walkerApp.swift */; };
 		2B73F0F42B6397C0000C2637 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F0F32B6397C0000C2637 /* ContentView.swift */; };
 		2B73F0F62B6397C1000C2637 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B73F0F52B6397C1000C2637 /* Assets.xcassets */; };
-		2B73F1032B6397C1000C2637 /* walkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F1022B6397C1000C2637 /* walkerTests.swift */; };
-		2B73F10D2B6397C2000C2637 /* walkerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F10C2B6397C2000C2637 /* walkerUITests.swift */; };
-		2B73F10F2B6397C2000C2637 /* walkerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F10E2B6397C2000C2637 /* walkerUITestsLaunchTests.swift */; };
-		2B73F1292B63DA25000C2637 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F1282B63DA25000C2637 /* Injector.swift */; };
 		2BA2261A2B7D2DB700585630 /* GroupsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA226192B7D2DB700585630 /* GroupsListView.swift */; };
 		2BA2261C2B7D2E8C00585630 /* GroupsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2261B2B7D2E8C00585630 /* GroupsSheetView.swift */; };
 		2BA226202B7DFE5100585630 /* GroupDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2261F2B7DFE5100585630 /* GroupDTO.swift */; };
@@ -32,7 +28,6 @@
 		2BA562772B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562762B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift */; };
 		2BA5627A2B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562782B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld */; };
 		2BA5627D2B6D265E0057D200 /* PolylineHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5627C2B6D265E0057D200 /* PolylineHelper.swift */; };
-		2BA562812B6E31DB0057D200 /* LocationWatcherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA562802B6E31DB0057D200 /* LocationWatcherModel.swift */; };
 		2BED4CE52B83665A00D5D8DA /* WalkerWSMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BED4CE42B83665A00D5D8DA /* WalkerWSMessageHandler.swift */; };
 		2BED4CE72B83678300D5D8DA /* WalkerWSMessageSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BED4CE62B83678300D5D8DA /* WalkerWSMessageSender.swift */; };
 		D77946732BEFC3560011E3C8 /* GroupMessageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77946722BEFC3560011E3C8 /* GroupMessageDTO.swift */; };
@@ -69,11 +64,7 @@
 		2B73F0F32B6397C0000C2637 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2B73F0F52B6397C1000C2637 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B73F0FE2B6397C1000C2637 /* walkerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = walkerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B73F1022B6397C1000C2637 /* walkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walkerTests.swift; sourceTree = "<group>"; };
 		2B73F1082B6397C2000C2637 /* walkerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = walkerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B73F10C2B6397C2000C2637 /* walkerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walkerUITests.swift; sourceTree = "<group>"; };
-		2B73F10E2B6397C2000C2637 /* walkerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walkerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		2B73F1282B63DA25000C2637 /* Injector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
 		2BA226192B7D2DB700585630 /* GroupsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsListView.swift; sourceTree = "<group>"; };
 		2BA2261B2B7D2E8C00585630 /* GroupsSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSheetView.swift; sourceTree = "<group>"; };
 		2BA2261F2B7DFE5100585630 /* GroupDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDTO.swift; sourceTree = "<group>"; };
@@ -85,7 +76,6 @@
 		2BA562762B6CD42D0057D200 /* LocationHistory+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationHistory+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2BA562792B6CDACC0057D200 /* WalkerCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WalkerCoreData.xcdatamodel; sourceTree = "<group>"; };
 		2BA5627C2B6D265E0057D200 /* PolylineHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolylineHelper.swift; sourceTree = "<group>"; };
-		2BA562802B6E31DB0057D200 /* LocationWatcherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWatcherModel.swift; sourceTree = "<group>"; };
 		2BED4CE42B83665A00D5D8DA /* WalkerWSMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkerWSMessageHandler.swift; sourceTree = "<group>"; };
 		2BED4CE62B83678300D5D8DA /* WalkerWSMessageSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkerWSMessageSender.swift; sourceTree = "<group>"; };
 		D77946722BEFC3560011E3C8 /* GroupMessageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMessageDTO.swift; sourceTree = "<group>"; };
@@ -165,8 +155,6 @@
 			children = (
 				2BA562782B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld */,
 				2B73F0F02B6397C0000C2637 /* walker */,
-				2B73F1012B6397C1000C2637 /* walkerTests */,
-				2B73F10B2B6397C2000C2637 /* walkerUITests */,
 				2B73F0EF2B6397C0000C2637 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -191,31 +179,11 @@
 				2B603F512B67D09B00B4663A /* Transformers */,
 				2B24F7872B65172700AE4E64 /* Info.plist */,
 				2B24F7842B6506E700AE4E64 /* Services */,
-				2B73F11E2B639E2F000C2637 /* Resources */,
-				2B73F11D2B639E1F000C2637 /* Models */,
 				2B73F11B2B639DFF000C2637 /* Views */,
 				2B73F0F12B6397C0000C2637 /* walkerApp.swift */,
-				2B73F1282B63DA25000C2637 /* Injector.swift */,
 				2B73F0F52B6397C1000C2637 /* Assets.xcassets */,
 			);
 			path = walker;
-			sourceTree = "<group>";
-		};
-		2B73F1012B6397C1000C2637 /* walkerTests */ = {
-			isa = PBXGroup;
-			children = (
-				2B73F1022B6397C1000C2637 /* walkerTests.swift */,
-			);
-			path = walkerTests;
-			sourceTree = "<group>";
-		};
-		2B73F10B2B6397C2000C2637 /* walkerUITests */ = {
-			isa = PBXGroup;
-			children = (
-				2B73F10C2B6397C2000C2637 /* walkerUITests.swift */,
-				2B73F10E2B6397C2000C2637 /* walkerUITestsLaunchTests.swift */,
-			);
-			path = walkerUITests;
 			sourceTree = "<group>";
 		};
 		2B73F11B2B639DFF000C2637 /* Views */ = {
@@ -231,21 +199,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		2B73F11D2B639E1F000C2637 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				2BA562512B6A2C370057D200 /* View */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		2B73F11E2B639E2F000C2637 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		2BA452892B85DAF90018F4A0 /* Groups */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,14 +209,6 @@
 				2B2059AA2B84F0E000C14EE2 /* CreateGroupView.swift */,
 			);
 			path = Groups;
-			sourceTree = "<group>";
-		};
-		2BA562512B6A2C370057D200 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				2BA562802B6E31DB0057D200 /* LocationWatcherModel.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		2BA562752B6CD3EF0057D200 /* Persistance */ = {
@@ -431,7 +376,6 @@
 				D77946732BEFC3560011E3C8 /* GroupMessageDTO.swift in Sources */,
 				2B2059AB2B84F0E000C14EE2 /* CreateGroupView.swift in Sources */,
 				2BA5627A2B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld in Sources */,
-				2B73F1292B63DA25000C2637 /* Injector.swift in Sources */,
 				2BA2261C2B7D2E8C00585630 /* GroupsSheetView.swift in Sources */,
 				2BA5627D2B6D265E0057D200 /* PolylineHelper.swift in Sources */,
 				2B603F652B68EB0D00B4663A /* LocationDTO.swift in Sources */,
@@ -444,7 +388,6 @@
 				2BED4CE52B83665A00D5D8DA /* WalkerWSMessageHandler.swift in Sources */,
 				2B603F532B67D0AB00B4663A /* Transformers.swift in Sources */,
 				2B73F0F42B6397C0000C2637 /* ContentView.swift in Sources */,
-				2BA562812B6E31DB0057D200 /* LocationWatcherModel.swift in Sources */,
 				2B73F0F22B6397C0000C2637 /* walkerApp.swift in Sources */,
 				2BED4CE72B83678300D5D8DA /* WalkerWSMessageSender.swift in Sources */,
 				2B2D9C8B2B874259001EC43A /* NotImplementedAlert.swift in Sources */,
@@ -458,7 +401,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B73F1032B6397C1000C2637 /* walkerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,8 +408,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B73F10F2B6397C2000C2637 /* walkerUITestsLaunchTests.swift in Sources */,
-				2B73F10D2B6397C2000C2637 /* walkerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

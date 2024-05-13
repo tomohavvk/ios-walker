@@ -364,10 +364,3 @@ extension View {
     self.modifier(TextFieldLimitSpacingModifer(value: value))
   }
 }
-
-#Preview {
-  CreateGroupView(
-    groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting),
-    createGroupModel: CreateGroupModel(), detent: .constant(.large),
-    showingCreateGroupSheet: .constant(true), nanoid: NanoID.new(21))
-}

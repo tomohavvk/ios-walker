@@ -14,30 +14,15 @@ struct walkerApp: App {
 
   static let deviceId = UIDevice.current.identifierForVendor!.uuidString
   static let walkerWS = WalkerWS(deviceId: UIDevice.current.identifierForVendor!.uuidString)
-  static let eventPublisher: EventPublisher = EventPublisher()
-
+    
+    @State var topViewHeight: CGFloat = 480
   @StateObject private var locationWatcherModel: LocationWatcherModel = LocationWatcherModel()
-  @StateObject var groupSheetModel: GroupSheetModel = GroupSheetModel(
-    searchingFor: "", groupsToShow: [])
-
+  @StateObject var groupSheetModel: GroupSheetModel = GroupSheetModel(searchingFor: "", groupsToShow: [])
     @StateObject var groupMessagesModel: GroupMessagesModel = GroupMessagesModel(messagesToShow: [])
-
   @StateObject var createGroupModel: CreateGroupModel = CreateGroupModel()
 
-  private var cancellables: Set<AnyCancellable> = []
-
-  @State var topViewHeight: CGFloat = 480
-
-  init() {
-    print("INIT walkerApp")
-    print(Self.walkerWS)
-    print(Self.eventPublisher)
-    _ = Injector()
-
-  }
 
   var body: some Scene {
-
     return WindowGroup {
       GeometryReader { geometry in
         ContentView(

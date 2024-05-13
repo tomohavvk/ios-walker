@@ -2,10 +2,6 @@ import Combine
 import CoreData
 import SwiftUI
 
-class EventPublisher: ObservableObject {
-  @Published var event: String = "init"
-}
-
 struct ContentView: View {
 
   @State var detent: PresentationDetent = .fraction(0.1)
@@ -25,7 +21,6 @@ struct ContentView: View {
     groupMessagesModel: GroupMessagesModel,
     createGroupModel: CreateGroupModel
   ) {
-    //  print("INIT ContentView")
     self.locationWatcherModel = locationWatcherModel
     self.groupSheetModel = groupSheetModel
     self.groupMessagesModel = groupMessagesModel
@@ -99,14 +94,4 @@ struct ContentView: View {
 
 extension Array where Element: Hashable {
   func toSet() -> Set<Element> { return Set(self) }
-}
-
-#Preview {
-
-  ContentView(
-    locationWatcherModel: LocationWatcherModel(),
-    groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting),
-    groupMessagesModel: GroupMessagesModel(messagesToShow: []),
-    
-    createGroupModel: CreateGroupModel())
 }

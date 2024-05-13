@@ -74,18 +74,3 @@ struct GroupsSheetView: View {
   }
 
 }
-
-#Preview {
-  GeometryReader { geo in
-    GroupsSheetView(
-      detent: .constant(.large),
-      geo: geo,
-
-      groupSheetModel: GroupSheetModel(searchingFor: "", groupsToShow: groupsTesting),
-      groupMessagesModel: GroupMessagesModel(messagesToShow: []),
-      createGroupModel: CreateGroupModel()
-
-    )
-  }
-
-}

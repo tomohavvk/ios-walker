@@ -1,12 +1,3 @@
-//
-//  LocationDto.swift
-//  walker
-//
-//  Created by IZ on 30.01.2024.
-//
-
-import CoreLocation
-import Foundation
 
 struct LocationDTO: Codable {
   var latitude: Double

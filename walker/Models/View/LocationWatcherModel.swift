@@ -8,7 +8,3 @@
 import CoreLocation
 import Foundation
 import SwiftUI
-
-class LocationWatcherModel: ObservableObject {
-  @Published var lastLocation: CLLocation?
-}

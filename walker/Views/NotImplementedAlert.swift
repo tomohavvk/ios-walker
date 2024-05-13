@@ -1,9 +1,3 @@
-//
-//  MinimalistAlertView.swift
-//  walker
-//
-//  Created by IZ on 22.02.2024.
-//
 
 import SwiftUI
 
@@ -27,19 +21,12 @@ struct NotImplementedAlert: View {
             Button("OK") {
               showAlert = false
             }
-
-            //                    .background(Color.black)
             .foregroundColor(.white)
             .cornerRadius(5)
-            //                    .frame(width: 80, height: 80)
-            //                    .foregroundColor(.green)
-            //                    .background(Color.green.opacity(0.2))
-            //                    .clipShape(Circle())
           }
           .padding()
           .background(Color.black)
           .cornerRadius(10)
-          //    .frame(width: 400, height: 200)
         }
       }
 

@@ -10,7 +10,8 @@ import SwiftUI
 struct GroupRow: View {
   @Binding var detent: PresentationDetent
   @State var group: GroupDTO
-    @ObservedObject var groupMessagesModel: GroupMessagesModel
+  @ObservedObject var groupMessagesModel: GroupMessagesModel
+    
   var body: some View {
     NavigationLink(
       destination:
@@ -22,7 +23,6 @@ struct GroupRow: View {
           Image(systemName: "person.3")
             .foregroundColor( /*@START_MENU_TOKEN@*/.blue /*@END_MENU_TOKEN@*/)
             .font(.system(size: 20))
-            //  .resizable()
             .scaledToFill()
             .frame(width: 60, height: 60)
             .cornerRadius(10)
@@ -64,8 +64,4 @@ struct GroupRow: View {
 
   }
 
-}
-
-#Preview {
-    GroupRow(detent: .constant(.large), group: groupsTesting[0], groupMessagesModel: GroupMessagesModel(messagesToShow: []))
 }

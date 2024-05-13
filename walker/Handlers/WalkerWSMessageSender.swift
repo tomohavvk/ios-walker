@@ -13,7 +13,6 @@ class WalkerWSMessageSender {
   private let encoder = JSONEncoder()
 
   init() {
-    print("INIT WalkerWSMessageSender")
     self.encoder.keyEncodingStrategy = .convertToSnakeCase
   }
 

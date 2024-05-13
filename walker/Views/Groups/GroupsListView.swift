@@ -24,10 +24,3 @@ struct GroupsListView: View {
 
   }
 }
-
-struct GroupsList_Previews: PreviewProvider {
-  static var previews: some View {
-    GroupsListView(
-      detent: .constant(.large), groupsToShow: groupsTesting.sorted { $0.name < $1.name },  groupMessagesModel: GroupMessagesModel(messagesToShow: []))
-  }
-}

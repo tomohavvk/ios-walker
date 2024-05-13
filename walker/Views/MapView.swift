@@ -30,7 +30,7 @@ struct NewView: UIViewRepresentable {
     mapView.showsUserTrackingButton = true
     mapView.showsScale = true
     mapView.isPitchEnabled = true
-    //    mapView.mapType = MKMapType.satellite
+    mapView.mapType = MKMapType.satellite
 
     mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
 

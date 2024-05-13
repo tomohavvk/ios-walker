@@ -1,9 +1,3 @@
-//
-//  WalkerWS.swift
-//  walker
-//
-//  Created by IZ on 18.02.2024.
-//
 
 import Combine
 import CoreLocation
@@ -21,7 +15,6 @@ class WalkerWS: ObservableObject {
   private var webSocketTask: URLSessionWebSocketTask?
 
   init(deviceId: String) {
-    print("INIT WalkerWS")
     self.encoder.keyEncodingStrategy = .convertToSnakeCase
 
     self.deviceId = deviceId
@@ -30,7 +23,7 @@ class WalkerWS: ObservableObject {
   }
 
   func sendWebSocketMessage(_ jsonString: String) {
-    print("send WS message")
+   
     webSocketTask?.send(.string(jsonString)) { error in
       if let error = error {
         print(error.localizedDescription)
@@ -46,7 +39,6 @@ class WalkerWS: ObservableObject {
 
     webSocketTask?.resume()
     receiveMessage()
-    print("WS init")
   }
 
   fileprivate func reconnect() {
@@ -70,11 +62,10 @@ class WalkerWS: ObservableObject {
       case .success(let message):
         switch message {
         case .string(let text):
-
+        
           walkerApp.walkerWS.messageReceived = text
 
         case .data(_):
-          // Handle binary data
           break
         @unknown default:
           break
