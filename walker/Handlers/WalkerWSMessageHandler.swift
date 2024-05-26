@@ -14,17 +14,19 @@ class WalkerWSMessageHandler: ObservableObject {
   @ObservedObject private var groupSheetModel: GroupSheetModel
   @ObservedObject private var groupMessagesModel: GroupMessagesModel
   @ObservedObject private var createGroupModel: CreateGroupModel
+  @ObservedObject private var locationWatcherModel: LocationWatcherModel
 
   private let decoder = JSONDecoder()
   private var lastGroupsFilterValue = "init"
   private var cancellables: Set<AnyCancellable> = []
 
-  init(groupSheetModel: GroupSheetModel, groupMessagesModel: GroupMessagesModel, createGroupModel: CreateGroupModel) {
+    init(groupSheetModel: GroupSheetModel, groupMessagesModel: GroupMessagesModel, createGroupModel: CreateGroupModel, locationWatcherModel: LocationWatcherModel) {
     print("INIT WalkerWSMessageHandler")
 
     self.groupSheetModel = groupSheetModel
     self.groupMessagesModel = groupMessagesModel
     self.createGroupModel = createGroupModel
+    self.locationWatcherModel = locationWatcherModel
     decoder.keyDecodingStrategy = .convertFromSnakeCase
   }
 
@@ -67,11 +69,19 @@ class WalkerWSMessageHandler: ObservableObject {
         let group = try decoder.decode(CreateGroupIn.self, from: data)
 
         self.groupSheetModel.groupsToShow.insert(group.data, at: 0)
+          
         print("GroupCreated")
 
       case .CreateGroupMessageIn:
         let message = try decoder.decode(CreateGroupMessageIn.self, from: data)
+        let groupId =   message.data.groupId
 
+          if let index = self.groupSheetModel.groupsToShow.firstIndex(where: { $0.id == groupId }) {
+              
+              print("update updatedAt of group")
+              self.groupSheetModel.groupsToShow[index].updatedAt = message.data.createdAt
+          }
+          
           self.groupMessagesModel.messagesToShow.insert(message.data, at: groupMessagesModel.messagesToShow.count)
         print("CreateGroupMessageIn")
 
@@ -79,30 +89,38 @@ class WalkerWSMessageHandler: ObservableObject {
         let message = try decoder.decode(GetGroupMessagesIn.self, from: data)
 
           self.groupMessagesModel.messagesToShow = message.data
+          self.groupMessagesModel.messagesToShow.reverse()
         print("GetGroupMessagesIn")
 
       case .GroupJoinedIn:
         _ = try decoder.decode(JoinGroupIn.self, from: data)
 
-        print("GroupJoined")
+        print("JoinGroupIn")
 
       case .GetGroupsIn:
         let result = try decoder.decode(GetGroupsIn.self, from: data)
 
-        print("GroupsGot")
+        print("GetGroupsIn")
         self.groupSheetModel.groupsToShow = result.data
+
+      case .GroupDevicesLocationsIn:
+        let result = try decoder.decode(GroupDevicesLocationsIn.self, from: data)
+
+        print("GroupDevicesLocationsIn")
+        self.locationWatcherModel.groupDevicesLocations = result.data
+
 
       case .SearchGroupsIn:
         let result = try decoder.decode(SearchGroupsIn.self, from: data)
 
-        print("GroupsSearched")
+        print("SearchGroupsIn")
         self.groupSheetModel.groupsToShow = result.data
 
       case .IsPublicIdAvailableIn:
         let result = try decoder.decode(IsPublicIdAvailableIn.self, from: data)
           createGroupModel.lastPublicIdAvailability = result.data.available
         createGroupModel.isCheckingPubicAvailability = false
-          print("PublicIdAvailabilityChecked:", result.data.available)
+          print("IsPublicIdAvailableIn:", result.data.available)
 
       }
     } catch {
@@ -135,6 +153,7 @@ enum MessageInType: String, Codable {
   case Error = "error"
   case PersistLocationIn = "persist_location"
   case CreateGroupIn = "create_group"
+  case GroupDevicesLocationsIn = "group_devices_locations"
   case CreateGroupMessageIn = "create_group_message"
   case GetGroupMessagesIn = "get_group_messages"
   case GroupJoinedIn = "join_group"
@@ -176,6 +195,11 @@ struct LocationPersistIn: WSMessageIn {
 struct CreateGroupIn: WSMessageIn {
   var type: MessageInType = .CreateGroupIn
   let data: GroupDTO
+}
+
+struct GroupDevicesLocationsIn: WSMessageIn {
+  var type: MessageInType = .GroupDevicesLocationsIn
+  let data: [DeviceLocationDTO]
 }
 
 struct JoinGroupIn: WSMessageIn {

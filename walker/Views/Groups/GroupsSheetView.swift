@@ -62,7 +62,7 @@ struct GroupsSheetView: View {
 
         }
 
-          GroupsListView(detent: $detent, groupsToShow: groupSheetModel.groupsToShow,  groupMessagesModel: groupMessagesModel)
+          GroupsListView(detent: $detent, groupSheetModel: groupSheetModel,  groupMessagesModel: groupMessagesModel)
       }
       .background(.black)
       .scrollContentBackground(.hidden)

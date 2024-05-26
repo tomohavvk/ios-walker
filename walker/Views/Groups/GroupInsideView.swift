@@ -27,16 +27,23 @@ struct GroupInsideView: View {
   @ObservedObject var group: GroupDTO
   @ObservedObject var groupMessagesModel: GroupMessagesModel
 
+     
+     let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+     
   func sendMessage() {
 
     if !newMessage.isEmpty {
         walkerApp.wsMessageSender.createGroupMessage(groupId: group.id, message: newMessage)
         newMessage = ""
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+        group.updatedAt = dateFormatter.string(from: Date())
     }
   }
 
     private func getMessages() {
         walkerApp.wsMessageSender.getGroupMessages(groupId: group.id,  limit: 100, offset: 0)
+        walkerApp.wsMessageSender.fetchGroupDevicesLocations(groupId: group.id)
     }
     
   func joinGroup() {
@@ -67,6 +74,10 @@ struct GroupInsideView: View {
               getMessages()
               proxy.scrollTo(groupMessagesModel.messagesToShow.last, anchor: .bottom)
           }
+          .onReceive(timer) { _ in
+              walkerApp.wsMessageSender.fetchGroupDevicesLocations(groupId: group.id)
+            
+            }
         }
 
         HStack {

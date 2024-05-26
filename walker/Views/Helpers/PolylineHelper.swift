@@ -17,16 +17,23 @@ class PolylineHelper: ObservableObject {
 
   private var polylinesToDraw: [MKPolyline] = []
   private var drawedPolylines: [MKPolyline] = []
+  private var drawedCircles: [MKCircle] = []
   private var historyPolylines: [MKPolyline] = []
 
   private var cancellables: Set<AnyCancellable> = []
 
   init(locationWatcherModel: LocationWatcherModel) {
     self.locationWatcherModel = locationWatcherModel
+      
+
   }
 
   public func drawPolylines(_ mapView: MKMapView) {
-    DispatchQueue.main.async {
+
+         // print(message?.count)
+          DispatchQueue.main.async {
+
+              print("self.polylinesToDraw.forEach")
       self.polylinesToDraw.forEach { polyline in
         mapView.addOverlay(polyline)
         self.drawedPolylines.append(polyline)
@@ -47,9 +54,11 @@ class PolylineHelper: ObservableObject {
   public func collectPolylinesToDraw(_ mapView: NewView) {
     locationWatcherModel.$lastLocation.sink { [] lastLocation in
       DispatchQueue.main.async {
+
         //    print("collectPolylinesToDraw", "polylinesToDraw", self.polylinesToDraw.count, "drawedPolylines", self.drawedPolylines.count)
         if let lastLocation = lastLocation, let previousLocation = self.lastPolylineLocation {
-          if lastLocation.horizontalAccuracy <= 5
+            print(lastLocation.horizontalAccuracy)
+          if lastLocation.horizontalAccuracy <= 10
             && self.lastPolylineLocation?.timestamp != lastLocation.timestamp
           {
 
@@ -65,7 +74,8 @@ class PolylineHelper: ObservableObject {
                   latitude: lastLocation.coordinate.latitude,
                   longitude: lastLocation.coordinate.longitude),
               ]
-
+                
+                print("self.polylinesToDraw.append")
               self.polylinesToDraw.append(MKPolyline(coordinates: coords, count: coords.count))
             }
 
@@ -81,6 +91,26 @@ class PolylineHelper: ObservableObject {
   }
 
   public func initHistoryPolyline(_ mapView: MKMapView) {
+      
+      self.locationWatcherModel.$groupDevicesLocations.sink { [] lastLocation in
+      if let groupDeviceLocations = self.locationWatcherModel.groupDevicesLocations  {
+          mapView.removeOverlays(self.drawedCircles)
+          self.drawedCircles = []
+          for location in groupDeviceLocations {
+              print("ADD OVERLAY")
+              let center =   CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+              let circle = MKCircle(center: center, radius: 5)
+            
+              mapView.addOverlay(circle)
+          
+              self.drawedCircles.append(circle)
+
+              print("OVERLAY ADDED")
+          }
+      }
+      }.store(in: &cancellables)
+      
+      
     mapView.removeOverlays(self.historyPolylines)
     let historyCoords = LocationHistoryDataManager.shared.fetchLocationHistory()
 

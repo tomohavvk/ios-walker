@@ -15,6 +15,7 @@ import UIKit
 
 class LocationWatcherModel: ObservableObject {
   @Published var lastLocation: CLLocation?
+  @Published var groupDevicesLocations: [DeviceLocationDTO]?
 }
 
 class Watcher {
@@ -60,7 +61,7 @@ public class LocationWatcherService: NSObject, ObservableObject, CLLocationManag
     UIDevice.current.isBatteryMonitoringEnabled = true
   }
 
-  func startWatcher(distanceFilter: Double = 30) {
+  func startWatcher(distanceFilter: Double = 5) {
     DispatchQueue.main.async {
 
       let manager = self.watcher.locationManager
@@ -151,6 +152,7 @@ public class LocationWatcherService: NSObject, ObservableObject, CLLocationManag
   ) {
     if let location = locations.last {
       if watcher.isLocationValid(location) {
+
         model.lastLocation = location
       }
     }

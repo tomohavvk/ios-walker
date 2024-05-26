@@ -21,6 +21,7 @@ struct ContentView: View {
     groupMessagesModel: GroupMessagesModel,
     createGroupModel: CreateGroupModel
   ) {
+      print("INIT CONTENT VIEW")
     self.locationWatcherModel = locationWatcherModel
     self.groupSheetModel = groupSheetModel
     self.groupMessagesModel = groupMessagesModel
@@ -32,7 +33,7 @@ struct ContentView: View {
       wrappedValue: LocationWatcherService(model: locationWatcherModel))
     self._wsMessageHandler = StateObject(
       wrappedValue: WalkerWSMessageHandler(
-        groupSheetModel: groupSheetModel, groupMessagesModel: groupMessagesModel, createGroupModel: createGroupModel))
+        groupSheetModel: groupSheetModel, groupMessagesModel: groupMessagesModel, createGroupModel: createGroupModel, locationWatcherModel:locationWatcherModel))
   }
 
   var body: some View {

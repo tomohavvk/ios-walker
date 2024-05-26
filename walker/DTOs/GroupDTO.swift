@@ -17,11 +17,12 @@ class GroupDTO: Identifiable, Decodable, ObservableObject {
   @Published var isPublic: Bool
   @Published var isJoined: Bool
   @Published var createdAt: String
+  @Published var updatedAt: String
 
   init(
     id: String, publicId: String?, ownerDeviceId: String, name: String, deviceCount: Int,
     isPublic: Bool,
-    isJoined: Bool, createdAt: String
+    isJoined: Bool, createdAt: String, updatedAt: String
   ) {
     self.id = id
     self.publicId = publicId
@@ -31,8 +32,13 @@ class GroupDTO: Identifiable, Decodable, ObservableObject {
     self.isPublic = isPublic
     self.isJoined = isJoined
     self.createdAt = createdAt
+    self.updatedAt = updatedAt
   }
-
+    var updatedAtDate: Date? {
+          let dateFormatter = ISO8601DateFormatter()
+          return dateFormatter.date(from: updatedAt)
+      }
+    
   // Add Decodable conformance
   private enum CodingKeys: String, CodingKey {
     case id
@@ -43,6 +49,7 @@ class GroupDTO: Identifiable, Decodable, ObservableObject {
     case isPublic
     case isJoined
     case createdAt
+    case updatedAt
   }
 
   required init(from decoder: Decoder) throws {
@@ -55,24 +62,7 @@ class GroupDTO: Identifiable, Decodable, ObservableObject {
     isPublic = try container.decode(Bool.self, forKey: .isPublic)
     isJoined = try container.decode(Bool.self, forKey: .isJoined)
     createdAt = try container.decode(String.self, forKey: .createdAt)
+    updatedAt = try container.decode(String.self, forKey: .updatedAt)
   }
 }
 
-var groupsTesting = [
-  GroupDTO(
-    id: UUID().uuidString, publicId: "public_id", ownerDeviceId: "device_id",
-    name: "Walker Group 1", deviceCount: 3,
-    isPublic: true, isJoined: true, createdAt: "2024"),
-  GroupDTO(
-    id: UUID().uuidString, publicId: "public_id", ownerDeviceId: "device_id",
-    name: "Walker Group 2", deviceCount: 2,
-    isPublic: true, isJoined: false, createdAt: "2024"),
-  GroupDTO(
-    id: UUID().uuidString, publicId: "public_id", ownerDeviceId: "device_id",
-    name: "Walker Group 3", deviceCount: 11111,
-    isPublic: true, isJoined: false, createdAt: "2024"),
-  GroupDTO(
-    id: UUID().uuidString, publicId: "public_id", ownerDeviceId: "device_id",
-    name: "Walker Group 4", deviceCount: 6,
-    isPublic: true, isJoined: true, createdAt: "2024"),
-]

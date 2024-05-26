@@ -97,17 +97,28 @@ class WalkerWSMessageSender {
   func checkPublicIdAvailability(publicId: String) {
     let message = IsPublicIdAvailableOut(publicId: publicId)
 
-    do {
+      do {
       walkerApp.walkerWS.sendWebSocketMessage(try encodeMessage(message))
     } catch {
       print("Error searching groups: \(error)")
     }
   }
+    
+  func fetchGroupDevicesLocations(groupId: String) {
+    let message = GroupDevicesLocationsOut(groupId: groupId)
+
+      do {
+      walkerApp.walkerWS.sendWebSocketMessage(try encodeMessage(message))
+    } catch {
+      print("Error fetching group devices locations: \(error)")
+    }
+  }
 
   fileprivate func encodeMessage<T: Encodable>(_ message: T) throws -> String {
+     
     encoder.outputFormatting = .prettyPrinted
     let jsonData = try encoder.encode(message)
-
+      print(jsonData)
     guard let jsonString = String(data: jsonData, encoding: .utf8) else {
       throw EncodingError.invalidMessage
     }
@@ -119,6 +130,7 @@ class WalkerWSMessageSender {
 
 enum MessageOutType: String, Encodable {
   case persist_location
+  case group_devices_locations
   case create_group
   case create_group_message
   case get_group_messages
@@ -211,6 +223,26 @@ struct GetGroupMessagesOutData: Encodable {
     init(groupId: String, limit: Int, offset: Int) {
       self.limit = limit
       self.offset = offset
+      self.groupId = groupId
+  }
+}
+
+struct GroupDevicesLocationsOut: Encodable {
+  let type: MessageOutType = MessageOutType.group_devices_locations
+  let data: GroupDevicesLocationsOutData
+
+  init(groupId: String) {
+      self.data = GroupDevicesLocationsOutData(groupId: groupId)
+  }
+}
+
+
+struct GroupDevicesLocationsOutData: Encodable {
+    let groupId: String
+
+  
+    init(groupId: String) {
+
       self.groupId = groupId
   }
 }

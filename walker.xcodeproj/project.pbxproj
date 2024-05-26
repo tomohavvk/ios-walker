@@ -12,7 +12,6 @@
 		2B2D9C8B2B874259001EC43A /* NotImplementedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2D9C8A2B874259001EC43A /* NotImplementedAlert.swift */; };
 		2B603F502B67D05C00B4663A /* LocationRecordingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F4F2B67D05C00B4663A /* LocationRecordingService.swift */; };
 		2B603F532B67D0AB00B4663A /* Transformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F522B67D0AB00B4663A /* Transformers.swift */; };
-		2B603F622B68EA1800B4663A /* Get in Frameworks */ = {isa = PBXBuildFile; productRef = 2B603F612B68EA1800B4663A /* Get */; };
 		2B603F652B68EB0D00B4663A /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B603F642B68EB0D00B4663A /* LocationDTO.swift */; };
 		2B73F0F22B6397C0000C2637 /* walkerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F0F12B6397C0000C2637 /* walkerApp.swift */; };
 		2B73F0F42B6397C0000C2637 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B73F0F32B6397C0000C2637 /* ContentView.swift */; };
@@ -31,6 +30,8 @@
 		2BED4CE52B83665A00D5D8DA /* WalkerWSMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BED4CE42B83665A00D5D8DA /* WalkerWSMessageHandler.swift */; };
 		2BED4CE72B83678300D5D8DA /* WalkerWSMessageSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BED4CE62B83678300D5D8DA /* WalkerWSMessageSender.swift */; };
 		D77946732BEFC3560011E3C8 /* GroupMessageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77946722BEFC3560011E3C8 /* GroupMessageDTO.swift */; };
+		D77946802BF60E430011E3C8 /* Get in Frameworks */ = {isa = PBXBuildFile; productRef = D779467F2BF60E430011E3C8 /* Get */; };
+		D7C85AC72C03367A009C8FAA /* DeviceLocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C85AC62C03367A009C8FAA /* DeviceLocationDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +55,7 @@
 		2B2059AA2B84F0E000C14EE2 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
 		2B24F7852B6506FF00AE4E64 /* LocationWatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWatcherService.swift; sourceTree = "<group>"; };
 		2B24F7872B65172700AE4E64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		2B2D9C892B872BEE001EC43A /* location2.gpx */ = {isa = PBXFileReference; lastKnownFileType = file; name = location2.gpx; path = ../../location2.gpx; sourceTree = "<group>"; };
+		2B2D9C892B872BEE001EC43A /* location2.gpx */ = {isa = PBXFileReference; lastKnownFileType = file; path = location2.gpx; sourceTree = "<group>"; };
 		2B2D9C8A2B874259001EC43A /* NotImplementedAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotImplementedAlert.swift; sourceTree = "<group>"; };
 		2B603F4F2B67D05C00B4663A /* LocationRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecordingService.swift; sourceTree = "<group>"; };
 		2B603F522B67D0AB00B4663A /* Transformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformers.swift; sourceTree = "<group>"; };
@@ -79,6 +80,7 @@
 		2BED4CE42B83665A00D5D8DA /* WalkerWSMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkerWSMessageHandler.swift; sourceTree = "<group>"; };
 		2BED4CE62B83678300D5D8DA /* WalkerWSMessageSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkerWSMessageSender.swift; sourceTree = "<group>"; };
 		D77946722BEFC3560011E3C8 /* GroupMessageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMessageDTO.swift; sourceTree = "<group>"; };
+		D7C85AC62C03367A009C8FAA /* DeviceLocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceLocationDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B603F622B68EA1800B4663A /* Get in Frameworks */,
+				D77946802BF60E430011E3C8 /* Get in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +148,7 @@
 				2BA2261F2B7DFE5100585630 /* GroupDTO.swift */,
 				D77946722BEFC3560011E3C8 /* GroupMessageDTO.swift */,
 				2B603F642B68EB0D00B4663A /* LocationDTO.swift */,
+				D7C85AC62C03367A009C8FAA /* DeviceLocationDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 		2B73F0E52B6397C0000C2637 = {
 			isa = PBXGroup;
 			children = (
+				2B2D9C892B872BEE001EC43A /* location2.gpx */,
 				2BA562782B6CDACC0057D200 /* WalkerCoreData.xcdatamodeld */,
 				2B73F0F02B6397C0000C2637 /* walker */,
 				2B73F0EF2B6397C0000C2637 /* Products */,
@@ -230,7 +234,6 @@
 		2BED4CE32B83663D00D5D8DA /* Handlers */ = {
 			isa = PBXGroup;
 			children = (
-				2B2D9C892B872BEE001EC43A /* location2.gpx */,
 				2BED4CE42B83665A00D5D8DA /* WalkerWSMessageHandler.swift */,
 				2BED4CE62B83678300D5D8DA /* WalkerWSMessageSender.swift */,
 			);
@@ -254,7 +257,7 @@
 			);
 			name = walker;
 			packageProductDependencies = (
-				2B603F612B68EA1800B4663A /* Get */,
+				D779467F2BF60E430011E3C8 /* Get */,
 			);
 			productName = walker;
 			productReference = 2B73F0EE2B6397C0000C2637 /* walker.app */;
@@ -329,7 +332,7 @@
 			);
 			mainGroup = 2B73F0E52B6397C0000C2637;
 			packageReferences = (
-				2B603F602B68EA1800B4663A /* XCRemoteSwiftPackageReference "Get" */,
+				D779467E2BF60E430011E3C8 /* XCRemoteSwiftPackageReference "Get" */,
 			);
 			productRefGroup = 2B73F0EF2B6397C0000C2637 /* Products */;
 			projectDirPath = "";
@@ -386,6 +389,7 @@
 				2BA226222B7DFEA100585630 /* GroupInsideView.swift in Sources */,
 				2BA4528B2B85DB920018F4A0 /* GroupRow.swift in Sources */,
 				2BED4CE52B83665A00D5D8DA /* WalkerWSMessageHandler.swift in Sources */,
+				D7C85AC72C03367A009C8FAA /* DeviceLocationDTO.swift in Sources */,
 				2B603F532B67D0AB00B4663A /* Transformers.swift in Sources */,
 				2B73F0F42B6397C0000C2637 /* ContentView.swift in Sources */,
 				2B73F0F22B6397C0000C2637 /* walkerApp.swift in Sources */,
@@ -735,20 +739,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2B603F602B68EA1800B4663A /* XCRemoteSwiftPackageReference "Get" */ = {
+		D779467E2BF60E430011E3C8 /* XCRemoteSwiftPackageReference "Get" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kean/Get?tab=readme-ov-file";
+			repositoryURL = "https://github.com/kean/Get";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.6;
+				minimumVersion = 2.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2B603F612B68EA1800B4663A /* Get */ = {
+		D779467F2BF60E430011E3C8 /* Get */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2B603F602B68EA1800B4663A /* XCRemoteSwiftPackageReference "Get" */;
+			package = D779467E2BF60E430011E3C8 /* XCRemoteSwiftPackageReference "Get" */;
 			productName = Get;
 		};
 /* End XCSwiftPackageProductDependency section */

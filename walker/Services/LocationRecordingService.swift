@@ -33,15 +33,17 @@ class LocationRecordingService: ObservableObject {
   }
 
   fileprivate func handleLocationChange() {
+
     locationService.model.$lastLocation.sink { [] currentLocation in
+        
       if let location = currentLocation {
-        if location.horizontalAccuracy <= 5 {
+        if location.horizontalAccuracy <= 10 {
           self.locationsBuffer.append(location)
 
           Task {
             LocationHistoryDataManager.shared.saveLocationHistory(location.asLocationDTO())
 
-            if self.locationsBuffer.count >= 5 {
+            if self.locationsBuffer.count >= 1 {
 
               walkerApp.wsMessageSender.sendDeviceLocation(
                 self.locationsBuffer.map({ location in
